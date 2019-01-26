@@ -77,8 +77,6 @@ bundle exec jekyll server
 
 [MIT](/LICENSE)
 
-## 捐赠
-
-支付宝捐赠链接还是要有的，万一真的有人捐呢。
-
-![支付宝扫码捐赠](http://p1.bpimg.com/567571/9a4a158daee8aa69.png)
+# 模板常见问题
+地环境更改post文件后刷新浏览器，页面样式错乱
+找到该文件`jekyll-jacman/_includes/_partial/head.html`,将 `<link rel="stylesheet" href="{{ site.baseurl }}{{ site.assets }}/css/style.css" type="text/css"> `中的`style.css`修改为`main.css`，同时修改对应位置的文件名称即可
