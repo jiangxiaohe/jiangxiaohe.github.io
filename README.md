@@ -76,7 +76,3 @@ bundle exec jekyll server
 ## 协议
 
 [MIT](/LICENSE)
-
-# 模板常见问题
-地环境更改post文件后刷新浏览器，页面样式错乱
-找到该文件`jekyll-jacman/_includes/_partial/head.html`,将 `<link rel="stylesheet" href="{{ site.baseurl }}{{ site.assets }}/css/style.css" type="text/css"> `中的`style.css`修改为`main.css`，同时修改对应位置的文件名称即可
