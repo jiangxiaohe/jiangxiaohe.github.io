@@ -33,13 +33,13 @@ sudo apt-get install phpmyadmin
 * `AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message`
 解决办法：在apache配置文件apache2.conf中添加`ServerName localhost`，添加到随便一行即可。
 
-参考`配置过程`(https://www.cnblogs.com/starof/p/4278370.html)解决这两个错误信息
+参考[配置过程](https://www.cnblogs.com/starof/p/4278370.html)解决这两个错误信息
 
 最终解决：原来是阿里云组织了外网访问80端口，在阿里云控制台设置安全组规则即可。[参考](https://blog.csdn.net/qq_37608398/article/details/78163086)
 
 可以看到apache的默认主页，位置再`/var/www/html/index.html`
 
-# 配置ftp服务器上传wordpress模板
+# 配置ftp服务器
 有了配置apache的经验，配置ftp服务后，记得在阿里云安全组中增加ftp访问端口。[参考](https://www.jianshu.com/p/f1d011d2d50b)
 
 
@@ -56,3 +56,26 @@ ascii_download_enable=YES
 write_enable=YES
 ```
 打开同目录下的 ftpusers，把 root删掉
+
+至此，可以看到FTP传输文件已经成功。
+
+# 上传wordpress模板
+
+第二天在学校连接`DIVI`网络重连FTP设置，显示错误`服务器发回了不可路由的地址。使用服务器地址代替`，网上上的方法都解决不了，折腾了一个小时重新思考，和昨晚传输成功相比，改变的变量只有网络，连接4G网络后上传wordpress至`/var/www/html/`成功。
+
+* 将压缩包解压到该目录下`tar -xvf archive_name.tar.gz`
+* 配置apache2指向这个路径，修改 `/etc/apache2/sites-available/`下的`000-default.conf`这个文件。然后改的部分只有 `DocumentRoot /var/www/html`改为`DocumentRoot /var/www/html/wordpress`即可
+* 重启apache2服务器`service apache2 restart`
+* mysql创建数据库
+
+```
+mysql -u name -p 之后再第二行输入密码
+show databases; 注意输入分号，然后enter才会显示结果
+create database wordpress; 创建数据库
+```
+
+然后wordpress提示`抱歉，我不能写入wp-config.php文件。您可以手工创建wp-config.php文件，并将以下文字粘贴于其中。`，在wordpress文件夹下创建，注意在文档结尾添加`?>`。
+
+然后即可进入wordpress后台进行创作和网站装饰了！
+
+over！
