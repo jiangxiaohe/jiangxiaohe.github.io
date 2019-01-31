@@ -3,7 +3,7 @@ layout: post
 title: 时间管理
 tags:
 - 效率
-categories: time-management
+categories: life
 description:
 ---
 
