@@ -6,9 +6,7 @@ tags:
 categories: reading-notes
 description:
 ---
-# <center> 玩游戏不如看书</center>
-# <center> 要玩就玩难度大的挑战性的以提高</center>
-# 灵感
+
 读完本书希望可以解决几个问题？
 1. 为什么有些游戏有趣，有些游戏枯燥
 2. 玩游戏和学习之间有何联系
