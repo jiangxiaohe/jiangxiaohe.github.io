@@ -39,9 +39,10 @@ language: zh-CN    ## blog site languages: en, zh-CN, zh-TW, de
 
 #### Menu
 menu:
-  Home: /
-  Archives: /archives
-  About: /about
+  主页: /
+  目录: /archives
+  关于我: /about
+
 ## you can create `tags` and `categories` folders (I had created them already).
 ## And create a `index.md` file in each of them.
 ## set `front-matter`as
@@ -55,7 +56,7 @@ widgets:
 - tag
 - tagcloud
 - links
-- douban
+# - douban
 - github-card
 #- rss
 ## provide seven widgets:github-card,category,tag,rss,archive,tagcloud,links,weibo,douban
@@ -75,10 +76,10 @@ banner_img: img/banner.jpg ## size:1920px*200px+. Banner Picture
 
 #### index post is expanding or not
 index:
-  expand: true           ## default is unexpanding,so you can only see the short description of each post.
+  expand: false        ## default is unexpanding,so you can only see the short description of each post.
   excerpt_link: Read More
 
-close_aside: false  #close sidebar in post page if true
+close_aside: true  #close sidebar in post page if true
 mathjax: true      #enable mathjax if true
 share_to: true #enable share-to buttons if true
 
@@ -86,15 +87,16 @@ share_to: true #enable share-to buttons if true
 author:
   name: Dipper      ## e.g. wuchong Author name
   intro_line1:  "Hello ,I'm Dipper."    ## your introduction on the bottom of the page
-  intro_line2:  "This is my first blog."  ## the 2nd line
+  intro_line2:  "This is my blog. Happy to meet you."  ## the 2nd line
   weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
   weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
   tsina:      ## e.g. 2176287895  Your weibo ID,It will be used in share button.
   douban:     ## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014
   zhihu:      ## e.g. jark  for http://www.zhihu.com/people/jark
-  email:      ## e.g. imjark@gmail.com
+  email:  ni-ys13@qq.com    ## e.g. imjark@gmail.com
   twitter:    ## e.g. jarkwu for https://twitter.com/jarkwu
-  github:     ## e.g. wuchong for https://github.com/wuchong
+  github: https://github.com/jiangxiaohe
+      ## e.g. wuchong for https://github.com/wuchong
   facebook:   ## e.g. imjark for https://facebook.com/imjark
   linkedin:   ## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014
   google_plus:    ## e.g. "111190881341800841449" for https://plus.google.com/u/0/111190881341800841449, the "" is needed!
@@ -156,9 +158,10 @@ google_cse:
 ## title: search
 ## ---
 baidu_search:     ## http://zn.baidu.com/
-  enable: false
+  enable: true
   id:   ## e.g. "783281470518440642"  for your baidu search id
-  site: #http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
+  site: http://zhannei.baidu.com/cse/search
+  #http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
 tinysou_search:     ## http://tinysou.com/
   enable: false
   id:  ## e.g. "4ac092ad8d749fdc6293" for your tiny search id
