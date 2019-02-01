@@ -4,7 +4,7 @@ title: 《游戏设计快乐之道》摘录
 tags:
 - 读书
 categories: reading-notes
-description:
+description: 游戏并不是洪水猛兽，而是你我认识不清
 ---
 
 读完本书希望可以解决几个问题？

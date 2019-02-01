@@ -4,7 +4,7 @@ title: 时间管理
 tags:
 - 效率
 categories: life
-description:
+description: 时间管理自我总结
 ---
 
 我不是牺牲了睡觉时间，而是把别人浪费的时间利用了起来！

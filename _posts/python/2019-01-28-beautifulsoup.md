@@ -4,7 +4,7 @@ title: python爬虫入门2-beautifulsoup4
 tags:
 - 爬虫
 categories: python
-description:
+description: 爬虫基本类库beautifulsoup
 ---
 # BeautifulSoup库的安装
 

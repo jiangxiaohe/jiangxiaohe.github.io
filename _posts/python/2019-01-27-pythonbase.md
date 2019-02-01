@@ -4,7 +4,7 @@ title: python基础
 tags:
 - python
 categories: python
-description:
+description: python基础语法，重点在于其与C++和Java的区别
 ---
 
 # 其他

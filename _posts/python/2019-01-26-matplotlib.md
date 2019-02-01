@@ -4,7 +4,7 @@ title: matplotlib常用函数
 tags:
 - python
 categories: python
-description:
+description: 学习笔记
 ---
 ## .plot(x,y)
 `plt.plot(x,y,format_string,**kwargs)`

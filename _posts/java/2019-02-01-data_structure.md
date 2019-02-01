@@ -4,7 +4,7 @@ title: java数据类型
 tags:
 - java
 categories: java
-description:
+description: java数据结构学习笔记
 ---
 # 基本数据类型
 基本数据类型有八种，其他的都是类类型。

@@ -3,7 +3,7 @@ layout: post
 title: 阿里云ECS+WordPress搭建个人博客
 tags:
 categories: aliyun
-description:
+description: 搭建个人博客的过程和中间遇到的问题
 ---
 
 # 基础知识回顾
@@ -78,4 +78,8 @@ create database wordpress; 创建数据库
 
 然后即可进入wordpress后台进行创作和网站装饰了！
 
-over！
+# 文件运维
+
+2019年2月1日，控制台报错：“wordpress IP验证不当漏洞”，内容为"wordpress /wp-includes/http.php文件中的wp_http_validate_url函数对输入IP验证不当，导致黑客可构造类似于012.10.10.10这样的畸形IP绕过验证，进行SSRF。"
+
+解决：[参考](https://www.jiloc.com/44412.html)修改http.php文件其中两行即可。然后验证漏洞可发现已修复。
