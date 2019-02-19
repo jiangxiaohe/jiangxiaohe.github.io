@@ -47,6 +47,44 @@ description: 整理笔记，复习常考算法
 10. 排序题目不同数据结构如何自定义排序
 11. 堆排序上滤下滤
 
+目录：
+4. 入门篇：算法初步
+	1. 排序
+	2. 散列
+	3. 递归
+	4. 贪心
+	5. 二分
+	6. 双指针
+	7. 随机选择算法
+5. 入门篇：数学问题
+	2. 最大公约数、最小公倍数
+	4. 分数
+	5. 质数、质因子分解
+	6. 高精度
+	7. 扩展欧几里得算法
+	8. 组合数
+	9. 错误重拍问题
+	10. 斐波那契数列
+6. STL介绍
+	1. set
+	2. string
+	3. map
+	4. queue
+	5. priority_queue
+	6. pair
+	7. algorithm
+7. 提高篇1：数据结构专题1
+	1. 栈
+	2. 队列
+	3. 链表
+8. 提高篇2：搜索专题
+9. 提高篇3：数据结构专题2
+10. 提高篇4：图算法专题
+11. 提高篇5：动态规划专题
+12. 提高篇6：字符串专题
+13. 专题扩展
+
+
 # 4入门篇：算法初步
 # 4.1 排序
 * 基本算法模板背诵，选择、插入、堆、快速、归并排序
@@ -237,5 +275,359 @@ Fraction multi(Fraction f1,Fraction f2){
 Fraction divide(Fraction f1,Fraction f2){
 	swap(f2.up,f2.down);
 	return multi(f1,f2);
+}
+```
+
+# 5.5 质数、质因子分解
+0. 套路：大量质数时素数筛法，少量时用is_prime函数
+1. is_prime函数O(n^1/2)或者用数组记录过程结果的筛素数法O(nloglogn)。
+2. 对于质因子分解，首先看因子分解，如果一个数存在除1和它本身之外的其他因子，那么必定是在sqrt(n)两侧成对出现的。对于质因子而言，可以得到，要么所有的质因子都小于sqrt(n)，要么只有一个质因子大于sqrt(n)，所以，质因子分解可以先判断2-sqrt(n)之间的所有质数是否是其质因子，最后再判断除去这些质因子后是否为1，否的话说明这是一个比sqrt(n)大的质因子。
+```cpp
+bool is_prime(int n){
+	if(n<=1)return false;
+	for(long long i=2;i*i<=n;i++){
+		if(n%i==0)return false;
+	}
+	return true;
+}
+```
+
+# 5.6 高精度
+0. 套路：写的多了，问题就少了
+1. 实现大整数类，包括运算：高精度加减法、高精度与低精度的乘除法。
+```cpp
+struct bign{
+	int d[1000],len;
+	bign():len(0){}
+	bign(char* str,int n):len(n){
+		for(int i=n-1;i>=0;i--)
+			d[n-i-1]=str[i]-'0';
+	}
+};
+int cmp(bign& f1,bign& f2){
+	if(f1.len!=f2.len){
+		if(f1.len>f2.len)return 1;
+		else return -1;
+	}else{
+		for(int i=f1.len-1;i>=0;i--){
+			if(f1[i]!=f2[i]){
+				if(f1[i]>f2[2])return 1;
+				else return -1;
+			}
+		}
+		return 0;
+	}
+}
+bign add(bign& f1,bign& f2){
+	bign result;
+	int carry=0;
+	for(int i=0;i<a.len||i<b.len;i++){
+		int tmp=a[i]+b[i]+carry;
+		result[result.len++]=tmp%10;
+		carry=tmp/10;
+	}
+	if(carry!=0)result[result.len++]=carry;
+	return result;
+}
+```
+
+# 5.7 扩展欧几里得算法
+* ax+by=gcd(a,b).如何求得x,y。边界条件，b=0时x=1,y=0;根据辗转相除法递推可得递推公式x1=y2;y1=x2-(a/b)*y2;
+
+```cpp
+int exGcd(int a,int b,int& x,int& y){
+	if(b==0){
+		x=1;y=0;
+		return a;
+	}
+	int g=exGcd(b,a%b,x,y);
+	int t=x;
+	x=y;
+	y=t-(a/b)*y;
+	return g;
+}
+```
+* 方程ax+by=c的整数解，直接用扩展欧几里得算法，因为ax+by=gcd已知
+* 同余式ax=c(mod m)求解，即ax+my=c求解，有解的条件是c%gcd(x,m)==0
+* 逆元的求解。a,b,m>0,且ab=1(mod m)，则称a,b互为模m的逆元
+* 常用取模1e9+7
+	- 1. 1000000007是一个质数
+	- int32位的最大值为2147483647，所以对于int32位来说1000000007足够大
+	- int64位的最大值为2^63-1，对于1000000007来说它的平方不会在int64中溢出
+	- 所以在大数相乘的时候，因为(a∗b)%c=((a%c)∗(b%c))%c，所以相乘时两边都对1000000007取模，再保存在int64里面不会溢出
+
+	# 5.8 组合数
+	* 第一个问题：**求n!有多少个质因子P**
+	* 比如10！中有2的质因子个数可表示为：有因子2的个数为10/2，有因子2^2的个数为10/2^2，有因子2^3的个数为10/2^3
+	可以递归求解，也可迭代求解。
+	```cpp
+	//迭代
+	int cal(int n,int p){
+		int ans=0;
+		while(n>0){
+			ans+=n/p;
+			n/=p;
+		}
+		return ans;
+	}
+	//递归
+	int cal(int n,int p){
+		if(n<p)return 0;
+		else return n/p+cal(n/p,p);
+	}
+	```
+	* 第二个问题：**组合数的计算** $C_m^n=\frac{m!}{n!(m-n)!}$
+	* 方法一就是通过定义直接计算，但是因为阶乘相当庞大，此种方法计算组合数能接受的数据范围很小。
+	* 方法二通过递归公式计算 $C_m^n=C_{m-1}^n+C_{m-1}^{n-1}$
+	* 方法三通过定义变形来计算$C_m^n=\frac{(m-n+1)(m-n+2)……(m-n+n)}{n!}$，应注意到分子分母均为n项，先计算(m-n+1)/1，乘以(m-b+2)/2，不断乘以(m-n+i).
+	* 第三个问题：**如何计算$C_n^m\%P$**
+	* 掌握第一种方法即可，在组合数的计算的递归公式法上改进
+	```cpp
+	int res[1010][1010]={0};
+	//递归方法
+	int C(int n,int m,int p){
+		if(m==0||m==n)return 1;//C(n,0)=C(n,n)=1
+		if(res[n][m]!=0)return return res[n][m];
+		return res[n][m]=(C(n-1,m)+C(n-1,m-1))%p;
+	}
+	//递推方法
+	void CalC(){
+		for(int i=0;i<=n;i++){
+			res[i][0]=res[i][i]=1;//初始化边界条件
+		}
+		for(int i=2;i<=n;i++){
+			for(int j=0;j<=i/2;j++){
+				res[i][j]=(res[i-1][j]+res[i-1][j-1])%p;
+				res[i][i-j]=res[i][j];
+			}
+		}
+	}
+	```
+
+# 5.8 组合数
+* 第一个问题：**求n!有多少个质因子P**
+* 比如10！中有2的质因子个数可表示为：有因子2的个数为10/2，有因子2^2的个数为10/2^2，有因子2^3的个数为10/2^3
+可以递归求解，也可迭代求解。
+```cpp
+//迭代
+int cal(int n,int p){
+	int ans=0;
+	while(n>0){
+		ans+=n/p;
+		n/=p;
+	}
+	return ans;
+}
+//递归
+int cal(int n,int p){
+	if(n<p)return 0;
+	else return n/p+cal(n/p,p);
+}
+```
+* 第二个问题：**组合数的计算** $C_m^n=\frac{m!}{n!(m-n)!}$
+* 方法一就是通过定义直接计算，但是因为阶乘相当庞大，此种方法计算组合数能接受的数据范围很小。
+* 方法二通过递归公式计算 $C_m^n=C_{m-1}^n+C_{m-1}^{n-1}$
+* 方法三通过定义变形来计算$C_m^n=\frac{(m-n+1)(m-n+2)……(m-n+n)}{n!}$，应注意到分子分母均为n项，先计算(m-n+1)/1，乘以(m-b+2)/2，不断乘以(m-n+i).
+* 第三个问题：**如何计算$C_n^m\%P$**
+* 掌握第一种方法即可，在组合数的计算的递归公式法上改进
+```cpp
+int res[1010][1010]={0};
+//递归方法
+int C(int n,int m,int p){
+	if(m==0||m==n)return 1;//C(n,0)=C(n,n)=1
+	if(res[n][m]!=0)return return res[n][m];
+	return res[n][m]=(C(n-1,m)+C(n-1,m-1))%p;
+}
+//递推方法
+void CalC(){
+	for(int i=0;i<=n;i++){
+		res[i][0]=res[i][i]=1;//初始化边界条件
+	}
+	for(int i=2;i<=n;i++){
+		for(int j=0;j<=i/2;j++){
+			res[i][j]=(res[i-1][j]+res[i-1][j-1])%p;
+			res[i][i-j]=res[i][j];
+		}
+	}
+}
+```
+
+# 5.9 错误重拍问题
+用A、B、C、D………表示写着n位友人名字的信封，a、b、c、d………表示n份相应的信，把n份信装错的总数记为D(n)，那么n-1份信封装错的总数就是D(n-1)。
+现在，假设这样一种情况，把a错装进B中，那么对于信b有以下两种分法：
+1. b装入A中，这样剩下的（n-2）份信和信封A、B，和信a、b就没有任何关系了，所以这时候装错的可能性总共有D(n-2)。
+2. b不一定装入A中，那么就有可能装入A、C、D等其余除B之外的信封了，这时总共就是(n-1)种装错的可能性了。
+所以对于信b来说，总共有D(n-2)+D(n-1)种装错的可能性。所以最后除a之外还有（n-1）封信，所以最终的关系式如下：
+`D(n)＝(n－1)*[D(n－1)＋D(n－2)]`
+
+# 5.10 斐波那契数列
+想出递推公式最重要
+
+# 6.1 set
+* find(value)返回对应值为value的迭代器
+* erase(it)需要结合find函数，比如st.erase(find(st.find());
+* erase(value)删除特定值
+* erase(first,last)删除区间[first,last)
+* set<int,greater<int> >默认是less<int>
+
+# 6.2 string
+* 可用用< <=等各种比较符，比较的依据是字典序
+* erase(it)
+* erase(first,last)
+* **erase(pos,len)**
+* substr(pos,len)
+* string::npos是一个常数，值为-1，但由于是unsigned类型，为unsigned的最大值
+* str.find(str2),如果str2是str的子串，返回其在str中第一次出现的位置，如果不是子串，返回npos
+* str.replace(pos,len,str2)把str从pos号位开始、长度为len的子串替代为str2
+* str.replace(first,last,str2)把str的迭代器[first,last)范围的子串替换为str2
+
+# 6.3 map
+* 如果是字符到整形的映射，必须用string，不能用char数组
+* map的第三个参数可以用greater<int> ,包含头文件<functional>
+* find(key)返回键值key的迭代器
+* erase(it)
+* erase(key)
+* erase(first,last)
+* 常见用途：
+	- 建立各种类型之间的映射
+	- 判断大整数或者其他类是是否存在的题目，把map当bool数组用
+	- 字符串和字符串的映射
+
+# 6.4 queue
+
+# 6.5 priority_queue
+* 不能用front()和back()函数，只能用top()访问队首元素
+* **优先级设置**
+* priority_queue<int,vector<int>,less<int> > q;注意最后两个>之间有一个空格。
+* 易错点：less表示数字大的优先级高，greater<int> 表示数字小的优先级高。**优先级队列默认的就是优先级高的放在队首，优先级队列的这个函数和sort中的cmp起到的作用是相反的**
+```cpp
+//结构体内部重载<运算符
+struct fruit{
+	string name;int price;
+	friend bool operator<(fruit f1,fruit f2){
+		return f1.price<f2.price;//这里top是价格高的
+	}
+};
+//函数对象
+struct cmp{
+	bool operator()(fruit f1,fruit f2){
+		return f1.price<f2.price;
+	}
+};
+```
+* friend关键字不能省，当结构体类型较大时，参数用(const fruit& f1,const fruit& f2)
+* 优先级队列这里的第三个参数只能是函数对象，不能是函数指针。（sort支持函数对象和函数指针两者）
+
+
+# 6.6 pair
+* 添加map头文件最方便
+* pair<string,string> p;
+* oair<string,int> p("haha",5);
+* make_pair("haha",5);
+* 比较时先以first的大小为标准，first相等时采取判别second的大小
+
+
+# 6.7 algorithm
+* reverse(it_1,it_2)，对[it_1,it_2)的元素进行反转
+* next_permutation(it_1,it_2)
+* sort支持函数对象和函数指针两者,STL中，只有vector、string、deque可以用sort，set、map本身有序，不用sort。list有自带的sort函数
+* lower_bound(first,last,val)第一个大于等于val的元素的位置，upper_bound第一个大于val的元素的位置
+
+
+# 6.8 map\set拓展
+* unordered_map用散列代替红黑树，只处理映射而不处理键值排序，速度比map快很多
+* unordered_set同理
+* multimap一个键值可以对应多个值
+```cpp
+/*
+	在multimap中，同一个键关联的元素必然相邻存放。基于这个事实，就可以将某个键对应的值一一输出。
+	1、使用find和count函数。count函数求出某个键出现的次数，
+	find函数返回一个迭代器，指向第一个拥有正在查找的键的实例。
+	2、使用lower_bound(key)和upper_bound(key)
+      lower_bound(key)返回一个迭代器，指向键不小于k的第一个元素
+      upper_bound(key)返回一个迭代器，指向键不大于k的第一个元素
+	3、使用equat_range(key)
+      返回一个迭代器的pair对象，first成员等价于lower_bound(key)，second成员等价于upper_bound(key)
+*/
+int main()
+{
+    multimap<string,int> m_map;
+    string s("中国"),s1("美国");
+    m_map.insert(make_pair(s,50));
+    m_map.insert(make_pair(s,55));
+    m_map.insert(make_pair(s,60));
+    m_map.insert(make_pair(s1,30));
+    m_map.insert(make_pair(s1,20));
+    m_map.insert(make_pair(s1,10));
+    //方式1
+    int k;
+    multimap<string,int>::iterator m;
+    m = m_map.find(s);
+    for(k = 0;k != m_map.count(s);k++,m++)
+        cout<<m->first<<"--"<<m->second<<endl;
+    //方式2
+    multimap<string,int>::iterator beg,end;
+    beg = m_map.lower_bound(s1);
+    end = m_map.upper_bound(s1);
+    for(m = beg;m != end;m++)
+        cout<<m->first<<"--"<<m->second<<endl;
+    //方式3
+    beg = m_map.equal_range(s).first;
+    end = m_map.equal_range(s).second;
+    for(m = beg;m != end;m++)
+        cout<<m->first<<"--"<<m->second<<endl;
+    return 0;
+}
+```
+
+# 7.1 栈
+* 计算逆波兰表达式，先将中缀表达式转化为后缀表达式，然后用栈计算后缀表达式的值(注意设置各运算符优先级)
+# 7.2 队列
+# 7.3 链表
+* 套路：链表题目一般输入为`Addr Key Next`三元组，地址到下一个节点的映射或者用数组（优先选用，如果地址仅五位数表示的话），或者用map映射。
+* 注意，题目往往要求地址是五位数，注意用%05d
+# 8 DFS和BFS
+见专题总结
+# 9 树与二叉树
+* 二叉树构建
+* DFS递归遍历，BFS层次遍历
+* 二叉树的静态实现适合于不喜欢用指针的同学。其定义、查找、插入、遍历等均可以静态实现
+```cpp
+struct node{
+	int val;
+	int lc,rc;
+}Node[MAXN];//节点数组，MAXN为节点上限
+```
+* BST的插入操作
+* 删除操作：将该节点的值与其前驱或者后继的值交换，然后再进行删除。
+
+# 10 图算法专题
+# 11 动态规划
+# 12 字符串
+这三章见专题总结
+
+# 13 树状数组
+```cpp
+//C[i]的覆盖长度是lowbit(i)
+#define lowbit(i) (i&(-i))
+
+int  A[100005];
+long long C[100005];
+
+//A[x]加上v
+void updata(int x,int v){
+	if(v==0)return;
+	for(int i=x;i<n+1;i+=lowbit(i)){
+		C[i]+=v;
+	}
+}
+
+//计算A[1]-A[x]的和
+long long getsum(int x){
+	long long sum=0;
+	for(int i=x;i>0;i-=lowbit(i)){
+		sum+=C[i];
+	}
+	return sum;
 }
 ```
