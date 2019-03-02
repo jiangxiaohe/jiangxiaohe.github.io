@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 《算法笔记》笔记
+title: 算法笔记
 tags:
 - DSA
 categories: algorithm
-description: 整理笔记，复习常考算法
+description: 内容包括《算法笔记》一书的重点，以及其他算法的总结。
 ---
 
-# PAT考试简介：
+# PAT考试：
 
 * PAT对输出要求很高，要注意输出的不同情况，多测试。不要急于写代码，要多思考几分钟，想清楚了再写。
 * 最好就是一次AC，一次不过的看看题意是不是理解错了，一次不过很难找出
@@ -86,8 +86,115 @@ description: 整理笔记，复习常考算法
 12. 提高篇6：字符串专题
 13. 专题扩展
 
+# 2输入输出
+
+* 补充：重载输入输出流操作符
+
+```cpp
+ostream& operator<<(ostream& out,vector<int>& vec){
+	out<<vec[0];
+	_for(i,1,vec.size())out<<" "<<vec[i];
+	out<<endl;
+	return out;
+}
+```
+
+* stringstream将一行数据一个一个的输入到string中
+
+```cpp
+getline(cin,strline);
+stringstream ss(strline);
+string str;
+ss>>str;
+```
+
+* sscanf、sprintf用法
+
+比如：char a[100]="123";sscanf(a,"%d",&n);
+
+再比如：int n=123;char a[100];sprintf(a,"%s\n",n);
+
+当然了，也可以用于格式化文件读写，比如：`FILE* fp=fopen("d:\\codeBlockSpace\\output.txt","w"); for(int i=0;i<10;i++)fprintf(fp,"%d %d\n",i,i+3);`
+
+将一个文件的内容复制到另一个文件，while(scanf("%s",a)!=EOF)这时会将空格和回车省去不复制。也可以用fscanf(fp,"%s",a)
+
+* scanf\printf用法
+
+```cpp
+%m.nf    %md    %-md    %0md    %lld    %lf
+scanf("%lld",&a);printf("%lld",a);
+用printf输出string用str.c_str()即可
+输入整行
+char a[100];getline(a);
+string a;getline(cin,str1);
+```
+
+* getchar、putchar、gets、puts用法
+
+
+* getchar()和putchar(c)用来输入输出单个字符
+* gets(&a)用来输入一行字符串，gets识别换行符作为结束标志，因此scanf输入一个完整数组后，应该先用getchar吸收整数后的换行符在使用gets。
+* puts(&a)输出数组信息并自动添加一个换行
+
+# 判断输入输出结束
+
+```cpp
+注意，scanf的返回值是读取到的变量的个数
+string a, b; char c; while (cin >> a >> b >> c){}
+while (scanf("%s %s %c", &a, &b, &c) != EOF){}
+```
+
+* 重定向
+```
+freopen("d:\\input.txt","r",stdin);
+freopen("d:\\output.txt","w",stdout);
+```
+
+* 直接从文件读数据
+```
+//C
+#include"stdio.h"
+FILE* fp=fopen("D:\\test.txt","r");
+char buffer[50];
+fgets(buffer,50,fp);
+sscanf(buffer,"%d %d",&m,&n);
+fgets(buffer,50,fp);
+sscanf(buffer,"%d %d",num1+i,num2+i);
+fclose(fp);
+
+//C++
+#include <fstream>
+#include <iostream>
+#include <sstream>
+ifstream fp("D:\\data.txt");
+string buffer;
+stringstream ss;
+getline(fp,buffer);ss<<buffer;ss>>n;cout<<n<<endl;
+getline(fp,buffer);
+cout<<buffer<<endl;
+```
+
+# 3小技巧&基础知识
+
+* 四种基本数据类型
+
+```cpp
+整形int	longlong	%d	%lld	%md  %0md	%.md
+浮点型float\double  %f   %lf
+字符型char
+布尔型bool
+```
+
+
+
+* 用order数组记录结构体秩并移动
+存储结构体数组并且涉及到数组的移动删除操作时，如果结构体空间较大，则用order[]数据记录各元素的位置。即用vector<node>存储数组，用vector[order[i]]按顺序访问数组，这样移动和删除操作都是对int类型进行处理了。
+* 判断是否能被2整除时，可以直接用位运算&1
+
+
 
 # 4入门篇：算法初步
+
 # 4.1 排序
 * 基本算法模板背诵，选择、插入、堆、快速、归并排序
 * PAT考试排序基本套路：题目也许很复杂，需要用结构体存入数据，数据量较少的时候用结构体数组，但是用数组存放结构体的指针更好，成本更小。PAT考试考排序就是考复杂的排序逻辑，然后让你根据题意写cmp函数。
@@ -115,11 +222,38 @@ bool cmp(Student a,Student b){
 * 做题套路：基本考察点就是用256数组存储各个字符出现的次数，判断各个字符是否有效。用set去重，用map计数，基本就这三种套路
 1. 数据不大时，直接把输入的数当做数组下标来对这个数据的性质进行统计，是很实用的以空间换时间的方法
 2. hash开放定址法：线性试探法试探H(key)+1。平方试探法试探H(key)+1,H(key)-1,H(key)+4,H(key)-4。注意有些题目说明了平方试探发只试探一边。封闭定址法有：链地址法。
-3. 字符串hash：A-Z映射为0-25,一个字符串看做26进制数。注意如果前三位字母，后一位数字，可以把各位的权值分别设置为26、26、26、10，即非标准的进制法。BCD4，可以看做前三位的731和后面的4拼接，即7314
+3. 字符串hash：A-Z映射为0-25,一个字符串看做26进制数。注意如果前三位字母，后一位数字，可以把各位的权值分别设置为26、26、26、10，即非标准的进制法。BCD4，可以看做前三位的731和后面的4拼接，即7314.
+4. 如果把进制设置为10^7级别的素数（比如10000019），mod设置为10^9的素数（比如1000000007），实践证明，很难发生冲突。
+
+* 散列函数
+
+1. 除余法`hash(key)=key mod M`
+2. MAD法：除余法中0的hash值始终为0，不管hashtable多大，而且相邻关键码的散列值相同，随机性不强。改进为`hash(key)=(a*key+b) mod M`
+
+* 冲突解决方案
+
+无论散列函数设计多么巧妙，冲突是不可避免的。
+
+封闭定址  开散列
+
+1. 每一个词条的key值不变
+2. 多槽位法：即在每一个桶都细分为固定更小的槽位，每一个组槽位数固定，用向量或链表实现
+3. 独立连法：和多槽位的不同就是向量中存放的是列表的指针，所有冲突的词条都在该列表上
+4. 公共溢出区法：将冲突的词条放入另一个存放冲突的公共缓冲区
+
+封闭定址  闭散列
+
+1. 每一个词条的key值可变，仅仅依靠基本的散列表结构，就地排解冲突
+2. 线性试探(linear probing)：冲突的时候就找后面没词条的位置放。注意这里面有一个惰性删除(即标记为之前存过元素)，以防止其后面的冲突元素在查找的时候无法被访问
+3. 平方试探(quadratic probing)：按照如下规则确定第j次试探的位置：`(hash(key)+j^2) mod M`
+	- 有的地方说平方试探是两个方向，即`(hash(key)-j^2) mod M`，看题目是要清楚，看看是哪个方向，还是两个方向交错
+	- 单向试探时，若M为质数，且装填因子小于50%，则平方试探必然可以找到空桶
+	- 可以证明：如果j从0-(M-1)都无法找到位置，那么，就不可能找到位置，即循环节为M。此结论易证明。
+
 
 # 4.3 递归
-1. 全排列。其实这个更是DFS的应用，应熟记此方法。具体见全排列总结
-2. **n皇后**。相比邓老师书中用试探回溯法，自己模拟栈的情况，然后不断的试探+回溯，不如类比为全排列（根据每行每列只能放一个数，用数组下标表示行，数组中的元素表示列，或者相反，即把每一个全排列和每一种n皇后的分布对应起来），然后验证该排列是否满足n皇后的对角线不相等即可。全排列的实现和DFS法一致，步进递归。当然，对于n皇后的特殊性，比如前三个元素已经选定但是冲突时，就应该避免继续递归而即使break掉。这个用函数递归系统栈实现的方法和邓老师书中自建栈实现的方法原理是一样的，但是自建栈明显要繁琐很多，也不好调试。所以，DFS全排列法解n皇后更佳。
+1. 全排列。其实这个更是DFS的应用，应熟记此方法。
+2. **n皇后**。相比邓老师书中用试探回溯法，自己模拟栈的情况，然后不断的试探+回溯，不如类比为全排列（根据每行每列只能放一个数，用数组下标表示行，数组中的元素表示列，或者相反，即把每一个全排列和每一种n皇后的分布对应起来），然后验证该排列是否满足n皇后的对角线不相等即可。全排列的实现和DFS法一致，步进递归。当然，对于n皇后的特殊性，比如前三个元素已经选定但是冲突时，就应该避免继续递归而即使break掉。这个用函数递归系统栈实现的方法和邓老师书中自建栈实现的方法原理是一样的，但是自建栈明显要繁琐很多，也不好调试。所以，DFS回溯法解n皇后更佳。
 
 # 4.4 贪心
 0. 解题没什么套路，多花点时间思考贪心策略的正确性，如果策略错了，很难检查出来错误。如果程序运行没错，但是答案不对，很可能就是贪心策略不对
@@ -246,6 +380,32 @@ int randSelect(vector<int>& vec,int lo,int hi,int k){
 1. 该部分不涉及很深的算法，却与数学息息相关，不需要特别的数学知识，只要掌握简单的数理逻辑即可。
 2. 最大公约数`int gcd(int a,int b){return !b?a:gcd(b,a%b);}`这段代码十分简洁，并且实现了如果a<b,，先互换。辗转相除法也称欧几里得算法。
 3. 最小公倍数，在最大公约数的基础上计算，为ab/gcd(a,b)
+
+# 5.3 日期处理
+
+```cpp
+int mon[2][13]={0,31,28,31,30,31,30,31,31,30,31,30,31,\
+				0,31,29,31,30,31,30,31,31,30,31,30,31};
+#define is_p(x) ((x%400==0||(x%100!=0&&x%4==0))?1:0)
+struct today{
+	int year,month,day,week;
+	today(int y,int m,int d,int w):year(y),month(m),day(d),week(w){}
+	void operator++(){
+		day++;
+		week++;
+		if(week==8)week=1;
+		int flag=is_p(year);
+		if(day==mon[flag][month]+1){
+			day=1;
+			month++;
+			//cout<<month<<" "<<day<<endl;
+			if(month==13){
+				month=1;year++;
+			}
+		}
+	}
+};
+```
 
 # 5.4 分数的四则运算
 0. 套路：实际做题过程中，还是套晴神模板最好，不需要单独设符号位，符号位在分子上即可，每次运算后化简。
@@ -583,8 +743,280 @@ int main()
 * 注意，题目往往要求地址是五位数，注意用%05d
 
 
-# 8 DFS和BFS
-见专题总结
+# 8.1 DFS
+
+
+DFS是一种枚举所有完整路径来遍历所有情况的搜索方法。最佳实现方法：递归。当然也可以自建栈代替递归，但是往往较麻烦，递归相当于调用系统栈，本质一样。
+
+其中一类DFS问题的解法：给定一个序列，枚举这个序列所有的子序列（可以不连续）。
+
+* 例1：01背包问题的DFS解法
+对于每一个物品，DFS有两个分支，遍历所有的分支。当选择物品的综合超过背包容量，说明该路径走入了死胡同，则需要回到最近的一个岔道口。核心代码如下。
+
+注意到每件物品都有两种选择，故时间复杂度是O(2^n)，优化的点有，在sumW+W[index]小于V时再进入迭代
+
+```cpp
+void DFS(int index,int sumW,int sumC){
+	if(index==n){已经完成物品选择的处理}
+	DFS(index+1,SumW,sumC);//不选第index件物品
+	DFS(index+1,SumW+W[index],sumC+C[index]);//选第index件物品
+}
+```
+
+* 例2：N个整数中选择K个数的和等于X的所有方案，冲突的话选择其平方和最大的一个。用向量记录添加进方案当中的元素，进入DFS下一步的时候将元素入栈。
+
+
+```cpp
+void DFS(int index,int nowK,int sum,int sumSqu){
+	if(nowk==k&&sum==x){
+		if(sumSqu>maxsumSqu){
+			maxsumSqu=sumSqu;
+			ans=tmp;
+		}
+		return;
+	}
+	if(index==n||nowk>k||sum>x)return;
+
+	//在DFS递归前和递归后分别设置状态和取消状态，是回溯的典型特征。
+	//选择index元素
+	tmp.push_back(A[index]);
+	DFS(index+1,nowk+1,sum+A[index],sumSqu+A[index]*A[index]);
+	tmp.pop_back();
+	//不选index
+
+	DFS(index+1,nowk,sum,sumSqu);
+
+}
+```
+* DFS应用之全排列
+
+阿哈算法：将问题形象化为降1-n编号的扑克牌放入n个盒子中，用book[]数组记录该数字已经放过。
+
+```cpp
+#define maxn 100
+int n;
+vector<int> book(maxn,0),vec(maxn);
+//step表示现在放第step个盒子，n表示全排列总数
+void DFS(int step){
+    if(step>n)return;
+    for(int i=1;i<=n;i++){
+        if(!book[i]){
+            book[i]=1;
+            vec[step]=i;
+            DFS(step+1);
+            book[i]=0;//DFS关键一步，收回刚放的牌
+        }
+    }
+}
+
+DFS的伪代码如下：
+dfs(int step){
+    判断边界
+    尝试每一种可能{
+        标记数组记录该次选择
+        DFS(step+1)
+        取消标记数组的选择
+    }
+    返回
+}
+```
+
+* DFS和BFS配合vis数组，都可以用来求解连通域的个数
+
+* DFS回溯法解n皇后
+
+邓书改进迭代版本，原版见cppSTL。
+
+```cpp
+ /*书中写的虽然代码短，但是不好理解是如何实现的，我根据自己的思路写的这个，思路很清晰
+ 	感觉没必要为了少几行代码将思路搞得很不一般，就像归并排序一样，末尾有元素剩余单独处理就好
+	循环不变性：初始进入循环的是有效元素，每次根据在栈中有没有找到相同元素判断是否可以入栈
+	入栈情况：
+		当栈满时，意味着找到了一种结果，记录并输出。然后y不变，x++，当然，如果x也到了最大值，就要回溯（此时的回溯必定可以找到有元素的x非最大值，因为此前的元素各不相同）
+		栈不满时，y++,x=0
+	不入栈的情况：
+		x没达到最大值，x++即可
+		x达到了最大值，回溯，回溯到的元素不是第一行最大值时，x++即可，否则，退出循环。这是循环退出的唯一条件
+ */
+#include<iostream>
+#include"string.h"
+using namespace std;
+//试探回溯法解八皇后问题
+struct Queen{
+	int x,y;
+ 	Queen(int xx=0,int yy=0):x(xx),y(yy){}
+ 	Queen(Queen& b){x=b.x;y=b.y;}
+ 	bool operator==(Queen b){
+ 		return x==b.x||y==b.y||x+y==b.x+b.y||x-y==b.x-b.y;
+ 	}
+};
+
+int find(Queen* solu,Queen& q,int lo,int hi){//查找范围[lo,hi),找不到返回hi
+	for(int i=lo;i<hi;i++){
+         if(solu[i]==q)return i;
+    }
+    return hi;
+}
+void placeQueens(int N){
+ 	Queen* solu=new Queen[N];int top=0;
+ 	//用数组模拟栈,入栈solu[top++]=q;出栈q=solu[--top];
+ 	int nsolu=0;//记录满足条件的答案的数量
+ 	Queen q(0,0);
+ 	solu[top++]=q;q.y++;
+ 	//不断的试探回溯,忒休斯的绳索是栈，入栈是进一步，出栈是退一步
+ 	while(1){
+         //循环不变性：初始进入循环的q是有效的
+         //首先判断q应该前进（入栈）还是后退（出栈）
+    	int r=find(solu,q,0,top);
+        if(r==top){//前进
+        	solu[top++]=q;
+            //判断是否满足题意，确保下一次循环内的元素满足条件
+            if(top==N){//得到满足题意的一个结果
+            	nsolu++;
+                for(int i=0;i<N;i++)printf("%d ",solu[i].x);
+                printf("\n");
+                //得到下一个有效点，回溯，以进入下一次循环
+                while(q.x==N-1&&top>0)q=solu[--top];
+                q.x++;
+            }else{
+                q.y++;q.x=0;
+            }
+        }else{
+            if(q.x==N-1){//说明此种情况不符合条件，应回溯
+                while(q.x==N-1&&top>0)q=solu[--top];
+                if(top==0&&q.x==N-1)break;
+                else q.x++;
+            }else{
+                q.x++;
+            }
+        }
+	}
+ 	cout<<nsolu;
+}
+int main(){
+    //freopen("d:\\CodeBlockSpace\\input.txt","r",stdin);
+    placeQueens(8);
+    return 0;
+}
+```
+
+递归版本
+```cpp
+class Solution {
+public:
+    vector<vector<int> > ans;
+    vector<vector<string> > strans;
+    vector<int> tmp;
+    vector<bool> vis;
+    bool conflicted(vector<int>& tmp,int x){
+        for(int i=0;i<tmp.size();i++){
+            if(x==tmp[i])return false;
+            if(tmp.size()+x==i+tmp[i])return false;//斜对角线
+            if(tmp.size()-x==i-tmp[i])return false;//正对角线
+        }
+        return true;
+    }
+    void solve(int step,int n){
+        if(step==n){
+            ans.push_back(tmp);
+            //cout<<ans[0][0]<<endl;
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                if(conflicted(tmp,i)){
+                    vis[i]=true;
+                    tmp.push_back(i);
+                    solve(step+1,n);
+                    tmp.pop_back();
+                    vis[i]=false;
+                }
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vis.resize(n,false);
+        fill(vis.begin(),vis.end(),false);
+        int step=0;
+        solve(step,n);
+        for(int i=0;i<ans.size();i++){
+            vector<string> strtmp;
+            for(int j=0;j<ans[i].size();j++){
+                string s;
+                for(int k=0;k<n;k++){
+                    if(ans[i][j]==k)s+="Q";
+                    else s+=".";
+                }
+                strtmp.push_back(s);
+            }
+            strans.push_back(strtmp);
+        }
+        return strans;
+    }
+};
+
+//思路相同，但是相对更加简单点的方法
+//8皇后问题
+#define N 8
+vector<int> v(N,0);//表示每一行中皇后的位置
+int cnt=0;
+bool conflict(int step){
+	_for(i,0,step){
+		if(v[i]==v[step]||v[i]-i==v[step]-step||v[i]+i==v[step]+step)
+			return true;
+	}
+	return false;
+}
+void DFS(int step){
+	if(step==N){
+		_for(i,0,N){
+			printf("%d ",v[i]);
+		}
+		printf("\n");
+		cnt++;
+		return;
+	}
+	_for(i,0,N){
+		v[step]=i;
+		if(!conflict(step))
+			DFS(step+1);
+	}
+}
+int main(int argc, char** argv) {
+	int step=0;
+	DFS(step);
+	cout<<cnt<<endl;
+	return 0;
+}
+```
+
+
+# 8.2 BFS
+
+相比DFS用递归系统栈实现，BFS用自建队列实现。
+
+* BFS的模板
+
+```cpp
+void BFS(int s){
+	queue<int> q;
+	q.push(s);
+	while(!q.empty()){
+		取出队首元素top
+		访问队首元素top
+		将队首元素出队
+		将top的下一层未入队的节点入队，并标记为已入队
+	}
+}
+```
+
+* 用BFS求m*n矩阵中连通域的个数。（注意，这里可以用x[4],y[4]枚举四个方向）
+* 迷宫中求S到T的最少步数，用BFS，并且记录节点深度（S深度为0，然后每一层深度是上一层+1）
+* 队中元素时是结构体的注意事项，如果直接在队列汇中存储结构体，那么，对队列中的副本的修改不会影响原元素。这就是说，如果需要对队列中的元素进行修改，最好在队列中存储元素的编号而非元素本身，如果数组的话则是下标。
+* BFS求二叉树的层次遍历
+* BFS求二叉树的最小深度
+* BFS判断是否是满二叉树，将空节点也入队，如果出队的是空节点，而此时已经出队了n个元素，则是满二叉树
+* m*n图中的最短路径问题，都可以用BFS来最方便实现
 
 
 # 9 树与二叉树
@@ -612,9 +1044,11 @@ struct node{
 见专题总结
 
 # 13 树状数组
+
 * `lowbit(x)=x&(-x)`
 * 背景：给定一个整数序列，有两种操作：计算前K项的和，对某一项加。如果采用普通的数组，则计算前K项和的复杂度过高，如果采用sum数组，则给某一项加的复杂度过高。
 * 采用树状数组可以使两种操作的复杂度均为log(n)
+* 应熟记树状数组的图形记忆。数组的下标从1开始，不包括0.
 * **//C[i]的覆盖长度是lowbit(i)，以i为结尾。**
 
 ```cpp
@@ -658,3 +1092,163 @@ long long getsum(int x){
 
 思路：
 * 修改树状数组的定义，宽度不变，仍为lowbit(x)，但是C[i]不再表示这段宽度内的综合，而是表示这段区间的每个数当前被加了多少。
+
+# 14 主元素问题
+一个序列中有没有一个元素超过总数的50%？
+
+方法一：当数组元素之间可以有序时，找中位数，它是主元素的唯一候选，用插入排序类似的第K大问题求解。第K大问题的时间复杂度是O(N)
+
+方法二：摩尔投票算法。元素数目相同时删除前序即可，最后剩下的一个元素就是主元素。
+
+方法一没有考虑到题目中数组的特性：数组中有个数字出现的次数超过了数组长度的一半。也就是说，有个数字出现的次数比其他所有数字出现次数的和还要多。因此我们可以考虑在遍历数组的时候保存两个值：一个是数组中的一个数字，一个是次数。当我们遍历到下一个数字的时候，如果下一个数字和我们之前保存的数字相同，则次数加1。如果下一个数字和我们之前保存的数字不同，则次数减1。如果次数为零，我们需要保存下一个数字，并把次数设为1。由于我们要找的数字出现的次数比其他所有数字出现的次数之和还要多，那么要找的数字肯定是最后一次把次数设为1时对应的数字。
+
+不限定时间复杂度的话，很多人会先排序，再遍历的方法来做。不限定空间复杂度的话，很多人会用hash表来做。那么，有了这两个限定，就只能用摩尔投票算法了。
+
+摩尔投票算法：时间复杂度O(n)，空间复杂度O(1)
+
+```cpp
+//leetcode169
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int ans=nums[0],cnt=1;
+        for(int i=1;i<nums.size();i++){
+            if(cnt==0){ans=nums[i];cnt++;}
+            else if(nums[i]==ans)cnt++;
+            else cnt--;     
+        }
+        return ans;
+    }
+};
+```
+
+扩展：问题升级为选取大于等于n/3的数，简单分析可知，大于n/3的数最多有两个。（反证法轻轻松松即可证明），采取和169一样的摩尔投票算法，只不过，这次保留两个元素出现的次数。另外一个区别是这个题目没有保证此众数一定存在，所以，在得到两个候选众数之后，需要再次遍历一遍验证。
+
+```cpp
+//LeetCode229
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        vector<int> res;
+        int m = 0, n = 0, cm = 0, cn = 0;
+        for (auto &a : nums) {
+            if (a == m) ++cm;
+            else if (a ==n) ++cn;
+            else if (cm == 0) {m = a, cm = 1;}
+            else if (cn == 0) {n = a, cn = 1;}
+            else --cm, --cn;
+        }
+        cm = cn = 0;
+        for (auto &a : nums) {
+            if (a == m) ++cm;
+            else if (a == n) ++cn;
+        }
+        if (cm > nums.size() / 3) res.push_back(m);
+        if (cn > nums.size() / 3) res.push_back(n);
+        return res;
+    }
+};
+```
+
+# 15 全排列
+
+* DFS解一般全排列问题
+## 可重复元素的全排列问题
+和DFS不同元素的方法是一样的，只不过怎加了判断元素个数是否用完
+	- 不过，这个方法太繁琐，重复计算各个各个元素的数目，其中的`!i||P[i]!=P[i-1]`就是除去了重复元素而已，要理解P是包含重复元素的已排序序列，这个就很容易理解了，还是不如一个数组表示数目，一个数组表示元素数量。
+
+```cpp
+int n,m;//元素总的个数、不同元素的数目
+vector<int> cntP,P,ans;//分别表示元素的值和数量
+void permutation(int step){
+	if(step==n){
+		printvec(ans);
+		return;
+	}else{
+		for(int i=0;i<P.size();i++){
+			if(cntP[i]>0){
+				cntP[i]--;
+				ans[step]=P[i];
+				permutation(step+1);
+				cntP[i]++;
+			}
+		}
+	}
+}
+int main() {
+	freopen("d:\\input.txt","r",stdin);
+	//freopen("d:\\output.txt","w",stdout);
+	cin>>n>>m;
+	cntP.resize(m);P.resize(m);ans.resize(n);
+	_for(i,0,m)	cin>>P[i];
+	_for(i,0,m)	cin>>cntP[i];
+	permutation(0);
+	return 0;
+}
+```
+
+## 求下一个排列的字典序法
+
+[由当前序列找到下一个序](https://blog.csdn.net/cpfeed/article/details/7376132?utm_source=blogxgwz3)
+
+设P是1～n的一个全排列:`p=p1p2......pn=p1p2......pj-1pjpj+1......pk-1pkpk+1......pn`
+
+* 从排列的右端开始，找出第一个比右边数字小的数字的序号j（j从左端开始计算），即 `j=max{i|pi<pi+1}`
+* 在pj的右边的数字中，找出所有比pj大的数中最小的数字pk，即 `k=max{i|pi>pj}`（右边的数从右至左是递增的，因此k是所有大于pj的数字中序号最大者）
+* 对换pi，pk
+* 再将`pj+1......pk-1pkpk+1......pn`倒转得到排列`p'=p1p2.....pj-1pjpn.....pk+1pkpk-1.....pj+1`，这就是排列p的下一个排列。
+
+## 康拓展开和逆康托展开
+采用了康托展开的排序方法，顺序最小，逆序最大，康托展开是字符串全排列到自然数的一个双射，通常用于构建哈希表时空间压缩
+
+* 首先从最尾端开始往前寻找两个相邻元素，令第一元素为i,第二元素为i+1,且满足v[i]<v[i+1]。
+* 找到这样一组相邻元素后，再从最尾端开始往前检验，找出第一个大于v[i]的元素，令为j，将i,j元素对调swap(v[i],v[j])。
+* 再将i+1(包括)及之后的所有元素颠倒(reverse)排序。
+[思路参考](https://blog.csdn.net/c18219227162/article/details/50301513)
+[康托展开](https://blog.csdn.net/wbin233/article/details/72998375)
+
+```cpp
+bool next_permutation(vector<int>& nums,int lo,int hi){
+    int i=hi-2,j=hi-1;
+    //step1
+    while(i>=lo){
+        if(nums[i]<nums[i+1])break;
+        i--;
+    }
+    if(i<lo)return false;
+    //step2
+    for(j=hi-1;j>i;j--){
+        if(nums[j]>nums[i])break;
+    }
+    swap(nums[i],nums[j]);
+    //step3
+    reverse(nums.begin()+i+1,nums.end());
+    return true;
+}
+vector<vector<int>> permuteUnique(vector<int>& nums) {
+    vector<vector<int>> ans;
+    int n=nums.size();
+    if(n==0)return ans;
+    sort(nums.begin(),nums.end());
+    do{
+        ans.push_back(nums);
+    }while(next_permutation(nums,0,n));
+    return ans;
+}
+```
+
+# 16 并查集
+
+```cpp
+//路径优化：
+int Find(int x) { return fa[x]==x?x:fa[x]=Find(fa[x]);}
+//合并
+void union(int x,int y){
+	int fx=find(x),fy=find(y);
+	fa[fx]=fy;
+}
+//判断是否同一子集
+bool same(int x,int y){
+	return find[x]==find[y];
+}
+```
