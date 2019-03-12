@@ -136,7 +136,20 @@ string a;getline(cin,str1);
 * gets(&a)用来输入一行字符串，gets识别换行符作为结束标志，因此scanf输入一个完整数组后，应该先用getchar吸收整数后的换行符在使用gets。
 * puts(&a)输出数组信息并自动添加一个换行
 
-# 判断输入输出结束
+* C中在标准C语言中，getline函数是不存在的。下面是一个简单的实现方式：
+
+```
+int getline_(char s[],int lim){
+    int c,i;
+    i=0;
+    while((c=getchar())!=EOF&&c!='\n'&&i<lim-1)
+        s[i++]=c;
+    s[i]='\0';
+    return i;
+}
+```
+
+* 判断输入输出结束
 
 ```cpp
 注意，scanf的返回值是读取到的变量的个数
@@ -145,12 +158,14 @@ while (scanf("%s %s %c", &a, &b, &c) != EOF){}
 ```
 
 * 重定向
+
 ```
 freopen("d:\\input.txt","r",stdin);
 freopen("d:\\output.txt","w",stdout);
 ```
 
 * 直接从文件读数据
+
 ```
 //C
 #include"stdio.h"
@@ -269,6 +284,7 @@ bool cmp(Student a,Student b){
 6. 木棒切割问题：给出N根木棒，长度均已知，切割成K段长度相同的木棒（必须为整数），则每段的长度最大是多少？显然，切割后木棒越长，则能切割的根数越少，二分法去逼近木棒的长度，计算该长度下能够切割的根数，问题就变成了切割的根数>=K时，木棒长度的最大值。
 7. 快速幂：计算a^b%m，如果b达到了10^18，显然，递归相乘方法是不可取的。应采取快速幂方法。快速幂方法基于二分法，也称为二分幂。b为奇数时，f(b)=a*f(b/2)^2;b为偶数时，f(b)=f(b/2)^2.
 8. 快速幂的迭代写法：将b写为二进制，那么b就可以写成若干次二次幂之和，比如b=13时，13=8+4+1.可行的方法是每次判断b的末尾是否为1，为1加上该位置对应的二次幂，然后更新下一个位置的二次幂，b右移一位
+9. fib数列也可以用快速幂解法，在O(logn)的时间内求出F(n)，关键是推导出两项与两项之间的矩阵形式。
 
 
 ```cpp
@@ -381,6 +397,18 @@ int randSelect(vector<int>& vec,int lo,int hi,int k){
 2. 最大公约数`int gcd(int a,int b){return !b?a:gcd(b,a%b);}`这段代码十分简洁，并且实现了如果a<b,，先互换。辗转相除法也称欧几里得算法。
 3. 最小公倍数，在最大公约数的基础上计算，为ab/gcd(a,b)
 
+# 5.2 常用math函数
+* fabs(double x)
+* floor(double x)向下取整
+* ceil(double x)向上取整
+* pow(double r,double p)返回r^p
+* sqrt(double x)
+* log(double x)返回double型变量的以自然对数为底的对数
+* sin(double x)、cos(double x)、tan(double x)
+* pi=acos(-1)
+* asin(double x)、acos(double x)、atan(double x)
+* round(double x)四舍五入、返回类型也是double
+
 # 5.3 日期处理
 
 ```cpp
@@ -492,6 +520,7 @@ int cmp(bign& f1,bign& f2){
 		return 0;
 	}
 }
+//加法
 bign add(bign& f1,bign& f2){
 	bign result;
 	int carry=0;
@@ -503,10 +532,111 @@ bign add(bign& f1,bign& f2){
 	if(carry!=0)result[result.len++]=carry;
 	return result;
 }
+//减法a-b，从低位到高位，要借位
+bign sub(bign a,bign b){
+	bign c;
+	for(int i=0;i<a.len || i<b.len;i++){
+		if(a.d[i]<b.d[i]){//如果不够减
+			a.d[i+1]--;
+			a.d[i]+=10;
+		}
+		c.d[c.len++]=a.d[i]-b.d[i];
+	}
+	while(c.len-1>=1&&c.d[c.len-1]==0){
+		c.len--;
+	}
+	return c;
+}
+//高精度与低精度的乘法
+bign multi(bign a,int b){
+	bign c;
+	int carry=0;
+	for(int i=0;i<a.len;i++){
+		int temp=a.d[i] * b+carry;
+		c.d[c.len++]=temp%10;
+		carry=temp/10;
+	}
+	while(carry!=0){
+		c.d[c.len++]=carry%10;
+		carry/=10;
+	}
+	return c;
+}
+//高精度与低精度的除法
+bign divide(bign a,int b,int& r){//r为余数，这里为引用
+	bign c;
+	c.len=a.len;
+	for(int i=a.len-1;i>=0;i--){
+		r=r*10+a.d[i];//和上一位遗留的余数组合
+		if(r<b)c.d[i]=0;//不够除，该位为0
+		else{
+			c.d[i]=r/b;//商
+			r=r%b;//获得新的余数
+		}
+	}
+	while(c.len-1>=1&&c.d[c.len-1]==0){
+		c.len--;
+	}
+	return c;
+}
 ```
 
+# java大数
+
+```java
+//创建大数类
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Scanner;
+
+Scanner cin=new Scanner(System.in);
+BigInteger num1=new BigInteger("12345");
+BigInteger num2=cin.nextBigInteger();
+BigDecimal num3=new BigDecimal("123.45");
+BigDecimal num4=cin.nextBigDecimal();
+
+//BigInterger整数
+import java.math.BigInteger;
+public class Main {
+	public static void main(String[] args) {
+		BigInteger num1=new BigInteger("12345");
+		BigInteger num2=new BigInteger("45"); //加法
+		System.out.println(num1.add(num2)); //减法
+		System.out.println(num1.subtract(num2)); //乘法
+		System.out.println(num1.multiply(num2)); //除法(相除取整)
+		System.out.println(num1.divide(num2)); //取余
+		System.out.println(num1.mod(num2)); //最大公约数GCD
+		System.out.println(num1.gcd(num2)); //取绝对值
+		System.out.println(num1.abs()); //取反
+		System.out.println(num1.negate()); //取最大值
+		System.out.println(num1.max(num2)); //取最小值
+		System.out.println(num1.min(num2)); //是否相等
+		System.out.println(num1.equals(num2));
+	}
+}
+//BigDecimal(浮点数)
+import java.math.BigDecimal;
+public class Main {
+	public static void main(String[] args) {
+		BigDecimal num1=new BigDecimal("123.45");
+		BigDecimal num2=new BigDecimal("4.5"); //加法
+		System.out.println(num1.add(num2)); //减法
+		System.out.println(num1.subtract(num2)); //乘法
+		System.out.println(num1.multiply(num2)); //除法（在divide的时候就设置好要精确的小数位数和舍入模式）
+		System.out.println(num1.divide(num2,10,BigDecimal.ROUND_HALF_DOWN)); //取绝对值
+		System.out.println(num1.abs()); //取反 System.out.println(num1.negate()); //取最大值
+		System.out.println(num1.max(num2)); //取最小值
+		System.out.println(num1.min(num2)); //是否相等
+		System.out.println(num1.equals(num2)); //判断大小( > 返回1, < 返回-1)
+		System.out.println(num2.compareTo(num1));
+	} 
+}
+```
+
+
+
 # 5.7 扩展欧几里得算法
-* ax+by=gcd(a,b).如何求得x,y。边界条件，b=0时x=1,y=0;根据辗转相除法递推可得递推公式x1=y2;y1=x2-(a/b)*y2;
+* ax+by=gcd(a,b).如何求得x,y。边界条件，b=0时x=1,y=0;根据辗转相除法递推可得递推公式x1=y2;y1=x2-(a/b) * y2;
 
 ```cpp
 int exGcd(int a,int b,int& x,int& y){
@@ -517,7 +647,7 @@ int exGcd(int a,int b,int& x,int& y){
 	int g=exGcd(b,a%b,x,y);
 	int t=x;
 	x=y;
-	y=t-(a/b)*y;
+	y=t-(a/b) * y;
 	return g;
 }
 ```
@@ -594,6 +724,25 @@ void CalC(){
 
 # 5.10 斐波那契数列
 想出递推公式最重要
+
+# 5.11 约瑟夫问题
+
+n个人围成一个圈，每个人分别标注为1、2、...、n，要求从1号从1开始报数，报到k的人出圈，接着下一个人又从1开始报数，如此循环，直到只剩最后一个人时，该人即为胜利者。例如当n=10,k=4时，依次出列的人分别为4、8、2、7、3、10，9、1、6、5，则5号位置的人为胜利者。给定n个人，请你编程计算出最后胜利者标号数。
+
+约瑟夫问题，创新解法虽然分析复杂，但是代码却十分简洁明了，时间O(n)，空间O(1)，这就是数学的魅力。
+
+主要思想：n个人第一个删除的人的秩为`(k-1)%n`，假如我们已经知道了n-1个人时，最后胜利者的编号为x，利用映射关系逆推，就可以得出n个人时，胜利者的编号为(x+k)%n（要注意的是这里是按照映射后的序号进行的）。可以总结为：
+$$f(n,k)= ( f(n-1,k)+k )\%n  $$
+
+```cpp
+int LastRemaining_Solution(int n, int m){
+    if(n<1||m<1)return -1;
+    int last=0;
+    for(int i=2;i<=n;i++)
+        last=(last+m)%i;
+    return last;
+}
+```
 
 # 6.1 set
 * set只能通过iterator访问

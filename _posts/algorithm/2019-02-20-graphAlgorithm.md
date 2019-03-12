@@ -83,7 +83,7 @@ void DFS(int v,int& clock){
 * 对于三种特殊情况：统计第二边权，统计点权，统计最短路径的个数，应分别维护另一个数组，并且根据相等和小于的情况进行不同的处理
 
 ```cpp
-Dijkstra+DFS
+//Dijkstra+DFS
 
 const int MAXN=100;
 const int INF=0x7fffffff;
@@ -116,6 +116,45 @@ void dijkstra(){
 }
 ```
 
+* 堆优化
+
+```cpp
+const int MAXN=10005;
+#define inf 0x7fffffff
+typedef long long LL;
+#define _for(i,lo,hi) for(int i=(lo);i<(hi);i++)
+int N,M;
+
+struct edge{
+	int id,len;
+	edge(int i,int l):id(i),len(l){}
+	bool operator<(const edge& b)const{return len>b.len;}//重要
+};
+vector<int> dist(MAXN,inf);
+vector<bool> vis(MAXN,false);
+vector<edge> G[MAXN];
+vector<int> path(MAXN,-1);
+
+void Dijkstra(){
+	priority_queue<edge> pq;
+    dist[0]=0;
+	pq.push(edge(0,0));
+	while(!pq.empty()){
+		edge e=pq.top();pq.pop();
+		int nc=e.id;
+		if(vis[nc])continue;
+		vis[nc]=true;
+		_for(i,0,G[nc].size()){
+			int nx=G[nc][i].id,len=G[nc][i].len;
+			if(vis[nx])continue;
+			if(dist[nx]>dist[nc]+len){
+				dist[nx]=dist[nc]+len;
+				pq.push(edge(nx,dist[nx]));
+			}
+		}
+	}
+}
+```
 
 ## 2 bellman-ford算法（贝尔曼福特），只要五行的代码：
 
@@ -258,6 +297,45 @@ _for(i,1,n){//n-1次循环
 }
 ```
 
+* 堆优化
+
+```cpp
+const int MAXN=10005;
+#define inf 0x7fffffff
+typedef long long LL;
+#define _for(i,lo,hi) for(int i=(lo);i<(hi);i++)
+int N,M;
+
+struct edge{
+	int id,len;
+	edge(int i,int l):id(i),len(l){}
+	bool operator<(const edge& b)const{return len>b.len;}//重要
+};
+vector<int> w(MAXN,inf);//到该点的边的长度
+vector<bool> vis(MAXN,false);
+vector<edge> G[MAXN];
+
+void Prime(){
+	priority_queue<edge> pq;
+    w[0]=0;
+	pq.push(edge(0,0));
+	while(!pq.empty()){
+		edge e=pq.top();pq.pop();
+		int nc=e.id;
+		if(vis[nc])continue;
+		vis[nc]=true;
+		_for(i,0,G[nc].size()){
+			int nx=G[nc][i].id,len=G[nc][i].len;
+			if(vis[nx])continue;
+			if(w[nx]>len){
+				w[nx]=len;
+				pq.push(edge(nx,w[nx]));
+			}
+		}
+	}
+}
+```
+
 ## kruskal算法（克鲁斯卡尔）
 
 * 边贪心算法，将所有的边建堆，每次取出权值最小的边，如果其两个端点在不同的**连通域**中，则将其包含在最小生成树中。是否在同一连通域可以用并查集来解决
@@ -297,35 +375,19 @@ int kruskal(int n,int m){//顶点数，边数
 用DFS也可以实现拓扑排序，而且算法更加简洁，如果只需要求拓扑排序序列或者逆拓扑排序序列的时候，这种方法更加简洁明了
 
 ```cpp
-vector<int> pre;//拓扑排序
-vector<vector<int> > G(M);
-vector<bool> vis(M,false);
-void DFS(int x){
-	_for(i,0,G[x].size()){
-		if(!vis[G[x][i]]){
-			vis[G[x][i]]=true;
-			DFS(G[x][i]);
-		}
-	}
-	cout<<x<<endl;
+//拓扑排序,每次让入度为0的节点入队，而不是让队列中节点的后继节点入队
+vector<int> vec(x);
+int lo=0,hi=0;//[lo,hi)队列
+_for(i,0,x){
+	if(!inD[i]){vec[hi++]=i;}
 }
-int main(){
-	freopen("d:\\input.txt","r",stdin);
-	int t,m,n,c1,c2,w;
-
-	cin>>n>>m;
-	_for(i,0,m){
-		cin>>c1>>c2;
-		G[c1].pb(c2);
-		G[c2].pb(c1);
+while(lo<hi){
+	int c=vec[lo++];
+	_for(i,0,post[c].size()){
+		int next=post[c][i].id;
+		inD[next]--;
+		if(inD[next]==0)vec[hi++]=next;
 	}
-	_for(i,1,n+1){
-		if(!vis[i]){
-			vis[i]=true;
-			DFS(i);
-		}
-	}
-	return 0;
 }
 ```
 
@@ -365,7 +427,7 @@ _for(i,0,x){
 	}
 }
 //根据逆拓扑排序时间计算最晚开始时间
-//**其实这里不需要用pre存前驱节点，直接根据每个节点的后继节点也可以更新当前节点的最晚开始时间**
+//其实这里不需要用pre存前驱节点，直接根据每个节点的后继节点也可以更新当前节点的最晚开始时间
 vector<int> B(x,A[vec[x-1]]);//汇点的最晚开始时间等于最早开始时间
 _for(i,0,x){
 	int c=vec[x-1-i];
@@ -404,10 +466,102 @@ _for(i,0,x){
 
 * 问题2：固定终点，求DAG的最长路径
 
-# 8 图的割点
-# 9 图的割边
-# 10 二分图最大匹配
-# 11 欧拉图、欧拉路径
+# 8 双联通域分解
+
+割点也叫关节点，它的删除将导致连通域增加。不含任何关节点的图称为双联通图。任一无向图都可以视作由若干个极大的双联通子图组合而成，这样的每一个子图都称为原图的一个双联通域。
+
+基于DFS可以高效的实现双联通域分解。DFS树中的叶节点不可能是关节点，DFS树根节点若至少拥有两个分支，则必是一个关节点。
+
+分辨关节点：如果节点C的移除导致其某一课真子树与其真祖先无法联通，则C必为关节点。反之，若C的所有真子树都能与C的某一真祖先联通，则C不可能是关节点。
+
+在原无向图的DFS树中，C的真子树只可能通过后向边与C的真祖先联通。因此，只要在DFS搜索过程记录并更新各顶点v所能（经由后向边）联通的最高祖先（highest connected ancestor,HCA）hca[v]，即可及时认定关节点，并报告对应的双连通域。
+
+由于处理的是无向图，故DFS搜索在顶点v的孩子u出返回之后，通过比较hca[v]与dtime[v]的大小，即可判断v是否是关节点。这里将闲置的ftime[]用做hca[]。故若hca[u]>=dtime[v]，则说明u及其后代无法通过后向边与v的真祖先联通，故v为关节点。既然栈S存有搜索过的顶点，则该关节点相对应的双联通域内的顶点，此时都应集中存放在S顶部，故可依次弹出这些顶点。v本身必然最后弹出，作为多个连通域的连接枢纽，它应重新入栈。
+
+反之，若hca[u]<dtime[v]，说明u可经过后向边连通至v的真祖先。果真如此，则这一性质对v同样适用，故有必要将hca[v]，更新为hca[v]和hca[u]之间的更小者。
+
+当然，没遇到一条后向边(v,u)，也将及时地将hca[v]，更新为hca[v]与dtime[u]之间的更小者，以保证hca[v]能够始终记录顶点v可经后向边向上联通的最高祖先。
+
+```cpp
+void bcc(int s){//基于DFS的BCC分解算法
+    int clock=0;
+    int v=s;
+    stack<int> S;
+    do{
+        if(status(v)==UNDISCOVERED){//发现为发现的顶点（新联通分量）
+            BCC(v,clock,S);//即从该定点出发启动一次BCC
+            S.pop();//遍历返回后，弹出栈中最后一个顶点：当前连通域的起点。
+
+        }
+    }while(s!=(v=(++v%n)));
+}
+#define hca(x) (fTime(x))
+
+void BCC(int v,int& clock,stack<int>& S){
+    hca(v)=dTime(v)=++clock;
+    status(v)=DISCOVERED;
+    S.push(v);//顶点v被发现并入栈
+    for(int i=0;i<grid[v].size();i++){
+        int u=grid[v][i];
+        switch(status(u)){
+            case UNDISCOVERED:
+                parent(u)=v;status(v,u)=TREE;BCC(u,clock,S);//从定点u深入
+                if(hca(u)<dTime(v)){//遍历返回后，若发现u(通过后向边)可指向v的真祖先
+                    hca(v)=min(hca(v),hca(u));                    
+                }else{
+                    while(v!=S.pop());//依次弹出当前BCC的节点，亦可根据实际需求转存至其他结构
+                    S.push(v);//最后一个顶点(关节点)重新入栈-总计至多两次
+                }
+                break;
+            case DISCOVERED:
+                status(v,u)=BACKWARD;
+                if(u!=parent(v))hca(v)=min(hca(v),dTime(u));//更新hca[v]越小越好
+                break;
+            default:
+                status(v,u)=(dTime(v)<dTime(u))?FORWARD:CROSS;
+                break;
+        }
+    }
+    status(v)=VISITED;//对v的访问结束
+}
+```
+
+# 9 二分图最大匹配
+
+二分图又称作二部图，是图论中的一种特殊模型。 设G=(V,E)是一个无向图，如果顶点V可分割为两个互不相交的子集(A,B)，并且图中的每条边（i，j）所关联的两个顶点i和j分别属于这两个不同的顶点集(i in A,j in B)，则称图G为一个二分图。
+
+给定一个二分图G，在G的一个子图M中，M的边集{E}中的任意两条边都不依附于同一个顶点，则称M是一个匹配。
+
+极大匹配(Maximal Matching)是指在当前已完成的匹配下,无法再通过增加未完成匹配的边的方式来增加匹配的边数。最大匹配(maximum matching)是所有极大匹配当中边数最大的一个匹配。选择这样的边数最大的子集称为图的最大匹配问题。
+
+匈牙利算法的本质是DFS。
+[CSDN趣写算法](https://blog.csdn.net/sunny_hun/article/details/80627351)
+
+```cpp
+bool find(int x){
+	int i,j;
+	for (j=1;j<=m;j++){    //扫描每个妹子
+		if (line[x][j]==true && used[j]==false)      
+		//如果有暧昧并且还没有标记过(这里标记的意思是这次查找曾试图改变过该妹子的归属问题，但是没有成功，所以就不用瞎费工夫了）
+		{
+			used[j]=1;
+			if (girl[j]==0 || find(girl[j])) {
+				//名花无主或者能腾出个位置来，这里使用递归
+				girl[j]=x;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+//在主程序我们这样做：每一步相当于我们上面描述的一二三四中的一步
+for (i=1;i<=n;i++){
+	memset(used,0,sizeof(used));    //这个在每一步中清空
+	if find(i) all+=1;
+}
+```
+
+# 10 欧拉图、欧拉路径
 
 1. 定义
 * 欧拉通路 (Euler tour)——通过图中每条边一次且仅一次，并且过每一顶点的通路。
@@ -419,14 +573,94 @@ _for(i,0,x){
 3. 有向图是否具有欧拉通路或回路的判定
 * D有欧拉通路：D连通，除两个顶点外，其余顶点的入度均等于出度，这两个特殊的顶点中，一个顶点的入度比出度大1，另一个顶点的入度比出度小1。
 * D有欧拉回路(D为欧拉图)：D连通，D中所有顶点的入度等于出度。
+
+欧拉路径 Hierholzer算法（逐步插入回路法），即DFS+回溯,O(n+E)
+
+```cpp
+/*Hierholzer算法自动寻找欧拉回路，在找不到欧拉回路的情况下会找到欧拉路径。前提是得给它指定好起点。
+算法流程（无向图）：
+1. 判断奇点数。奇点数若为0则任意指定起点，奇点数若为2则指定起点为奇点。
+2. 开始递归函数Hierholzer(x):
+　　循环寻找与x相连的边(x,u):
+　　　　删除(x,u)
+　　　　删除(u,x)
+　　　　Hierholzer(u);
+　　将x插入答案队列之中；【注意，这里必须是先遍历，最后再插入节点，也称回溯】
+3. 倒序输出答案队列
+
+因为要删除边，所以用领接表存储图结构，而且要保证删除边在O(1)内完成*/
+const int MAXN = 1005;
+
+int G[MAXN][MAXN];//存图
+int cnt[MAXN];//存每个点度的奇偶性
+int N,M;//点个数，边条数
+stack<int> S;//存路径
+
+void dfs(int u){
+    for(int v=1; v<=N; v++)
+        if(G[u][v]){
+            G[u][v]-=1;
+            G[v][u]-=1;
+            dfs(v);
+            //不用恢复边！
+        }
+    S.push(u);//出栈时记录
+}
+
+inline void Print(){//输出路径
+	if(!S.empty()){
+	    printf("%d",S.top());
+	    S.pop();
+	}
+	while(!S.empty()){
+	    printf(" %d",S.top());
+	    S.pop();
+	}
+	printf("\n");
+}
+
+inline void init(){
+	memset(cnt,0,sizeof cnt);
+	memset(G,0,sizeof G);
+}
+
+int main(){
+    while(scanf("%d %d",&N,&M) == 2){
+    	init();
+    	int u,v;
+	    for(int i=1 ; i<=M ; ++i){
+	        scanf("%d %d",&u,&v);
+	        G[u][v] += 1;
+	        G[v][u] += 1;
+	        cnt[u] ^= 1;//利用了异或运算，0表示度为偶数，1表示度为奇数。
+	        cnt[v] ^= 1;
+	    }
+	    for(u=1; u<=N ; ++u){//注意判断图是否从1点开始
+	        if(cnt[u]) break;
+	    }
+	    if(u == N+1) dfs(1);//都为偶节点，从随便一个开始都行
+	    else dfs(u);//从奇节点开始
+	    Print();
+	}
+
+    return 0;
+}
+```
+
 4. 混合图。混合图也就是无向图与有向图的混合，即图中的边既有有向边也有无向边。
 5. 混合图欧拉回路
+
 * 混合图欧拉回路用的是网络流。
+
 把该图的无向边随便定向，计算每个点的入度和出度。如果有某个点出入度之差为奇数，那么肯定不存在欧拉回路。因为欧拉回路要求每点入度 = 出度，也就是总度数为偶数，存在奇数度点必不能有欧拉回路。
+
 现在每个点入度和出度之差均为偶数。将这个偶数除以2，得x。即是说，对于每一个点，只要将x条边反向（入>出就是变入，出>入就是变出），就能保证出 = 入。如果每个点都是出 = 入，那么很明显，该图就存在欧拉回路。
 现 在的问题就变成了：该改变哪些边，可以让每个点出 = 入？构造网络流模型。有向边不能改变方向，直接删掉。开始已定向的无向边，定的是什么向，就把网络构建成什么样，边长容量上限1。另新建s和t。对于入 > 出的点u，连接边(u, t)、容量为x，对于出 > 入的点v，连接边(s, v)，容量为x（注意对不同的点x不同。当初由于不小心，在这里错了好几次）。之后，察看是否有满流的分配。有就是能有欧拉回路，没有就是没有。查看流值 分配，将所有流量非 0（上限是1，流值不是0就是1）的边反向，就能得到每点入度 = 出度的欧拉图。
 由于是满流，所以每个入 > 出的点，都有x条边进来，将这些进来的边反向，OK，入 = 出了。对于出 > 入的点亦然。那么，没和s、t连接的点怎么办？和s连接的条件是出 > 入，和t连接的条件是入 > 出，那么这个既没和s也没和t连接的点，自然早在开始就已经满足入 = 出了。那么在网络流过程中，这些点属于“中间点”。我们知道中间点流量不允许有累积的，这样，进去多少就出来多少，反向之后，自然仍保持平衡。
 所以，就这样，混合图欧拉回路问题，解了。
+
+# 11 网络流
+
 
 # 12 图中最小环
 1. Floyd方法
