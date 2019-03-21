@@ -3,13 +3,12 @@ layout: photo
 title: 关于我
 category: aboutme
 photos:
-- http://cdn.niyunsheng.top/2017%E5%B9%B40128%E9%BE%99%E9%97%A8%E7%9F%B3%E7%AA%9F.jpeg
-- http://cdn.niyunsheng.top/%E6%88%91.jpeg
 - http://cdn.niyunsheng.top/%E6%AF%95%E4%B8%9A%E4%BA%86.jpeg
+- http://cdn.niyunsheng.top/%E6%88%91.jpeg
 - http://cdn.niyunsheng.top/%E5%9B%BD%E6%97%97%E4%BB%AA%E4%BB%97%E9%98%9F%20%282%29.jpeg
 - http://cdn.niyunsheng.top/%E5%B0%8F%E4%BC%99%E4%BC%B4%20%282%29.jpeg
-- http://cdn.niyunsheng.top/%E7%AC%AC%E4%B8%89%E5%A4%A9%E8%B5%9B%E9%87%8C%E6%9C%A8%E6%B9%96%20%284%29.jpeg
-- http://cdn.niyunsheng.top/20180410%E6%B2%B3%E6%BB%A9%20%282%29.jpg
+- http://cdn.niyunsheng.top/%E7%AC%AC%E4%B8%89%E5%A4%A9%E8%B5%9B%E9%87%8C%E6%9C%A8%E6%B9%96.jpeg
+- http://cdn.niyunsheng.top/2017%E5%B9%B40128%E9%BE%99%E9%97%A8%E7%9F%B3%E7%AA%9F.jpeg
 ---
 
 
