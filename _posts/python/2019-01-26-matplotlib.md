@@ -6,6 +6,8 @@ tags:
 categories: python
 description: 学习笔记
 ---
+`import matplotlib.plot as plt`
+
 ## .plot(x,y)
 `plt.plot(x,y,format_string,**kwargs)`
 
@@ -59,7 +61,8 @@ plt.subplot(3,2,4) :  分成3行2列，共6个绘图区域，在第4个区域绘
 plot方法之后用show方法显示出来
 
 ## .imshow()
-```Python
+
+```python
 img = cv2.imread('messi5.jpg',0)
 plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
 plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis

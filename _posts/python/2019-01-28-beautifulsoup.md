@@ -2,6 +2,7 @@
 layout: post
 title: python爬虫入门2-beautifulsoup4
 tags:
+- python
 - 爬虫
 categories: python
 description: 爬虫基本类库beautifulsoup

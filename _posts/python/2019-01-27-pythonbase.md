@@ -6,8 +6,15 @@ tags:
 categories: python
 description: python基础语法，重点在于其与C++和Java的区别
 ---
+# 函数
+
+```python
+def add(x,y,f):
+    return f(x)+f(y)
+```
 
 # 其他
+
 * `if __name__`的用法
 
 ```python
