@@ -27,3 +27,10 @@ if __name__ == '__main__':
 如果它是被别的程序导入的（作为一个模块），那么，他的__name__就不是`"__main__"`了。
 
 所以，在.py文件中使用这个条件语句，可以使这个条件语句块中的命令只在它独立运行时才执行
+
+# pip换源
+
+可以在使用pip的时候加参数`-i https://pypi.tuna.tsinghua.edu.cn/simple`
+
+例如：`pip install SomePackage -i https://pypi.tuna.tsinghua.edu.cn/simple`
+这样就会从清华这边的镜像去安装SomePackage库。
