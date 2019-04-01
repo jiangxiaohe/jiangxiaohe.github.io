@@ -26,6 +26,33 @@ bytes转换为str：
 `bs=str(b,encoding="utf8")`
 `sb=bytes(s,encoding="utf8")`
 
+* list
+
+```python
+#创建list
+a=[]
+b=[1,2]
+c=['ab','cd']
+```
+
+* tuple 元组
+
+与list不同的是，tuple一般用()括起来
+
+```python
+T= 1,2,3
+>>> T
+(1,2,3)
+#创建空元组
+T=()
+#只有一个元素的元组
+T=(1)
+```
+
+* 字符串
+
+python中字符串是常量，不可变
+
 * dict
 
 ```python
@@ -40,6 +67,119 @@ for i in dict:
 ```python
 def add(x,y,f):
     return f(x)+f(y)
+```
+
+# `zip([iterable, ...])`函数
+
+zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的对象，这样做的好处是节约了不少的内存。
+
+我们可以使用 list() 转换来输出列表。
+
+如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表。
+
+```python
+>>> a = [1,2,3]
+>>> b = [4,5,6]
+>>> c = [4,5,6,7,8]
+>>> zipped = zip(a,b)     # 返回一个对象
+>>> zipped
+<zip object at 0x103abc288>
+>>> list(zipped)  # list() 转换为列表
+[(1, 4), (2, 5), (3, 6)]
+>>> list(zip(a,c))              # 元素个数与最短的列表一致
+[(1, 4), (2, 5), (3, 6)]
+
+>>> a1, a2 = zip(*zip(a,b))          # 与 zip 相反，zip(*) 可理解为解压，返回二维矩阵式
+>>> list(a1)
+[1, 2, 3]
+>>> list(a2)
+[4, 5, 6]
+```
+
+# `sorted(iterable[, cmp[, key[, reverse]]])`函数
+* sorted() 函数对所有可迭代的对象进行排序操作。
+* sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作。
+* list 的 sort 方法返回的是对已经存在的列表进行操作，无返回值，而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。
+* iterable -- 可迭代对象。
+* cmp -- 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0。
+* key -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
+* reverse -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
+
+```python
+>>>a = [5,7,6,3,4,1,2]
+>>> b = sorted(a)       # 保留原列表
+>>> a
+[5, 7, 6, 3, 4, 1, 2]
+>>> b
+[1, 2, 3, 4, 5, 6, 7]
+
+>>> L=[('b',2),('a',1),('c',3),('d',4)]
+>>> sorted(L, cmp=lambda x,y:cmp(x[1],y[1]))   # 利用cmp函数
+[('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+>>> sorted(L, key=lambda x:x[1])               # 利用key
+[('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+
+
+>>> students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+>>> sorted(students, key=lambda s: s[2])            # 按年龄排序
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+>>> sorted(students, key=lambda s: s[2], reverse=True)       # 按降序
+[('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+```
+
+# lambda 表达式:`lambda [arg1[, arg2, ... argN]]: expression`
+
+* lambda只是一个表达式，函数体比def简单很多，很多时候定义def，然后写一个函数太麻烦，这时候就可以用lambda定义一个匿名函数。
+* lambda可以定义一个匿名函数，而def定义的函数必须有一个名字。这应该是lambda与def两者最大的区别。
+* 设计理念为：lambda是一个为编写简单的函数而设计的，而def用来处理更大的任务。
+* lambda函数主要用来写一些小体量的一次性函数，避免污染环境，同时也能简化代码。
+* lambda起到了一种函数速写的作用，允许在使用的代码内嵌入一个函数的定义。他们完全是可选的（你总是能够使用def来替代它们），但是你仅需要嵌入小段可执行代码的情况下它们会带来一个更简洁的代码结构。
+
+# `enumerate(sequence, [start=0])`函数
+* enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
+* sequence -- 一个序列、迭代器或其他支持迭代对象。
+* start -- 下标起始位置。
+返回值
+* 返回enumerate(枚举) 对象。
+
+```python
+>>> seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+>>> list(enumerate(seasons))
+[(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+>>> list(enumerate(seasons, start=1))       # 下标从 1 开始
+[(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]
+# for循环中使用enumerate
+>>> seq = ['one', 'two', 'three']
+>>> for i, element in enumerate(seq):
+...     print i, element
+...
+0 one
+1 two
+2 three
+```
+
+
+# 生成列表
+
+```python
+# 列出从1到10的平方
+>>> [x*x for x in range(1,11)]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+# 添加判断条件
+>>> [x*x for x in range(1,11) if x%2==0]
+[4, 16, 36, 64, 100]
+# 多个for同时判断
+>>> [m+n for m in 'ABC' for n in'abc']
+['Aa', 'Ab', 'Ac', 'Ba', 'Bb', 'Bc', 'Ca', 'Cb', 'Cc']
+# 获取dict中的value
+>>> d={'a': 'A', 'b': 'B', 'c': 'C'}
+>>> [k + '=' + v for k,v in d.items()]
+['c=C', 'a=A', 'b=B']
+# 将list中所有的字符串变成小写
+>>> L = ['Hello', 'World', 'IBM', 'Apple']
+>>> [s.lower() for s in L]
+['hello', 'world', 'ibm', 'apple']
 ```
 
 # 其他
