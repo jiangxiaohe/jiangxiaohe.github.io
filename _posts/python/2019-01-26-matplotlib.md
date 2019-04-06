@@ -68,3 +68,28 @@ plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
 plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
 plt.show()
 ```
+
+# 显示动图
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+x=np.linspace(-np.pi,np.pi,100)
+y=np.sin(x)
+
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.scatter(x,y)
+plt.ion()#使程序plot之后不暂停
+plt.show()
+plt.pause(1)
+
+for i in range(100):
+        try:
+                ax.lines.remove(lines[0])
+        except Exception:
+                pass
+        y=np.sin(x+i*0.01)
+        lines = ax.plot(x, y, 'r-', lw=1)
+        plt.pause(0.1)
+```
