@@ -65,8 +65,14 @@ for i in dict:
 # 函数
 
 ```python
-def add(x,y,f):
-    return f(x)+f(y)
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) / 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
 ```
 
 # `zip([iterable, ...])`函数
@@ -181,6 +187,28 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 >>> [s.lower() for s in L]
 ['hello', 'world', 'ibm', 'apple']
 ```
+
+# 类class
+
+```python
+class Greeter(object):
+
+    # Constructor
+    def __init__(self, name):
+        self.name = name  # Create an instance variable
+
+    # Instance method
+    def greet(self, loud=False):
+        if loud:
+            print 'HELLO, %s!' % self.name.upper()
+        else:
+            print 'Hello, %s' % self.name
+
+g = Greeter('Fred')  # Construct an instance of the Greeter class
+g.greet()            # Call an instance method; prints "Hello, Fred"
+g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
+```
+
 
 # 其他
 
