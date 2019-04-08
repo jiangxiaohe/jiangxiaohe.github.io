@@ -40,7 +40,7 @@ language: zh-CN    ## blog site languages: en, zh-CN, zh-TW, de
 #### Menu
 menu:
   主页: /
-  目录: /archives
+  目录: /categories
   关于我: /about
 
 ## you can create `tags` and `categories` folders (I had created them already).
