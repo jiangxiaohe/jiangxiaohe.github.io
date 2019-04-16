@@ -1,9 +1,9 @@
 ---
 layout: post
-title: GitHub pages:jekyll模板安装调试以及遇到的问题
+title: GitHub pages
 tags:
 categories: tools
-description: 本站搭建过程指南
+description: 本站搭建过程指南.jekyll模板安装调试以及遇到的问题
 ---
 
 # 1. 安装ruby.

@@ -6,6 +6,22 @@ tags:
 categories: python
 description: python基础语法，重点在于其与C++和Java的区别
 ---
+
+# OS库
+* `os.listdir(path)`返回文件夹包含的文件或文件夹的名字的列表
+* `os.remove(path)`删除文件
+
+# shutil库
+shutil模块提供了许多关于文件和文件集合的高级操作，特别提供了支持文件复制和删除的功能。
+
+
+# pip换源
+
+可以在使用pip的时候加参数`-i https://pypi.tuna.tsinghua.edu.cn/simple`
+
+例如：`pip install SomePackage -i https://pypi.tuna.tsinghua.edu.cn/simple`
+这样就会从清华这边的镜像去安装SomePackage库。
+
 # IO
 
 * "{} {}".format("hello", "world")
@@ -84,7 +100,7 @@ def quicksort(arr):
     return quicksort(left) + middle + quicksort(right)
 ```
 
-# `zip([iterable, ...])`函数
+`zip([iterable, ...])`函数
 
 zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的对象，这样做的好处是节约了不少的内存。
 
@@ -111,7 +127,8 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 [4, 5, 6]
 ```
 
-# `sorted(iterable[, cmp[, key[, reverse]]])`函数
+`sorted(iterable[, cmp[, key[, reverse]]])`函数
+
 * sorted() 函数对所有可迭代的对象进行排序操作。
 * sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作。
 * list 的 sort 方法返回的是对已经存在的列表进行操作，无返回值，而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。
@@ -143,7 +160,7 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
 ```
 
-# lambda 表达式:`lambda [arg1[, arg2, ... argN]]: expression`
+lambda 表达式:`lambda [arg1[, arg2, ... argN]]: expression`
 
 * lambda只是一个表达式，函数体比def简单很多，很多时候定义def，然后写一个函数太麻烦，这时候就可以用lambda定义一个匿名函数。
 * lambda可以定义一个匿名函数，而def定义的函数必须有一个名字。这应该是lambda与def两者最大的区别。
@@ -151,7 +168,7 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 * lambda函数主要用来写一些小体量的一次性函数，避免污染环境，同时也能简化代码。
 * lambda起到了一种函数速写的作用，允许在使用的代码内嵌入一个函数的定义。他们完全是可选的（你总是能够使用def来替代它们），但是你仅需要嵌入小段可执行代码的情况下它们会带来一个更简洁的代码结构。
 
-# `enumerate(sequence, [start=0])`函数
+`enumerate(sequence, [start=0])`函数
 * enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
 * sequence -- 一个序列、迭代器或其他支持迭代对象。
 * start -- 下标起始位置。
@@ -175,7 +192,7 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 ```
 
 
-# 生成列表
+生成列表
 
 ```python
 # 列出从1到10的平方
@@ -218,7 +235,6 @@ g.greet()            # Call an instance method; prints "Hello, Fred"
 g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 ```
 
-
 # 其他
 
 * `if __name__`的用法
@@ -233,10 +249,3 @@ if __name__ == '__main__':
 如果它是被别的程序导入的（作为一个模块），那么，他的__name__就不是`"__main__"`了。
 
 所以，在.py文件中使用这个条件语句，可以使这个条件语句块中的命令只在它独立运行时才执行
-
-# pip换源
-
-可以在使用pip的时候加参数`-i https://pypi.tuna.tsinghua.edu.cn/simple`
-
-例如：`pip install SomePackage -i https://pypi.tuna.tsinghua.edu.cn/simple`
-这样就会从清华这边的镜像去安装SomePackage库。
