@@ -12,6 +12,15 @@ description: python基础语法，重点在于其与C++和Java的区别
 * "{1} {0} {1}".format("hello", "world")
 * print("网站名：{name}, 地址 {url}".format(name="菜鸟教程", url="www.runoob.com"))
 
+函数运行时间time函数，单位是秒
+
+```python
+import time
+start=time.clock()
+end=time.clock()
+print("Time used:",end-start)
+```
+
 # 数据类型
 
 * bytes
