@@ -1,3 +1,3 @@
 git add .
-git commit -m "hello"
+git commit -m "from miix510"
 git push

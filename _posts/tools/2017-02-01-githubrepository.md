@@ -6,20 +6,15 @@ categories: tools
 description: 资源分享留存
 ---
 
-清华大学课程资源：
-https://github.com/choumartin1234/thu-cst-cracker
+[清华大学课程资源](https://github.com/choumartin1234/thu-cst-cracker)
 
-北大课程资源：
-https://github.com/lib-pku/libpku
+[北大课程资源](https://github.com/lib-pku/libpku)
 
-浙江大学课程资源：
-https://github.com/QSCTech/zju-icicles
+[浙江大学课程资源](https://github.com/QSCTech/zju-icicles)
 
-中科大课程资源：
-https://github.com/USTC-Resource/USTC-Course
+[中科大课程资源](https://github.com/USTC-Resource/USTC-Course)
 
-上海交大机器学习：
-https://github.com/CoolPhilChen/SJTU-Courses
+[上海交大机器学习](https://github.com/CoolPhilChen/SJTU-Courses)
 
 CS125 程序设计
 CS221 数据结构
