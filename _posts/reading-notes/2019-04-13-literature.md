@@ -4,7 +4,7 @@ title:  《中国文学大师课》笔记
 tags:
 - 读书
 categories: reading-notes
-description: 了解文学，感悟人生
+description: 了解文学，感悟人生。选择中国文学100部不朽的经典，每一部文学作品都是对人生困惑的回答。
 ---
 
 [喜马拉雅课程链接](https://www.ximalaya.com/renwen/19227568/)
