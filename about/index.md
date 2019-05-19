@@ -3,12 +3,13 @@ layout: photo
 title: 关于我
 category: aboutme
 photos:
-- http://cdn.niyunsheng.top/%E6%AF%95%E4%B8%9A%E4%BA%86.jpeg
 - http://cdn.niyunsheng.top/%E6%88%91.jpeg
 - http://cdn.niyunsheng.top/flag.jpg
 - http://cdn.niyunsheng.top/%E5%B0%8F%E4%BC%99%E4%BC%B4%20%282%29.jpeg
 - http://cdn.niyunsheng.top/%E7%AC%AC%E4%B8%89%E5%A4%A9%E8%B5%9B%E9%87%8C%E6%9C%A8%E6%B9%96.jpeg
 - http://cdn.niyunsheng.top/2017%E5%B9%B40128%E9%BE%99%E9%97%A8%E7%9F%B3%E7%AA%9F.jpeg
+- http://cdn.niyunsheng.top/mao.jpeg
+- http://cdn.niyunsheng.top/%E6%AF%95%E4%B8%9A%E4%BA%86.jpeg
 ---
 
 当我还是一个相当早熟的少年的时候，我就已经深切地意识到，大多数人终生无休止地追逐的那些希望和努力是毫无价值的。而且，我不久就发现了这种追逐的残酷，这在当年较之今天是更加精心地用伪善和漂亮的字句掩饰着的。每个人只是因为有个胃，就注定要参与这种追逐。而且，由于参与这种追逐，他的胃是有可能得到满足的；但是，一个有思想、有感情的人却不能由此而得到满足。
