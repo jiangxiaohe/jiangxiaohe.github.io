@@ -1,3 +1,4 @@
+git pull
 git add .
-git commit -m "from miix510"
+git commit -m "hello"
 git push
