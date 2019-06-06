@@ -7,6 +7,9 @@ description:
 ---
 
 [莫烦python教程](https://morvanzhou.github.io/tutorials/machine-learning/tensorflow/)
+
+[官方文档中文版](http://wiki.jikexueyuan.com/project/tensorflow-zh/)
+
 # mnist数据集测试
 
 ```python
