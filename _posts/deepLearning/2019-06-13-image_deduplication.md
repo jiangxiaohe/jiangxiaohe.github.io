@@ -98,8 +98,17 @@ https://blog.csdn.net/chichoxian/article/details/80290782
 * 剽窃问题 包括大量的引用
 * 相似的新闻在很多的不同的网站
 
-shingling:可以理解为对一个文档进行切割
-minhashing:将一个大的集合中的元素转换为很多短小的签名，但是保持了这些集合中的元素的相似性
+* shingling:可以理解为对一个文档进行切割
+* minhashing:将一个大的集合中的元素转换为很多短小的签名，但是保持了这些集合中的元素的相似性。
+* Locality-sensitive hashing: 关注的是签名对可能的相似性
+
+首先接收到文档，然后shingling，将文档切割成一个一个的元素，这些元素是由k个字符串组成；用Minhashing 得到我们集合元素的签名；产生可能的候选对。
+
+K-shingle，又叫做是k-gram 。一个文档可以看成是K个字符组成的一个集合。
+
+Jaccard similarity 指的就是两个集合交集的个数除以两个几何并集的个数。
+
+minhash 函数 h(c) = 表示的是在某一列中的第一个出现1的那一行的行号,我们用这个行号中第一次出现1的那个行来做我们这个矩阵的那一列的特征值。
 
 # 乘积量化PQ(product quantization) 算法
 
@@ -109,9 +118,5 @@ https://blog.csdn.net/mydear_11000/article/details/83749059
 
 该方法用于解决相似搜索问题、或者说近邻搜索问题。PQ方法是高效相似搜索方法的一种。
 
-
-https://www.cnblogs.com/mafuqiang/p/7161592.html
-
-
-
-0
+在介绍PQ算法前，先简要介绍vector quantization
+https://blog.csdn.net/lishuiwang/article/details/78483547
