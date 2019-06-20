@@ -7,14 +7,6 @@ categories: python
 description: python基础语法，重点在于其与C++和Java的区别
 ---
 
-# OS库
-* `os.listdir(path)`返回文件夹包含的文件或文件夹的名字的列表
-* `os.remove(path)`删除文件
-
-# shutil库
-shutil模块提供了许多关于文件和文件集合的高级操作，特别提供了支持文件复制和删除的功能。
-
-
 # pip换源
 
 可以在使用pip的时候加参数`-i https://pypi.tuna.tsinghua.edu.cn/simple`

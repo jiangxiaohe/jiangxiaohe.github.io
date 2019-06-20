@@ -13,7 +13,7 @@ description: 图片如何去重？
 
 md5方法对于文件的任何细微改变都会导致hash值的不同，不用于图片去重，常用的方法是dhash。
 
-# 基于dhash的图片去重
+# 基于dhash的暴力图片去重
 
 https://blog.csdn.net/Gentle_Guan/article/details/73384767
 
