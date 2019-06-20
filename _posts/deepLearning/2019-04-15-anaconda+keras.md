@@ -15,7 +15,7 @@ description: 实验笔记
 * 激活安装，进入base环境`source ~/.bashrc # 设置环境变量`
 * 退出base环境`conda deactivate`
 * `conda info`查看conda信息
-* `conda activative base`进入base环境
+* `conda activate base`进入base环境
 * 注意这一最后不要选择自动初始化，而是应该自己手动将conda添加到环境变量当中去
 * 在用户目录下编辑`sudo vim ~/.bashrc`
 * 在最后一行加入`export PATH=~/anaconda3/bin:$PATH`
