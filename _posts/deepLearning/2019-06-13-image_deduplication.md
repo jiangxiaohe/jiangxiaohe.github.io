@@ -6,54 +6,19 @@ categories: deepLearning
 description: 图片如何去重？
 ---
 
-
 应用于图片网站的版权保护，在用户上传图片时与媒体库中的图片进行比较，如果检测出该图片已存在，就可以报错，并标记该用户欺诈。
 
 在大量文件中检测某文件是否已经存在的一个常用方法是，通过计算数据集中每一个文件的哈希值，并将该哈希值存储在数组库中。当想要查找某特定文件时，首先计算该文件哈希值，然后在数据库中查找该哈希值。
 
 md5方法对于文件的任何细微改变都会导致hash值的不同，不用于图片去重，常用的方法是dhash。
 
-# 基于dhash的暴力图片去重
+[Google相似图片搜索的原理概述:基于感知hash](http://www.woshipm.com/ucd/150245.html)
+> Google “相似图片搜索” : 根据Neal Krawetz博士的解释，实现相似图片搜素的关键技术叫做”感知哈希算法”（Perceptualhash algorithm），它的作用是对每张图片生成一个”指纹”（fingerprint）字符串，然后比较不同图片的指纹。结果越接近，就说明图片越相似。
 
-https://blog.csdn.net/Gentle_Guan/article/details/73384767
-
-1. 通过listdir列出目录内文件，通过后缀集合(postFix)进行图片格式检查
-2. 每个图片转换为灰度图片并压缩大小(8,9) 便于处理
-3. 得到每个像素的value(0-255)
-4. 每一个像素点与它左边的像素点进行比较，得到0或者1
-5. 比较结果存入diff后放在allDiff中
-6. 暴力比较每两张图片的汉明距离
-7. 设定汉明距离的范围，得出重复图片
-
-```python
-width = 32
-high = 32  # 压缩后的大小
-dirName = ""  # 相册路径
-allDiff = []
-postFix = picPostfix()  #  图片后缀的集合
-
-dirList = listdir(dirName)
-cnt = 0
-for i in dirList:
-    cnt += 1
-    print cnt  # 可以不打印 表示处理的文件计数
-    if str(i).split('.')[-1] in postFix:  # 判断后缀是不是照片格式
-        im = Image.open(r'%s\%s' % (dirName, unicode(str(i), "utf-8")))
-        diff = getDiff(width, high, im)
-        allDiff.append((str(i), diff))
-# 暴力判断是否是相同图片
-for i in range(len(allDiff)):
-    for j in range(i + 1, len(allDiff)):
-        if i != j:
-            ans = getHamming(allDiff[i][1], allDiff[j][1])
-            if ans <= 5:  # 判别的汉明距离，自己根据实际情况设置
-                print allDiff[i][0], "and", allDiff[j][0], "maybe same photo..."
-
-```
 
 # 海量数据去重之SimHash算法
 
-https://blog.csdn.net/u010454030/article/details/49102565
+[CSDN/u010454030](https://blog.csdn.net/u010454030/article/details/49102565)
 
 SimHash是Google在2007年发表的论文《Detecting Near-Duplicates for Web Crawling 》中提到的一种指纹生成算法或者叫指纹提取算法，被Google广泛应用在亿级的网页去重的Job中，作为locality sensitive hash（局部敏感哈希）的一种，其主要思想是降维。
 
@@ -80,43 +45,3 @@ SimHash是Google在2007年发表的论文《Detecting Near-Duplicates for Web Cr
 * 矢量量化方法
 	* 矢量量化方法，即vector quantization。在矢量量化编码中，关键是码本的建立和码字搜索算法。比如常见的聚类算法，就是一种矢量量化方法。而在相似搜索中，向量量化方法又以PQ方法最为典型。
 	* 对于大规模数据集(几百个million以上)，基于矢量量化的方法是一个明智的选择，可以用用Faiss开源工具。
-
-# 局部敏感哈希(Locality-Sensitive Hashing, LSH)
-https://blog.csdn.net/chichoxian/article/details/80290782
-
-* 怎么发现“相似”的集合或者项在一个非常大的集合里而不需要一个一个的比较（两两对比）。因为这样的比较是一个二次方的时间复杂度。
-* Locality Sensitive Hashing(LSH) 一般的思想就是hash items （项）到一个桶里（bins）很多次，并且留意在同一个bin 里的items。
-* 仅仅只有那些高相似度的items 有更多的可能在同一个桶里。
-
-许多的数据挖掘问题都可以表示为发现相似的集合的问题：
-* 网页有很多的相似的词汇，可以用来根据主题来分类
-* 电影的推荐系统
-* 根据某个电影找到喜欢同类电影的人
-
-相似的文档例子
-* 镜像网站（mirror sites）
-* 剽窃问题 包括大量的引用
-* 相似的新闻在很多的不同的网站
-
-* shingling:可以理解为对一个文档进行切割
-* minhashing:将一个大的集合中的元素转换为很多短小的签名，但是保持了这些集合中的元素的相似性。
-* Locality-sensitive hashing: 关注的是签名对可能的相似性
-
-首先接收到文档，然后shingling，将文档切割成一个一个的元素，这些元素是由k个字符串组成；用Minhashing 得到我们集合元素的签名；产生可能的候选对。
-
-K-shingle，又叫做是k-gram 。一个文档可以看成是K个字符组成的一个集合。
-
-Jaccard similarity 指的就是两个集合交集的个数除以两个几何并集的个数。
-
-minhash 函数 h(c) = 表示的是在某一列中的第一个出现1的那一行的行号,我们用这个行号中第一次出现1的那个行来做我们这个矩阵的那一列的特征值。
-
-# 乘积量化PQ(product quantization) 算法
-
-https://blog.csdn.net/mydear_11000/article/details/83749059
-
-意思是指把原来的向量空间分解为若干个低维向量空间的笛卡尔积，并对分解得到的低维向量空间分别做量化（quantization）。这样每个向量就能由多个低维空间的量化code组合表示。
-
-该方法用于解决相似搜索问题、或者说近邻搜索问题。PQ方法是高效相似搜索方法的一种。
-
-在介绍PQ算法前，先简要介绍vector quantization
-https://blog.csdn.net/lishuiwang/article/details/78483547

@@ -50,6 +50,10 @@ bytes转换为str：
 a=[]
 b=[1,2]
 c=['ab','cd']
+
+len(list)#列表元素个数
+max(list)#列表元素最大值
+list(seq)#将元组转换为列表
 ```
 
 * tuple 元组
