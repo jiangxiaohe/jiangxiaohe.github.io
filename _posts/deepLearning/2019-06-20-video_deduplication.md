@@ -6,6 +6,10 @@ categories: deepLearning
 description: 视频如何去重？
 ---
 
+视频去重：
+
+DNA碱基序列对比，最长公共子序列：O(mn)
+
 # 视频去重概述
 
 [CSDN/jxq0816](https://blog.csdn.net/jxq0816/article/details/79634776)

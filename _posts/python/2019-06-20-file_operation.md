@@ -41,6 +41,8 @@ for root, dirs, files in os.walk(src, topdown=False):
 
 # 读写txt文件
 
+
+
 # 利用pandas读写csv文件
 我们越来越多的使用pandas进行数据处理，其效率较高。
 
@@ -60,5 +62,7 @@ data = pd.read_csv(file_name)
 list = data.values.tolist()
 
 # 往csv文件中添加文件，默认读取模式为w，我们加上mode=1，便可以追加数据
-df.to_csv('my_csv.csv', mode='a', header=False)
+test.to_csv('my_csv.csv', mode='a', header=False)
+
+
 ```
