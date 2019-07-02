@@ -1,91 +1,17 @@
 ---
 layout: post
-title: linxu基本操作
+title: linux基本操作
 tags:
 categories: tools
-description: linux基本操作都在这里
+description: ubuntu完全装机指南，装了多少次机，才知道总结走过的坑的重要性
 ---
 
-# 分区设置
-
-[参考文章](https://blog.csdn.net/u012052268/article/details/77145427/)
-
-较为合理的方式是分一个主分区、一个交换分区和几个逻辑分区，如下表所示。
-
-|目录|建议大小|格式|描述|
-|-   |-      |-   |-  |
-|/   |200G   |ext4|根目录|
-|swap|物理内存两倍|swap|交换分区|
-|/boot|2G|ext4|内核以及引导系统所需要的文件|
-|/tmp|5G左右|ext4|临时文件|
-|/home|剩下的全部|ext4|用户工作目录；个人配置文件，如个人环境变量等；所有账号分配一个工作目录|
-
-用df -h 查看
-
-# 软件仓库
-每个LINUX的发行版，比如UBUNTU，都会维护一个自己的软件仓库，我们常用的几乎所有软件都在这里面。这里面的软件绝对安全，而且绝对的能正常安装。
-
-* 为了更快的更新速度，需要先换源
-* 备份原来的源
-* `sudo cp /etc/apt/sources.list /etc/apt/sources_init.list`
-* 更换源，将阿里源复制进去
-* `sudo gedit /etc/apt/sources.list`
-
-```
-deb http://mirrors.aliyun.com/ubuntu/ xenial main
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial main
-
-deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main
-
-deb http://mirrors.aliyun.com/ubuntu/ xenial universe
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial universe
-deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
-
-deb http://mirrors.aliyun.com/ubuntu/ xenial-security main
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main
-deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe
-```
-
-* 查看已安装软件
-
-除此之外，也可以用`rpm`或`dpkg`软件包管理器来查看，它的功能类似于Windows里面的“添加/删除程序”。`rpm -qa`列出所有被安装的rpm包。`dpkg -l`列出所有被安装的dpkg包。Ubuntu采用的是dpkg软件安装方式。
-
-* 更新软件包列表`apt-get update`
-
-这个命令，会访问源列表里的每个网址，并读取软件列表，然后保存在本地电脑。我们在新立得软件包管理器里看到的软件列表，都是通过update命令更新的。
-
-* 更新软件包`apt-get upgrade`
-
-这个命令，会把本地已安装的软件，与刚下载的软件列表里对应软件进行对比，如果发现已安装的软件版本太低，就会提示你更新。
-
-* 安装卸载软件
-
-```
-apt-get install xxx 安装xxx
-apt-get remove xxx 卸载xxx
-apt-get remove -purge xxx 卸载xxx同时删除配置文件
-
-对于`.deb`安装包，用dpkg工具进行安装
-dpkg -i | --install xxx.deb 安装deb安装包
-dpkg -r | --remove xxx.deb 删除安装包
-dpkg -r -p |--purge xxx.deb 连同配置文件一起删除
-dpkg -I | -info xxx.deb 产看软件包信息
-dpkg -L xxx.deb 查看文件拷贝信息
-dpkg -l 查看系统中以安装软件包信息
-dpkg-reconfigure xxx 重新配置软件包
-```
+[TOC]
 
 # 服务器基本配置
 * 查看用户信息
 
 `cat /etc/passwd`
-
-* 设置root密码
-
-刚安装好root用户是没有密码的，使用`sudo passwd`，这是让输入密码，即为设置root密码
 
 * 创建可以登录图形用户界面的用户
 
@@ -102,50 +28,6 @@ dpkg-reconfigure xxx 重新配置软件包
 * 删除用户
 
 `sudo userdel -r nys`包括删除相应文件夹
-
-* 配置ssh服务
-
-安装ssh。`sudo apt-get install openssh-server`
-
-查看ssh服务是否启动
-
-`sudo ps -e |grep ssh`
-
-如果有sshd,说明ssh服务已经启动
-
-如果没有启动，输入`sudo service ssh start`
-
-修改配置文件`/etc/ssh/sshd_config`,用“#”号注释掉"PermitRootLogin without-password"，增加一句"PermitRootLogin yes"
-
-查看本机ip地址`ifconfig`
-
-设置外网访问服务器，需要在路由器配置访问端口映射到内网的服务器的ssh端口。
-
-* 配置静态IP
-
-首先修改 /etc/network/interfaces
-
-```
-auto eno1
-iface eno1 inet static
-address 192.168.1.95
-netmask 255.255.255.0
-gateway 192.168.1.1
-# 这里一定要设置为.1，设置为.2就错了
-```
-
-* 配置dns服务器（配置阿里的）
-
-```
-vi /etc/resolvconf/resolv.conf.d/base
-nameserver 223.5.5.5
-nameserver 223.6.6.6
-```
-
-刷新配置`resolvconf -u`
-
-完成后重新启动网络即可.
-`sudo /etc/init.d/networking restart`
 
 * 配置ftp服务
 

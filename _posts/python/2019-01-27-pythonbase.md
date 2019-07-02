@@ -233,6 +233,20 @@ g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 
 # 其他
 
+* 函数接受命令行参数
+
+```
+# 代码
+import sys
+print '参数个数为:', len(sys.argv), '个参数。'
+print '参数列表:', str(sys.argv)
+
+# 命令行运行如下：
+$ python test.py arg1 arg2 arg3
+参数个数为: 4 个参数。
+参数列表: ['test.py', 'arg1', 'arg2', 'arg3']
+```
+
 * `if __name__`的用法
 
 ```python

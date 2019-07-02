@@ -41,6 +41,8 @@ description: 课程笔记
 
 
 * Q1：全连接神经网络（30分）FullyConnectedNets.ipynb
+
+
 * Q2：批量归一化（30分）BatchNormalization.ipynb
 * Q3：随机失活（Dropout）（10分）Dropout.ipynb
 * Q4：在CIFAR-10上运行卷积神经网络（30分）ConvolutionalNetworks.ipynb
