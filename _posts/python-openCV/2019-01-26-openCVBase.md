@@ -1,11 +1,174 @@
 ---
 layout: post
-title: OpenCV图像处理
+title: OpenCV图像基本操作
 tags:
 - openCV
 categories: python-openCV
 description: openCV学习过程
 ---
+
+[TOC]
+
+# 参考
+[《OpenCV 3计算机视觉：Python语言实现（原书第2版）》](https://blog.csdn.net/wyx100/article/details/73006307)
+
+[网易云课堂](https://study.163.com/course/courseMain.htm?courseId=1208943817)
+
+感谢博主[python我的最爱](https://www.cnblogs.com/my-love-is-python/category/1308248.html)
+
+# 安装方法
+直接使用pip命令安装即可
+`pip install opencv-python`
+
+如果速度较慢，请使用-i标签指定下载源`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-python`
+
+openCV开发需要用到三个包`numpy matplotlib opencv-python opencv-contrib-python`
+
+测试程序:
+
+```python
+#导入cv模块
+import cv2 as cv
+#读取图像，支持 bmp、jpg、png、tiff 等常用格式
+# opencv默认的格式是RGB
+img = cv.imread("D:\opencv\lena.jpg")
+#创建窗口并显示图像
+cv.namedWindow("Image")
+cv.imshow("Image",img)
+#esc退出
+cv.waitKey(0)
+#释放窗口
+cv2.destroyAllWindows()
+
+# 对显示图片进行封装
+def cv_show(name,img):
+    cv2.imshow(name,img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+```
+
+# 图像IO
+
+`cv2.imread(filename[,flag])`
+flag有三种取值：
+* cv2.IMREAD_COLOR : 彩色图
+* cv2.IMREAD_GRAYSCALE : 灰度图
+* cv2.IMREAD_UNCHANGED : Loads image as such including alpha channel
+
+
+>可以用 1, 0 or -1 来代替这三个取值.
+
+`cv2.write(filename,img[,params])`
+默认以PNG保存。例如`cv2.imwrite('mycat.png',img)`
+
+`cv2.imshow(name,img)`
+
+# 补充：Python 中各种imread函数的区别与联系
+
+主要的方式有：
+* PIL.Image.open
+* scipy.misc.imread
+* scipy.ndimage.imread
+* cv2.imread
+* matplotlib.image.imread
+* skimge
+* caffe.io.load_iamge
+
+
+这些方法可以分为四大家族：PIL、matplotlib、opencv、skimage，区分如下：
+* PIL.Image.open 不直接返回numpy对象，可以用numpy提供的函数进行转换，参考[Image和Ndarray互相转换](https://blog.csdn.net/gzhermit/article/details/72758641).其他模块都直接返回numpy.ndarray对象，通道顺序为RGB，通道值得默认范围为0-255。
+* matplot.image.imread从名字中可以看出这个模块是具有matlab风格的，直接返回numpy.ndarray格式通道顺序是RGB，通道值默认范围0-255。
+* v2.imread使用opencv读取图像，直接返回numpy.ndarray 对象，通道顺序为BGR ，注意是BGR，通道值默认范围0-255。
+* skimage.io.imread: 直接返回numpy.ndarray 对象，通道顺序为RGB，通道值默认范围0-255。caffe.io.load_image: 没有调用默认的skimage.io.imread，返回值为0-1的float型数据，通道顺序为RGB
+
+具体测试代码可参考[CSDN/walter_xh](https://blog.csdn.net/renelian1572/article/details/78761278)。
+
+# 截取部分图像数据
+
+```python
+img=cv2.imread('cat.jpg')
+cat=img[0:50,0:200]
+cv_show('cat',cat)
+```
+
+# 颜色通道提取与合并
+
+```python
+(B,R,R)=cv2.split(img)
+dst=cv2.merge([B,G,R])
+# 只保留R
+cur_img = img.copy()
+cur_img[:,:,0] = 0
+cur_img[:,:,1] = 0
+cv_show('R',cur_img)
+```
+
+# 边界填充
+
+```python
+top_size,bottom_size,left_size,right_size = (50,50,50,50)
+#该参数的定义为上下左右分别扩展的像素的个数
+
+replicate = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, borderType=cv2.BORDER_REPLICATE)
+reflect = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size,cv2.BORDER_REFLECT)
+reflect101 = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv2.BORDER_REFLECT_101)
+wrap = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv2.BORDER_WRAP)
+constant = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size,cv2.BORDER_CONSTANT, value=0)
+
+import matplotlib.pyplot as plt
+plt.subplot(231), plt.imshow(img, 'gray'), plt.title('ORIGINAL')
+plt.subplot(232), plt.imshow(replicate, 'gray'), plt.title('REPLICATE')
+plt.subplot(233), plt.imshow(reflect, 'gray'), plt.title('REFLECT')
+plt.subplot(234), plt.imshow(reflect101, 'gray'), plt.title('REFLECT_101')
+plt.subplot(235), plt.imshow(wrap, 'gray'), plt.title('WRAP')
+plt.subplot(236), plt.imshow(constant, 'gray'), plt.title('CONSTANT')
+
+plt.show()
+```
+
+- BORDER_REPLICATE：复制法，也就是复制最边缘像素。
+- BORDER_REFLECT：反射法，对感兴趣的图像中的像素在两边进行复制例如：fedcba|abcdefgh|hgfedcb   
+- BORDER_REFLECT_101：反射法，也就是以最边缘像素为轴，对称，gfedcb|abcdefgh|gfedcba
+- BORDER_WRAP：外包装法cdefgh|abcdefgh|abcdefg  
+- BORDER_CONSTANT：常量法，常数值填充。
+
+# 图像融合
+
+`res = cv2.add(img_cat,img_dog)`
+
+可以使用numpy中的矩阵加法来实现。但是在opencv中加法是饱和操作，也就是有上限值，numpy会对结果取模。注意两幅图片的大小类型必须一致，或者第二个图象是一个标量.
+
+`res = cv2.addWeighted(img_cat, 0.4, img_dog, 0.6, 0)`
+注意，融合的两张图片的shape应该相同，采用`resize`函数而非`reshape`
+
+* reshape:只是在逻辑上改变矩阵的行列数或者通道数，没有任何的数据的复制，也不会增减任何数据，因此这是一个O(1)的操作，它要求矩阵是连续的。
+* resize:对图像进行压缩扩大处理，采用插值方法
+
+# 视频IO
+
+* cv2.VideoCapture可以捕获摄像头，用数字来控制不同的设备，例如0,1。
+* 如果是视频文件，直接指定好路径即可。
+
+```python
+vc = cv2.VideoCapture('test.mp4')
+# 检查是否打开正确
+if vc.isOpened():
+    open, frame = vc.read()
+else:
+    open = False
+while open:
+    ret, frame = vc.read()
+    if frame is None:
+        break
+    if ret == True:
+        gray = cv2.cvtColor(frame,  cv2.COLOR_BGR2GRAY)
+        cv2.imshow('result', gray)
+        if cv2.waitKey(100) & 0xFF == 27:
+            break
+vc.release()
+cv2.destroyAllWindows()
+```
+
 
 # 灰度图
 
@@ -558,7 +721,7 @@ for pt in zip(*loc[::-1]):  # *号表示可选参数
 * channels: 同样用中括号括来它会告函数我们统幅图 像的直方图。如果入图像是灰度图它的值就是 [0]如果是彩色图像的传入的参数可以是 [0][1][2] 它们分别对应着 BGR。
 * mask: 掩模图像。统整幅图像的直方图就把它为 None。但是如果你想统图像某一分的直方图的你就制作一个掩模图像并使用它。
 * histSize:BIN 的数目。也应用中括号括来
-ranges: 像素值范围常为 [0,256]
+* ranges: 像素值范围常为 [0,256]
 
 ```python
 img = cv2.imread('cat.jpg',0) #0表示灰度图
@@ -757,6 +920,18 @@ plt.subplot(122)
 plt.imshow(img_idf, cmap='gray')
 plt.show()
 ```
+
+# 图像旋转
+
+`M = cv2.getRotationMatrix2D(center,angle,scale)`
+angle以逆时针为正，scale为缩放因子，生成旋转矩阵
+
+M.shape为2*3，是一个2*2的放射矩阵
+
+`img2 = cv2.warpAffine(img, M, (w, h))`
+
+仿射变换是指在向量空间中进行一次线性变换(乘以一个矩阵)并加上一个平移(加上一个向量)，变换为另一个向量空间的过程。在有限维的情况下，每个仿射变换可以由一个矩阵A和一个向量b给出，它可以写作A和一个附加的列b。
+
 
 # cv.resize函数五种插值算法
 

@@ -4,8 +4,10 @@ title: 图像特征-harris、SIFT
 tags:
 - openCV
 categories: python-openCV
-description:
+description: openCV 进阶操作
 ---
+
+[TOC]
 
 # Harris角点检测
 

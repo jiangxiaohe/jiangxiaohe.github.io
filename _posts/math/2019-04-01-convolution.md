@@ -2,9 +2,8 @@
 layout: post
 title: 卷积
 tags:
-- openCV
 - 数字图像处理
-categories: python-openCV
+categories: math
 description:
 ---
 
