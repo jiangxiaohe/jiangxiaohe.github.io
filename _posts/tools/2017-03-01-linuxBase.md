@@ -145,7 +145,7 @@ netstat -tulpen 加上所有选项
 `sudo service sshd stop|start|restart`
 
 # 常用命令
-* 下载文件wget+链接
+* 下载文件`wget`+链接
 * find命令
 
 `find pathname -options [-print -exec -ok]`
@@ -188,6 +188,13 @@ ctrl+c
 `ls -l | grep total`即可查看文件总大小
 
 `ls -l |grep "^-"|wc -l`统计某文件夹下文件的个数
+
+* wc -l 显示行数
+* head -n 10 显示前10行
+* shuf 随机打乱
+* xargs -I {} 该命令和管道符连用作为后面命令的指定参数。比如：ls | xargs -I {} scp {} nys@IP
+* 上述命令采用scp需要每复制一个文件都需要输入ssh密码，可以用sshpass解决该问题。
+* `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
 
 # 文件操作
 

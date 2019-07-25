@@ -59,6 +59,9 @@ description: ubuntu完全装机指南，装了多少次机，才知道总结走�
 * 如果没有启动，输入`sudo service ssh start`
 * 如果想通过ssh登录root账户，需要修改配置文件`/etc/ssh/sshd_config`,用“#”号注释掉"PermitRootLogin without-password"，增加一句"PermitRootLogin yes"
 
+# 开启工作区
+
+右键->更改桌面背景->行为->开启工作区
 
 # 软件仓库、linux换源及更新
 每个LINUX的发行版，比如UBUNTU，都会维护一个自己的软件仓库，我们常用的几乎所有软件都在这里面。这里面的软件绝对安全，而且绝对的能正常安装。
@@ -170,5 +173,7 @@ cleartrash()
 * ur 撤销删除
 * rl 列出回收站
 * cleartrash 清空回收站
+
+这个操作会导致`mv invalid option -- 'r'`，原因在于rm有别名，就是上面的操作`alias rm=trash`造成的，取消这个别名即可`unalias rm`
 
 # 安装cuda和cudnn

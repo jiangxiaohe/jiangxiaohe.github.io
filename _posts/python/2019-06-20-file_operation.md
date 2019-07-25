@@ -62,10 +62,14 @@ import shutil
 src = 'video3'
 dst = 'video_test_10g/video'
 num = -1
+f = open(file,'a')
 for root, dirs, files in os.walk(src, topdown=False):
     print(len(files))
     for name in files[:num]:
         print(name)
+        f.write(name)
+        f.write('\r\n')#只有这样才能换行
+f.close()
 ```
 
 很多时候为了方便操作，会将所有文件夹内的文件名存为txt文件，然后直接读取txt文件，这样会获得比os.walk更快的读取速度。更重要的是，获得更便捷的后续操作，比如断点续传。
