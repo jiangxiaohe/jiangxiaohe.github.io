@@ -269,6 +269,34 @@ g.greet()            # Call an instance method; prints "Hello, Fred"
 g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 ```
 
+# [生成可执行文件](https://blog.csdn.net/woshisangsang/article/details/73230433)
+
+使用工具pyinstaller `pip install pyinstaller`
+
+使用`pyinstaller -V`查看是否安装成功
+
+参数作用：
+* -F 表示生成单个可执行文件
+* -D –onedir 创建一个目录，包含exe文件，但会依赖很多文件（默认选项）
+* -w 表示去掉控制台窗口，这在GUI界面时非常有用。不过如果是命令行程序的话那就把这个选项删除吧
+* -c –console, –nowindowed 使用控制台，无界面(默认)
+* -p 表示你自己自定义需要加载的类路径，一般情况下用不到
+* -i 表示可执行文件的图标
+* 其他参数，可以通过pyinstaller --help查看
+
+示例：`pyinstaller.py -F -p C:\python27; -i ..\a.ico ..\demo.py`
+
+当前目录下会多出一个dist目录，此目录下就是Python文件生成的exe可执行文件。
+
+如果运行不成功，请安装pywin32，[pywin32网址](https://sourceforge.net/projects/pywin32/files/pywin32/)
+
+双击pywin32-221.win-amd64-py3.6.exe安装
+
+在CMD命令行进入Python3.6目录下的Scripts目录并执行：python pywin32_postinstall.py -install
+
+在ubuntu系统上运行该命令，生成的是适合ubuntu系统的可执行文件，在win系统上运行该命令，则生成exe文件。
+
+
 # 其他
 
 ## 函数接受命令行参数
