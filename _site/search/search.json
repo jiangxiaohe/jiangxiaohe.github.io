@@ -1,0 +1,462 @@
+
+
+
+
+[
+  
+  
+    
+    
+      {
+        "title": "路遥《人生》",
+        "date": "2017 年 01 月",
+        "excerpt": "人生\n人生的道路虽然漫长，但紧要处常常只有几步，特别是当人年轻的时候。\n没有一个人的生活道路是笔直的、没有岔道的。有些岔道口，譬如政治上的岔道口，事业上的岔道口，个人生活上的岔道口，你走错一步，可以影响人生的一个时期，也可以影响一生。\n——柳青\n\n",
+        
+        "url": "/reading-notes/2017/01/01/life/"
+      },
+    
+      {
+        "title": "GitHub pages:jekyll模板安装调试以及遇到的问题",
+        "date": "2017 年 01 月",
+        "excerpt": "1. 安装ruby.\n\n",
+        
+        "url": "/tools/2017/01/01/githubPages/"
+      },
+    
+      {
+        "title": "linxu基本操作",
+        "date": "2017 年 03 月",
+        "excerpt": "查看系统信息\n\n",
+        
+        "url": "/tools/2017/03/01/linux/"
+      },
+    
+      {
+        "title": "markdown基础语法",
+        "date": "2017 年 04 月",
+        "excerpt": "注意事项\n\n  MarkDown 没有统一标准，不同网站实现的方式不同；\n  GitHub 实现的 MarkDown 语法叫 GFM，GitHub Favorite MarkDown；\n  GFM 比普通的 MarkDown 语法增加了表格和完成列表，等语法；\n  但是，GFM 并没有实现流程图的 MarkDown 语法。\n\n\n",
+        
+        "url": "/tools/2017/04/26/markdown/"
+      },
+    
+      {
+        "title": "vimtutor",
+        "date": "2017 年 05 月",
+        "excerpt": "进入官方教程：直接在命令行输入vimtutor即可进入。学会的关键在于练习和熟练。\n\n",
+        
+        "url": "/tools/2017/05/01/vim/"
+      },
+    
+      {
+        "title": "make和makefile",
+        "date": "2018 年 02 月",
+        "excerpt": "make和Makefile\n\n",
+        
+        "url": "/tools/2018/02/01/makefile/"
+      },
+    
+      {
+        "title": "git操作指南",
+        "date": "2018 年 03 月",
+        "excerpt": "本文主要总结参考《Github入门与实践》一书\n\n",
+        
+        "url": "/tools/2018/03/01/git/"
+      },
+    
+      {
+        "title": "挑战程序设计竞赛",
+        "date": "2018 年 03 月",
+        "excerpt": "第1-2章 蓄势待发准备篇+初出毛庐初级篇\n\n",
+        
+        "url": "/algorithm/2018/03/12/acm_init/"
+      },
+    
+      {
+        "title": "算法竞赛入门经典",
+        "date": "2018 年 03 月",
+        "excerpt": "第一部分 程序设计入门\n\n",
+        
+        "url": "/algorithm/2018/03/12/jingdianAlgorithm/"
+      },
+    
+      {
+        "title": "PAT甲级考试最后一题总结",
+        "date": "2018 年 04 月",
+        "excerpt": "1004 Counting Leaves[树遍历]\n给定一颗树，问每一层各有多少叶子结点。\n\n",
+        
+        "url": "/algorithm/2018/04/02/PATadvanced/"
+      },
+    
+      {
+        "title": "C++STL总结",
+        "date": "2018 年 05 月",
+        "excerpt": "Vector\n\n",
+        
+        "url": "/algorithm/2018/05/03/cppSTL/"
+      },
+    
+      {
+        "title": "算法笔记",
+        "date": "2018 年 06 月",
+        "excerpt": "PAT考试：\n\n",
+        
+        "url": "/algorithm/2018/06/06/algorithm/"
+      },
+    
+      {
+        "title": "断舍离",
+        "date": "2018 年 07 月",
+        "excerpt": "\n  断=不买、不收取不需要的东西\n  舍=处理掉堆放在家里没用的东西\n  离=舍弃对物质的迷恋，让自己处于宽敞舒适，自由自在的空间。\n\n\n",
+        
+        "url": "/life/2018/07/01/breakoff/"
+      },
+    
+      {
+        "title": "时间管理",
+        "date": "2018 年 07 月",
+        "excerpt": "我不是牺牲了睡觉时间，而是把别人浪费的时间利用了起来！\n\n",
+        
+        "url": "/life/2018/07/02/TimeManage/"
+      },
+    
+      {
+        "title": "密码管理-让生活更轻松高效",
+        "date": "2018 年 07 月",
+        "excerpt": "引言\nfrom keepass\n\n",
+        
+        "url": "/life/2018/07/03/passwordManage/"
+      },
+    
+      {
+        "title": "个人知识库管理",
+        "date": "2018 年 07 月",
+        "excerpt": "整理个人知识库的意义\n\n",
+        
+        "url": "/life/2018/07/04/dataManage/"
+      },
+    
+      {
+        "title": "anki使用指南",
+        "date": "2018 年 07 月",
+        "excerpt": "置顶提醒：anki负责碎片化的记忆，但是如结构化的知识等还是不能放弃传统笔记方法\n\n",
+        
+        "url": "/life/2018/07/05/anki/"
+      },
+    
+      {
+        "title": "如何保持饱满的学习热情",
+        "date": "2018 年 07 月",
+        "excerpt": "学习效率\n\n  以考促学，设置DDL。效率都是逼出来的。\n  固定的时间远离手机，远离微信。\n  大幅减少待在寝室的时间。在图书馆，不管干什么都比在寝室强。即使在家里学习，也要在家里准备自己的书房，装修成符合自己的简约风格，让人意识到，进来就是要学习的。\n  劳逸结合，每周看一个电影，固定的运动时间，舒缓学习的节奏\n\n\n",
+        
+        "url": "/life/2018/07/06/study/"
+      },
+    
+      {
+        "title": "冥想：注重当下",
+        "date": "2018 年 07 月",
+        "excerpt": "为什么要冥想？\n长时间思考的大脑输入过多的信息，需要更高效的休息方式，冥想是短时间内的高效的休息。\n简单地说，冥想（无论采取任何形式），是一种不断把我们的心“拉回当下”的练习。\n当我在冥想时，无论是内心极为安静的宝贵时刻，还是只得到5分钟的短暂调整呼吸时刻。只要将注意力转回自己的身上，我就能重新体会到，更清晰的思维，更少的自我批判与情感消耗，随之而来的，是能持续更长时间的专注能力，和更加深沉放松的休息。\nTED上次你什么也不做，原理电子产品、远离焦虑，十分钟，是什么时候？\n冥想的作用：让我体会“当下”，而现在，当下被严重的低估了\n后退一步，看情绪自由游动，体会所谓的现在。\n\n",
+        
+        "url": "/life/2018/07/07/muse/"
+      },
+    
+      {
+        "title": "DP算法总结",
+        "date": "2018 年 07 月",
+        "excerpt": "动态规划\n\n  动态规划程序特点\n  01背包\n  完全背包\n  多重背包\n  最大连续子序列和\n  最长不下降子序列LIS longest Increasing Sequence\n  最长公共子序列LCS longest Common Subsequence\n  最长回文子串\n  DAG最长路\n  树状数组\n  合并石子问题\n  基于状态转移的dp\n  差分\n\n\n",
+        
+        "url": "/algorithm/2018/07/20/dpAlgorithm/"
+      },
+    
+      {
+        "title": "图算法总结",
+        "date": "2018 年 07 月",
+        "excerpt": "图算法\n\n  图的定义、表示、存储\n  图的遍历\n    \n      DFS\n      BFS\n    \n  \n  最短路径\n    \n      Dijkstra单源最短路径\n      bellman-Ford负向边单源最短路径算法\n      SPFA算法\n      Floyd全源最短路径算法\n    \n  \n  最小生成树\n    \n      prim算法\n      kruskal算法\n    \n  \n  拓扑排序\n  关键路径\n  DAG最长路\n  图的割点\n  图的割边\n  二分图最大匹配\n  欧拉图、欧拉路径\n  图中最小环(Floyd、BFS两种方法)\n\n\n",
+        
+        "url": "/algorithm/2018/07/20/graphAlgorithm/"
+      },
+    
+      {
+        "title": "贪心算法总结",
+        "date": "2018 年 07 月",
+        "excerpt": "贪心算法总结\n\n  贪心概述\n  区间不相交问题\n  哈夫曼编码树\n  洛谷合并果子问题\n\n\n",
+        
+        "url": "/algorithm/2018/07/20/greedyAlgorithm/"
+      },
+    
+      {
+        "title": "剑指offer",
+        "date": "2018 年 10 月",
+        "excerpt": "步步为营，保持平静心态！\n\n",
+        
+        "url": "/algorithm/2018/10/21/offer/"
+      },
+    
+      {
+        "title": "装饰者(decorator)模式",
+        "date": "2019 年 01 月",
+        "excerpt": "基础知识回顾\njava继承之方法查找\n\n  实例方法查找：从对象创建时的类开始，沿类层次向上查找；\n  类方法（即静态方法）的查找：总是在引用变量声明时所属的类中进行查找\n\n\n",
+        
+        "url": "/design-pattern/2019/01/26/3decorator/"
+      },
+    
+      {
+        "title": "设计模式学习目录",
+        "date": "2019 年 01 月",
+        "excerpt": "学习材料\n\n  主要参考书：《Head First 设计模式》\n  次参考书：《大话设计模式》\n  学习视频：极客学院Java的23种设计模式精讲\n\n\n",
+        
+        "url": "/design-pattern/2019/01/26/catalog/"
+      },
+    
+      {
+        "title": "OpenCV图像基本操作",
+        "date": "2019 年 01 月",
+        "excerpt": "参考\n《OpenCV 3计算机视觉：Python语言实现（原书第2版）》\n\n",
+        
+        "url": "/python-opencv/2019/01/26/openCV1/"
+      },
+    
+      {
+        "title": "matplotlib常用函数",
+        "date": "2019 年 01 月",
+        "excerpt": "import matplotlib.plot as plt\n\n",
+        
+        "url": "/python/2019/01/26/matplotlib/"
+      },
+    
+      {
+        "title": "numpy常用函数",
+        "date": "2019 年 01 月",
+        "excerpt": "array本身并不是一个类，只是为了创建一个ndarray。\n\n",
+        
+        "url": "/python/2019/01/26/numpy/"
+      },
+    
+      {
+        "title": "《游戏设计快乐之道》摘录",
+        "date": "2019 年 01 月",
+        "excerpt": "读完本书希望可以解决几个问题？\n\n  为什么有些游戏有趣，有些游戏枯燥\n  玩游戏和学习之间有何联系\n  游戏设计师是如何设计游戏来使其更加吸引人\n  好游戏的特质\n  不得不重视游戏，不再把它当做洪水猛兽来看待，而是去深入的了解它。\n  游戏仅仅是消遣吗？还是更多？\n  从游戏中得到的快乐？游乐场得到的快乐？与运动中得到的快乐？阅读中得到的快乐？学习中得到的快乐？这些快乐有何不同？\n  象棋、围棋等和游戏的区别？\n\n\n",
+        
+        "url": "/reading-notes/2019/01/26/GameChangeTheWorld/"
+      },
+    
+      {
+        "title": "LaTeX基础语法",
+        "date": "2019 年 01 月",
+        "excerpt": "简介\n\n",
+        
+        "url": "/tools/2019/01/26/LaTex/"
+      },
+    
+      {
+        "title": "python基础",
+        "date": "2019 年 01 月",
+        "excerpt": "IO\n\n",
+        
+        "url": "/python/2019/01/27/pythonbase/"
+      },
+    
+      {
+        "title": "python爬虫入门1-requests",
+        "date": "2019 年 01 月",
+        "excerpt": "requests库\nHTTP请求方法\n\n",
+        
+        "url": "/python/2019/01/27/requests/"
+      },
+    
+      {
+        "title": "阿里云服务",
+        "date": "2019 年 01 月",
+        "excerpt": "阿里云主机ECS\n\n",
+        
+        "url": "/tools/2019/01/27/aliyun/"
+      },
+    
+      {
+        "title": "python爬虫入门2-beautifulsoup4",
+        "date": "2019 年 01 月",
+        "excerpt": "BeautifulSoup库的安装\n\n",
+        
+        "url": "/python/2019/01/28/beautifulsoup/"
+      },
+    
+      {
+        "title": "java学习笔记",
+        "date": "2019 年 01 月",
+        "excerpt": "集合Collection\njava和C++比较\n\n  java去除了C++中难以理解、容易混淆的特性，例如头文件、指针、结构、单元、运算符重载、虚拟基础类、多重继承等。\n\n",
+        
+        "url": "/java/2019/01/29/java/"
+      },
+    
+      {
+        "title": "python爬虫入门3-Re",
+        "date": "2019 年 01 月",
+        "excerpt": "正则表达式(regular expression, regex, RE)基本概念\n\n",
+        
+        "url": "/python/2019/01/29/re/"
+      },
+    
+      {
+        "title": "《程序员健康指南》摘录",
+        "date": "2019 年 01 月",
+        "excerpt": "为什么要读这本书\n\n",
+        
+        "url": "/reading-notes/2019/01/29/health/"
+      },
+    
+      {
+        "title": "python爬虫入门4-scrapy爬虫框架",
+        "date": "2019 年 01 月",
+        "excerpt": "srapy库是一个快速功能强大的网络爬虫框架\n\n",
+        
+        "url": "/python/2019/01/30/scrapy/"
+      },
+    
+      {
+        "title": "springBoot网站搭建笔记",
+        "date": "2019 年 01 月",
+        "excerpt": "前端采用html、css、js等基础网页设计和velocity模板实现网页与后台数据的交互，本项目前端主要采用现成的代码，自己动手实现后台SpringBoot框架。\n\n",
+        
+        "url": "/java/2019/01/31/springboot/"
+      },
+    
+      {
+        "title": "LeetCode《字节跳动》组题",
+        "date": "2019 年 02 月",
+        "excerpt": "机遇从不垂青无准备之人，熟悉java编程，并拾起刷题能力\n\n",
+        
+        "url": "/algorithm/2019/02/02/LeetCodeByteDance/"
+      },
+    
+      {
+        "title": "amazon EC2主机VPN搭建",
+        "date": "2019 年 03 月",
+        "excerpt": "用xshell访问EC2\n\n  在启动实例时保存秘钥文件(amazon_AMI.pem)\n  自己选择是Ubuntu AMI，对应的用户名称是ubuntu\n  打开XShell，选择“工具”-&gt;“用户秘钥”-&gt;“导入”-&gt;“关闭”\n  “新建”-&gt;“连接”-&gt;“用户身份验证”，具体参考\n  OK\n\n\n",
+        
+        "url": "/aliyun/2019/03/17/amazon/"
+      },
+    
+      {
+        "title": "OpenCV图像处理",
+        "date": "2019 年 03 月",
+        "excerpt": "灰度图\n\n",
+        
+        "url": "/python-opencv/2019/03/29/openCV2/"
+      },
+    
+      {
+        "title": "频率域滤波",
+        "date": "2019 年 04 月",
+        "excerpt": "图像变换的目的：\n\n  利于图像特征提取\n  有助于从概念上增强对图像信息的理解\n  图像变换通常是一种正交变换，必须是可逆的，而且算法不能太复杂\n  正交变换的特点是在变换域中图像能量将集中分布在低频率成分上，边缘、线状信息反映在高频率成分上，有利于图像处理。\n\n\n",
+        
+        "url": "/python-opencv/2019/04/01/FT/"
+      },
+    
+      {
+        "title": "卷积",
+        "date": "2019 年 04 月",
+        "excerpt": "卷积\n\n",
+        
+        "url": "/python-opencv/2019/04/01/convolution/"
+      },
+    
+      {
+        "title": "项目1：信用卡数字识别",
+        "date": "2019 年 04 月",
+        "excerpt": "给出一张银行卡的照片，框出其中的数字，并且输出其中的数字。\n\n",
+        
+        "url": "/python-opencv/2019/04/02/openCV3/"
+      },
+    
+      {
+        "title": "图像特征-harris、SIFT",
+        "date": "2019 年 04 月",
+        "excerpt": "Harris角点检测\n\n",
+        
+        "url": "/python-opencv/2019/04/04/openCV4/"
+      },
+    
+      {
+        "title": "TensorFlow搭建神经网络",
+        "date": "2019 年 04 月",
+        "excerpt": "莫烦python教程\n\n",
+        
+        "url": "/deeplearning/2019/04/05/tensorflow/"
+      },
+    
+      {
+        "title": "项目3：全景图像拼接",
+        "date": "2019 年 04 月",
+        "excerpt": "题目：将两张图片根据特征匹配拼接成全景图，注意并不是平移即可，还涉及缩放、变形。\n\n",
+        
+        "url": "/python-opencv/2019/04/05/openCV5/"
+      },
+    
+      {
+        "title": "项目4：停车场车位识别",
+        "date": "2019 年 04 月",
+        "excerpt": "题目：计算停车场有多少停车位是空闲的，标识出空闲的停车位\n",
+        
+        "url": "/python-opencv/2019/04/05/openCV6/"
+      },
+    
+      {
+        "title": "MNIST数据集实验",
+        "date": "2019 年 04 月",
+        "excerpt": "MNIST数据集\n\n",
+        
+        "url": "/deeplearning/2019/04/11/mnist/"
+      },
+    
+      {
+        "title": "VGG16学习笔记",
+        "date": "2019 年 04 月",
+        "excerpt": "VGG\nVGG是牛津大学14年提出的CNN模型，在图像分类和目标检测任务中都表现出非常好的结果。在2014年的ILSVRC比赛中，VGG 在Top-5中取得了92.3%的正确率。\n\n",
+        
+        "url": "/deeplearning/2019/04/12/VGG16/"
+      },
+    
+      {
+        "title": "《中国文学大师课》笔记",
+        "date": "2019 年 04 月",
+        "excerpt": "喜马拉雅课程链接\n\n",
+        
+        "url": "/reading-notes/2019/04/13/literature/"
+      },
+    
+      {
+        "title": "keras配置和入门",
+        "date": "2019 年 04 月",
+        "excerpt": "官方中文文档\n\n",
+        
+        "url": "/deeplearning/2019/04/15/keras/"
+      },
+    
+      {
+        "title": "《How to Learn》学习笔记",
+        "date": "2019 年 04 月",
+        "excerpt": "课程链接\n\n",
+        
+        "url": "/reading-notes/2019/04/15/HowToLearn/"
+      },
+    
+      {
+        "title": "GPU编程与配置",
+        "date": "2019 年 04 月",
+        "excerpt": "nvidia-smi命令\n提供监控GPU使用情况和更改GPU状态的功能，是一个跨平台工具，它支持所有标准的NVIDIA驱动程序支持的Linux发行版以及从WindowsServer 2008 R2开始的64位的系统。\n\n",
+        
+        "url": "/deeplearning/2019/04/16/gpu/"
+      },
+    
+  
+  
+  
+  {
+    "title": "关于我",
+    "date": " ",
+    "excerpt": "\n",
+    
+    "url": "/about/"
+  }
+  
+]
+

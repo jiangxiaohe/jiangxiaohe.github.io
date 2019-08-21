@@ -1,0 +1,890 @@
+
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+    
+    
+    
+    
+    <title>挑战程序设计竞赛 | Dipper</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Dipper">
+    
+
+    
+    <!--<%- open_graph({twitter_id: theme.author.twitter, google_plus: theme.author.google_plus}) %>-->
+
+    <meta name="description" content="page.description">
+    
+    <meta property="og:type" content="article">
+    
+    <meta property="og:title" content="挑战程序设计竞赛">
+    <meta property="og:url" content="/algorithm/2018/03/12/acm_init/">
+    <meta property="og:site_name" content="Dipper">
+    <meta property="og:description" content="笔记">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="挑战程序设计竞赛">
+    <meta name="twitter:description" content="page.description">
+    <meta name="twitter:creator" content="@">
+    <link rel="publisher" href="">
+
+    
+    
+    <link rel="icon" href="/assets/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/assets/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/assets/img/jacman.jpg">
+    
+
+    <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/assets/css/highlight.css" type="text/css">
+    
+    <style>
+        body >header {
+            background: url("/assets/img/banner.jpg") center #2ca6cb;
+        }
+    </style>
+    
+    
+</head>
+
+  <body>
+    <header>
+        <div>
+		    
+			<div id="imglogo">
+				<a href="/"><img src="/assets/img/dipper_logo.jpg" alt="Dipper" title="Dipper"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Dipper">Dipper</a></h1>
+				<h2 class="blog-motto">stay foolish, stay hungry</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search" method="get" accept-charset="utf-8">
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      
+
+
+
+<div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+	<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/algorithm/2018/03/12/acm_init/" title="挑战程序设计竞赛" itemprop="url">挑战程序设计竞赛</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Dipper" target="_blank" itemprop="author">Dipper</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-12 00:00:00 +0800" itemprop="datePublished"> 发表于 2018-03-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article toc-content" style="display: none;">
+		
+			<!--<%- toc(item.content) %>-->
+		
+		</div>
+		
+		<h1 id="第1-2章-蓄势待发准备篇初出毛庐初级篇">第1-2章 蓄势待发准备篇+初出毛庐初级篇</h1>
+
+<ul>
+  <li>关于运行时间</li>
+</ul>
+
+<p>假设时间限制为1s，如果10^6游刃有余；10^7勉勉强强；10^8很悬，仅限循环体非常简单的情况</p>
+
+<h2 id="21-最基础的穷竭搜索">2.1 最基础的“穷竭搜索”</h2>
+
+<ul>
+  <li>POJ 1852 Ants</li>
+</ul>
+
+<p>细杆上的n只蚂蚁，知道其位置但不知道其朝向，两只蚂蚁相遇，各自朝相反方向，所有蚂蚁的运行速度都是1，求所有蚂蚁落下细杆的最长时间和最短时间。</p>
+
+<p>只要转变思路，蚂蚁的碰撞相当于各个蚂蚁穿过对方继续前进，那么，最短时间就是中点左侧的蚂蚁都向左走，中点右侧的蚂蚁都向右走。最长时间是最左侧的蚂蚁向右走和最右侧的蚂蚁向左走的较大者。</p>
+
+<p>该题目可以说是考察想象力类型问题的经典例子。</p>
+
+<hr />
+
+<ul>
+  <li>抽签问题</li>
+</ul>
+
+<p>n个数字，抽取四次(抽完放回)，问是否存在4个数字的和为m。</p>
+
+<p>如果是四重循环，判断<code class="highlighter-rouge">K[a]+K[b]+K[c]+K[d]==m</code>，那么复杂度是O(n^4)</p>
+
+<p>如果实现将元素排序O(nlogn)，然后三重循环后用二分法判断是否存在<code class="highlighter-rouge">K[d]==m-K[a]-K[b]-K[c]</code>，则复杂度是O(n^3logn)</p>
+
+<p>实现处理K[a]+K[b]的所有结果O(n^2)，然后排序O(n^2logn)，然后对于排序后的结果用二分法查找<code class="highlighter-rouge">K[a+b]==m-K[c+d]</code>,复杂度为O(n^2logn)</p>
+
+<hr />
+
+<ul>
+  <li>POJ 2386 Lake Counting</li>
+</ul>
+
+<p>有一个大小为N*M的园子，雨后有积水，八连通的积水被认为是连在一起的。求共有多少个连通域。</p>
+
+<p>典型的DFS或BFS搜索求连通域。</p>
+
+<h2 id="22-一直往前贪心法">2.2 一直往前！贪心法</h2>
+
+<ul>
+  <li>区间贪心</li>
+</ul>
+
+<p>有n个区间，在不重叠的前提下，选择尽可能多的区间。</p>
+
+<p>如果将这些区间看做区间内发生的事情，那么要做更多的事情的话，要优先选择结束时间更早的事情来做，以便为剩下的事情留出更多的时间。即按照右端点从小到大给区间排序，右端点相同的，左端点较大的在前。
+然后按照排序后的结果选择区间即可。</p>
+
+<hr />
+
+<ul>
+  <li>POJ 3617 Best Cow Line</li>
+</ul>
+
+<p>给定长度为N的字符串S，构造一个相同长度的字符串T，初始时T为空。反复进行如下两个操作：1从S的头部删除一个字符，加到T的尾部；2从S的尾部删除一个字符，加到T的尾部。目标是让T的字典序尽可能小。</p>
+
+<p>如果S两侧的字符不同，显然，选择字符较小的添加到T即可。如果相同的话，需要进一步判断，即比较S的字符串和反转字符串的字典序，在T后添加较小者。</p>
+
+<hr />
+
+<ul>
+  <li>POJ 3069 Saruman’s Army</li>
+</ul>
+
+<p>直线上n个点。点i的位置是Xi。从n个点中选择若干个，给它们加上标记。对每一个点，其距离为R以内的区域里必须有带有标记的点（其本身有标记，可以认为与其相距为0的地方有一个带标记的点）。在满足这个条件的情况下，希望可以给尽可能少的点添加标记。请问至少给多少个点添加标记？</p>
+
+<p>将所有节点从小到大排序，对于第一个点，在R的半径内必须有被标记的点，选择半径内最大的点标记，然后在标记点右侧R范围内的点出队。然后继续选择队列中第一个点重复该步骤即可。</p>
+
+<hr />
+
+<ul>
+  <li>POJ 3253 Fence Repair</li>
+</ul>
+
+<p>长度为L的木板，切割为N段，长度分别为L1-LN，每次切割的开销为模板的长度。问如何选择切割顺序，使总的开销最小。</p>
+
+<p>典型的哈夫曼编码树，用优先级队列实现。</p>
+
+<h2 id="23-记录结果再利用的动态规划">2.3 记录结果再利用的“动态规划”</h2>
+
+<ul>
+  <li>01背包问题变形</li>
+</ul>
+
+<p>n个重量和价值分别为Wi、Vi的物品。从这些物品中挑选总重量不超过W的物品，求所有挑选方案中价值总和的最大值。<code class="highlighter-rouge">1&lt;=n&lt;=100;1&lt;=Wi&lt;=10^7;1&lt;=Vi&lt;=100;1&lt;=W&lt;=10^9</code></p>
+
+<p>显然，本题和背包问题的区别在于重量的区间过大，如果仍按照01背包的dp[i][j]表示容量为j的背包在0-i物品中所能达到的最大价值，则会超出空间复杂度的要求。</p>
+
+<p>价值的范围不大，可以改变DP的对象。dp[i][j]表示不超过j的价值量的背包在0-i物品中所能达到的最小重量。则状态转移方程为<code class="highlighter-rouge">dp[i][j]=min{dp[i][j-1],dp[i-1][j-v[i]]+w[i]}</code>。初始条件dp[0][0]=0,dp[0][j]=inf，注意这里的dp[0][j]是参与运算的，不能设置为0x3fffffff，设置为0x0fffffff足够大即可。最红的答案就在dp[n][j]&lt;=W的j的最大值。</p>
+
+<hr />
+
+<ul>
+  <li>多重部分和问题</li>
+</ul>
+
+<p>有n个不同大小的数字ai，每种各mi个。判断是否可以从这些数字中选出若干使他们的和恰好为K。</p>
+
+<p>不同的定义对复杂度有影响。先看第一种定义<code class="highlighter-rouge">dp[i][j]:=用前i个数字是否能加成j</code>，为了用前i个数字加和成j，也就需要能用i-1中数字加和成<code class="highlighter-rouge">j,j-ai,j-2*ai,……,j-mi*ai</code>中的任一种。可以有如下的递推关系<code class="highlighter-rouge">dp[i][j]=(0&lt;=k&lt;=mi且k*ai&lt;=j时存在使dp[i][j-k*ai]为真的k)</code>。复杂度为 $O(K*\sum{mi})$ ,一般用dp求bool结果的话会有不少浪费，同样的复杂度通常能获得更多的信息。</p>
+
+<p>在这个问题中，我们不光求出能否得到目标的和数，同时把得到时ai这个数还剩下多少个可以使用计算出来。</p>
+
+<p><code class="highlighter-rouge">dp[i][j]:=用前i个数字加成j时第i中数字最多能剩余多少个(不能加和得到i的情况下为-1)</code></p>
+
+<p>按照上述递归关系，如果前i-1个数加和能得到j的话，第i个数就可以留下mi个。此外，前i种数加和出j-ai时第i种数还剩下k(k&gt;0)的话，用这i种数加和到j时第i种数剩下k-1个。</p>
+
+<p>这样，只需要看最终是否满足<code class="highlighter-rouge">dp[n][K]&gt;=0</code>就可以知道答案了。复杂度<code class="highlighter-rouge">O(nK)</code></p>
+
+<hr />
+
+<ul>
+  <li>最长上升子序列</li>
+</ul>
+
+<p><code class="highlighter-rouge">dp[i]表示长度为i+1的上升子序列中末尾元素的最小值(不存在的话就是inf)</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int dp[MAXN];
+void solve(){
+	fill(dp,dp+n,inf);
+	for(int i=0;i&lt;n;i++){
+		*lower_bound(dp,dp+n,a[i])=a[i];//lowerbound表示大于等于e的最小值
+	}
+	printf("%d\n",lower_bound(dp,dp+n,inf)-dp);
+}
+</code></pre></div></div>
+
+<hr />
+
+<ul>
+  <li>划分数</li>
+</ul>
+
+<p>有n个无区别的物品，将他们划分成不超过m组，称为n的m划分，求出划分方法数模M的余数。<code class="highlighter-rouge">1&lt;=m&lt;=n&lt;=1000;2&lt;=M&lt;=10000</code></p>
+
+<p>DP不仅对于求解最有问题有效，对于各种排列组合的个数、概率或者期望之类的计算同样很有用。</p>
+
+<p>定义<code class="highlighter-rouge">dp[i][j]=j的i划分的总数</code>，考虑n的m划分{ai}( $\sum{ai}=n$ )，如果对于每个i都有ai&gt;0，那么{ai-1}就对应n-m的m划分。另外，如果存在ai=0，那么这就对应了n的m-1划分。所以递推公式如下：<code class="highlighter-rouge">dp[i][j]=dp[i][j-1]+dp[i-1][j]</code>。</p>
+
+<hr />
+
+<ul>
+  <li>多重集组合数</li>
+</ul>
+
+<p>有n种物品，第i中物品有ai个。不同种类的物品可以互相区分但相互种类的无法区分。从这些物品中取出m个的话，有多少种取法？求出方案数模M的余数。</p>
+
+<p>定义<code class="highlighter-rouge">dp[i][j]:=前i种物品中取出j个的组合总数</code>，有递推公式<code class="highlighter-rouge">dp[i][j]=dp[i][j-1]+dp[i-1][j]-dp[i-1][j-1-ai]</code>.</p>
+
+<h2 id="24-加工并存储数据的数据结构">2.4 加工并存储数据的数据结构</h2>
+
+<ul>
+  <li>POJ 2431 Expedition</li>
+</ul>
+
+<p>需要驾驶卡车行驶L单位距离。最开始时，卡车上有P单位的汽油。卡车每开1单位距离消耗1单位汽油。如果在途中车上的汽油耗尽，卡车无法继续前进，因为无法到达终点。在途中一共有N个加油站。第i个加油站在距离起点Ai单位距离的地方，最多可以给卡车加Bi单位汽油。假设卡车的燃料的容量是无限大的，无论加多少油都没有问题。那么请问卡车能否到达终点，如果可以，最少需要加多少次油？</p>
+
+<p>转化一下思考方式。在卡车开往终点的途中，只有在加油站才可以加油。但是，如果认为“在到达加油站i时，就获得了一次在以后任何时候都可以加Bi单位汽油的权利”。而在之后需要加油时，就认为是在之前的加油站加的油即可。</p>
+
+<p>由此可以建立油量的优先级队列。</p>
+
+<hr />
+
+<ul>
+  <li>POJ 1182 食物链</li>
+</ul>
+
+<p>有N只动物，分别编号为1-N。所有动物都属于ABC中的其中一类。已知A吃B、B吃C、C吃A。按顺序给出下面的两种信息共K条。第一种：x和y属于同一类。第二种：x吃y。</p>
+
+<p>然而这些信息可能会出错。有可能有的信息和之前给出的信息矛盾，也有的信息可能给出的x和y不在1-N的范围内。求在K条信息中有多少条是不正确的。计算过程中将忽略此类错误信息。</p>
+
+<h2 id="25-它们其实都是图">2.5 它们其实都是“图”</h2>
+
+<ul>
+  <li>POJ 3255 Roadblocks</li>
+</ul>
+
+<p>某街区共有R条道路、N个路口。道路可以双向通行。问1号路口到N号路口的次短路长度是多少？次短路指的是比最短路长度长的次短的路径。同一条边可以经过多次。<code class="highlighter-rouge">1&lt;=N&lt;=5000;1&lt;=R&lt;=100000</code></p>
+
+<hr />
+  
+	</div>
+	<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <!--
+  <%- list_categories(item.categories, {
+      show_count: false,
+      class: 'article-category',
+      style: 'none',
+      separator: '►'
+  }) %>
+  -->
+  
+  <a class="article-category-link" href="/categories/#algorithm">algorithm</a>
+  
+</div>
+
+
+  <div class="article-tags">
+  <!--
+  <% var tags = [];
+    item.tags.forEach(function(tag){
+      tags.push('<a href="' + config.root + tag.path + '">' + tag.name + '</a>');
+    }); %>-->
+  <span></span> <!--<%- tags.join('') %>-->
+  
+  
+  <a href="/tags/#DSA">DSA</a>
+  
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://localhost:4000/algorithm/2018/03/12/acm_init/" data-title="挑战程序设计竞赛 | Dipper" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+   
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/tools/2018/03/01/git/" title="git操作指南">
+  <strong>上一篇：</strong><br/>
+  <span>
+  git操作指南</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/algorithm/2018/03/12/jingdianAlgorithm/"  title="算法竞赛入门经典">
+ <strong>下一篇：</strong><br/> 
+ <span>算法竞赛入门经典
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+
+      
+      
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside toc-content">
+ 
+ <!--<%- toc(item.content) %>-->
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/#reading-notes" title="reading-notes">reading-notes<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#tools" title="tools">tools<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#algorithm" title="algorithm">algorithm<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#life" title="life">life<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#design-pattern" title="design-pattern">design-pattern<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#python-openCV" title="python-openCV">python-openCV<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#python" title="python">python<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#java" title="java">java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#aliyun" title="aliyun">aliyun<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/#deepLearning" title="deepLearning">deepLearning<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/#读书" title="读书">读书<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#markdown" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#DSA" title="DSA">DSA<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#效率" title="效率">效率<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#design-pattern" title="design-pattern">design-pattern<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#openCV" title="openCV">openCV<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#python" title="python">python<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#LaTex" title="LaTex">LaTex<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#爬虫" title="爬虫">爬虫<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#java" title="java">java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#spring" title="spring">spring<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/#数字图像处理" title="数字图像处理">数字图像处理<sup>2</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div id="tagcloud" class="tagcloudlist clearfix">
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            <a href="https://blog.csdn.net/qq_20633793" target="_blank" title="我的CSDN">我的CSDN</a>
+          </li>
+        
+          <li>
+            <a href="http://47.93.52.194" target="_blank" title="我的WordPress">我的WordPress</a>
+          </li>
+        
+    </ul>
+</div>
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="jiangxiaohe" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+</div>
+
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I'm Dipper. <br/>
+			This is my blog. Happy to meet you.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/jiangxiaohe" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:ni-ys13@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+	<!--
+			<%  Array.prototype.S=String.fromCharCode(2);
+			  Array.prototype.in_array=function(e){
+    			var r=new RegExp(this.S+e+this.S);
+    			return (r.test(this.S+this.join(this.S)+this.S));
+				};
+				var cc = new Array('by','by-nc','by-nc-nd','by-nc-sa','by-nd','by-sa','zero'); %>
+		<% if (cc.in_array(theme.creative_commons) ) { %>
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/<%= theme.creative_commons %>/4.0" class="cc-opacity" target="_blank">
+            <img src="<%- config.root %>img/cc-<%= theme.creative_commons %>.svg" alt="Creative Commons" />
+          </a>
+        </div>
+    <% } %>
+				-->
+
+		<p class="copyright">
+		Powered by <a href="http://jekyllrb.com" target="_blank" title="jekyll">jekyll</a> and Theme by <a href="https://github.com/simpleyyt/jekyll-jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="about" target="_blank" title="Dipper">Dipper</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/assets/js/jquery-2.0.3.min.js"></script>
+<script src="/assets/js/jquery.imagesloaded.min.js"></script>
+<script src="/assets/js/gallery.js"></script>
+<script src="/assets/js/jquery.qrcode-0.12.0.min.js"></script>
+<script src="/assets/js/toc.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+          $('#toc.toc-aside').show();
+        }
+  
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+
+<script src="/assets/js/tagcloud.js"></script>
+<script>
+$(document).ready(function() {
+  var tags = [
+    
+    { "name": "读书", "path": "/tags/#读书", "length": 5 },
+    
+    { "name": "markdown", "path": "/tags/#markdown", "length": 1 },
+    
+    { "name": "DSA", "path": "/tags/#DSA", "length": 10 },
+    
+    { "name": "效率", "path": "/tags/#效率", "length": 6 },
+    
+    { "name": "design-pattern", "path": "/tags/#design-pattern", "length": 2 },
+    
+    { "name": "openCV", "path": "/tags/#openCV", "length": 8 },
+    
+    { "name": "python", "path": "/tags/#python", "length": 7 },
+    
+    { "name": "LaTex", "path": "/tags/#LaTex", "length": 1 },
+    
+    { "name": "爬虫", "path": "/tags/#爬虫", "length": 3 },
+    
+    { "name": "java", "path": "/tags/#java", "length": 1 },
+    
+    { "name": "spring", "path": "/tags/#spring", "length": 1 },
+    
+    { "name": "数字图像处理", "path": "/tags/#数字图像处理", "length": 2 },
+    
+  ];
+  $("#tagcloud").html(tagcloudHelper(tags));
+});
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#toc.toc-aside').toc({
+    title: "文章目录",
+    showEffect: "none"
+  });
+  $('#toc.toc-article').toc({
+    title: "文章目录",
+    showEffect: "show",
+    showSpeed: 0
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+/*
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      //$('.hoverqrcode').hide();
+  });
+  */
+});
+</script>
+
+
+
+
+
+
+<!--
+
+-->
+
+
+
+
+<link rel="stylesheet" href="/assets/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/assets/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      if ($(this).hasClass('emoji')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/assets/img/scrollup.png"/></a>
+	</div>
+	<script src="/assets/js/totop.js"></script>
+
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
+
