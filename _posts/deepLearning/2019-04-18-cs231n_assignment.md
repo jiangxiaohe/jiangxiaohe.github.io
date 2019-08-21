@@ -42,6 +42,29 @@ description: 课程笔记
 
 * Q1：全连接神经网络（30分）FullyConnectedNets.ipynb
 
+BGD采用整个训练集的数据来计算损失函数对参数的梯度，该方法每次更新对整个数据集计算梯度，遇到大数据集会很慢。
+
+SGD(Stochastic gradient descent) 每次更新时对每个样本进行梯度更新，对于很大的数据集来说，可能会有相似的样本，这样用BGD计算会出现冗余，而SGD一次只进行一次更新，就没有冗余。但是SGD因为更新较快，可能会造成损失函数的震荡。
+
+MBGD(mini-batch gradient descent) 每一次利用一小批样本，这样可以降低参数更新时的方差，
+
+
+[动量梯度下降](https://blog.csdn.net/yinruiyang94/article/details/77944338)
+
+$$
+\begin{array}{l}{v_{d W}=\beta v_{d W}+(1-\beta) d W} \\ {v_{d b}=\beta v_{d b}+(1-\beta) d b} \\ {W=W-\alpha v_{d W}, \quad b=b-\alpha v_{d b}}\end{array}
+$$
+
+这个就是动量梯度下降的参数更新公式。
+我们可以看出，在这个公式中，并不是直接减去αdW和αdb，而是计算出了一个vdW和vdb。这又是什么呢？
+
+在此需要引入一个叫做指数加权平均的知识点。也就是上图中的前两行公式。使用这个公式，可以将之前的dW和db都联系起来，不再是每一次梯度都是独立的情况。其中β是可以自行设置的超参数，一般情况下默认为0.9（也可以设置为其他数值）。β代表了现在的vdW和vdb与之前的1 / (1 - β)个vdW和vdb有关。0.9就是现在的vdW和vdb是平均了之前10天的vdW和vdb的结果。
+
+此时的梯度不再只是我现在的数据的梯度，而是有一定权重的之前的梯度，就我个人认为，就像是把原本的梯度压缩一点，并且补上一个之前就已经存在的“动量”。
+
+[ADagrad](https://blog.csdn.net/w113691/article/details/82631097)
+
+上面提到的方法对于所有参数都使用了同一个更新速率。但是同一个更新速率不一定适合所有参数。比如有的参数可能已经到了仅需要微调的阶段，但又有些参数由于对应样本少等原因，还需要较大幅度的调动。Adagrad就是针对这一问题提出的，自适应地为各个参数分配不同学习率的算法。
 
 * Q2：批量归一化（30分）BatchNormalization.ipynb
 * Q3：随机失活（Dropout）（10分）Dropout.ipynb
