@@ -9,6 +9,12 @@ description: ubuntu完全装机指南，装了多少次机，才知道总结走�
 [TOC]
 
 # 服务器基本配置
+
+* 测试服务器性能
+
+`sudo wget -N --no-check-certificate https://raw.githubusercontent.com/learning2016/Server-evaluation/master/menu.sh && bash menu.sh`
+步骤1是必须执行项,步骤2-8是可选项
+
 * 查看用户信息
 
 `cat /etc/passwd`
