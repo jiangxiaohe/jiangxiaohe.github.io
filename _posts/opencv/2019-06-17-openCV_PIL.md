@@ -3,7 +3,7 @@ layout: post
 title: PIL库和opencv
 tags:
 - openCV
-categories: python-openCV
+categories: opencv
 description:
 ---
 [图像处理库PIL与OpenCV](https://blog.csdn.net/LYKXHTP/article/details/81837951)

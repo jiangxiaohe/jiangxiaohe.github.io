@@ -3,7 +3,7 @@ layout: post
 title: 图像特征-harris、SIFT
 tags:
 - openCV
-categories: python-openCV
+categories: opencv
 description: openCV 进阶操作
 ---
 

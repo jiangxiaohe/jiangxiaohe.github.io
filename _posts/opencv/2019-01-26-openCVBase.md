@@ -3,7 +3,7 @@ layout: post
 title: OpenCV图像基本操作
 tags:
 - openCV
-categories: python-openCV
+categories: opencv
 description: openCV学习过程
 ---
 
