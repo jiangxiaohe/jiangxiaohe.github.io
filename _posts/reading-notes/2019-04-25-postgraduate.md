@@ -2,7 +2,7 @@
 layout: post
 title: 研究生高效指南
 tags:
-categories: deepLearning
+categories: reading-notes
 description: 把握生活，做好规划，即使反思
 ---
 
