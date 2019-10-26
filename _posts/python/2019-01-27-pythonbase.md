@@ -9,7 +9,9 @@ description: python基础语法，重点在于其与C++和Java的区别
 
 [TOC]
 
-# 字符串和格式化输入输出
+# 基本数据结构
+
+## 字符串和格式化输入输出
 
 python中字符串是常量，不可变
 
@@ -55,7 +57,7 @@ Python字符串格式化的两种方式：使用% 、 使用{}
 * b、d、o、x分别是二进制、十进制、八进制、十六进制.
     * '{:b}'.format(17) '10001'
 
-# bytes
+## bytes
 
 python3以后，字符串和bytes彻底分开了。字符串是以字符为单位进行处理的，bytes是以字节为单位进行处理的。bytes数据类型在所有的操作和使用甚至内置方法上都和字符串类型是一样的，也是不可变的序列对象。
 
@@ -67,7 +69,7 @@ bytes转换为str：
 `bs=str(b,encoding="utf8")`
 `sb=bytes(s,encoding="utf8")`
 
-# list
+## list
 
 ```python
 #创建list
@@ -80,7 +82,7 @@ max(list)#列表元素最大值
 list(seq)#将元组转换为列表
 ```
 
-# tuple 元组
+## tuple元组
 
 与list不同的是，tuple一般用()括起来
 
@@ -94,9 +96,7 @@ T=()
 T=(1)
 ```
 
-
-
-# dict
+## dict
 
 创建空dict可以用a={}或a=dict()两种方式
 
@@ -107,7 +107,7 @@ for i in dict:
 #打印出来的是key值
 ```
 
-# set
+## set
 
 * list转set `s = set(mylist)`
 * 添加元素 `s.add(x)` 如果元素已存在，则不进行任何操作
@@ -225,7 +225,7 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 ```
 
 
-## 生成列表for in语句
+## 生成列表`for in`语句
 
 ```python
 # 列出从1到10的平方
@@ -246,6 +246,101 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 >>> [s.lower() for s in L]
 ['hello', 'world', 'ibm', 'apple']
 ```
+
+# 文件操作
+
+## open函数
+python open() 函数用于打开一个文件，创建一个 `file 对象`，相关的方法才可以调用它进行读写。
+
+`open(name[, mode[, buffering]])`
+
+常见的模式如下：
+* r 以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。
+* r+	打开一个文件用于读写。文件指针将会放在文件的开头。
+* w	打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。
+* w+	打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。
+* a	打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。
+* a+	打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。
+
+## with open写法
+
+文件使用完毕后必须关闭，因为文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的。
+
+由于文件读写时都有可能产生IOError，一旦出错，后面的f.close()就不会调用。所以，为了保证无论是否出错都能正确地关闭文件，我们可以使用try ... finally来实现：
+
+```python
+try:
+    f = open('/path/to/file', 'r')
+    print(f.read())
+finally:
+    if f:
+        f.close()
+```
+
+但是每次都这么写实在太繁琐，所以，Python引入了with语句来自动帮我们调用close()方法：
+
+```python
+with open(file_path, 'r') as f:
+    print(f.read())
+```
+
+## OS
+
+* 返回文件夹包含的文件或文件夹的名字的列表
+`os.listdir(path)`
+* 判断文件或者文件夹是否存在
+`os.path.exists(path)`
+* 删除文件
+  * 删除单个文件`os.remove(path)`
+  * 删除空文件夹`os.rmdir(path)`
+
+遍历文件代码示例：
+
+```python
+import os
+import shutil
+src = 'video3'
+dst = 'video_test_10g/video'
+num = -1
+f = open(file,'a')
+for root, dirs, files in os.walk(src, topdown=False):
+    print(len(files))
+    for name in files[:num]:
+        print(name)
+        f.write(name)
+        f.write('\r\n')#只有这样才能换行
+f.close()
+```
+
+很多时候为了方便操作，会将所有文件夹内的文件名存为txt文件，然后直接读取txt文件，这样会获得比os.walk更快的读取速度。更重要的是，获得更便捷的后续操作，比如断点续传。
+
+## shutil
+shutil模块提供了许多关于文件和文件集合的高级操作，特别提供了支持文件复制和删除的功能。
+
+* 递归删除文件和文件夹`import shutil` `shutil.rmtree()`
+* 复制文件`shutil.copyfile( src, dst)`
+* 移动文件或重命名`shutil.move( src, dst)`
+
+```
+def del_dir(path):
+    if os.path.exists(path):
+        shutil.rmtree(path)  
+    os.mkdir(path)
+```
+
+## glob
+
+glob是python自己带的一个文件操作相关模块，用它可以查找符合自己目的的文件，就类似于Windows下的文件搜索，支持通配符操作，`*,?,[]`这三个通配符，`*`代表0个或多个字符，`?`代表一个字符，`[]`匹配指定范围内的字符，如[0-9]匹配数字。
+
+正则表达式匹配示例：
+* `glob.glob('dir/*/*')`
+* `glob.glob('dir/file?.txt')`
+* `glob.glob('dir/*[0-9].*')`
+
+它的主要方法就是glob,该方法返回所有匹配的文件路径列表，该方法需要一个参数用来指定匹配的路径字符串（本字符串可以为绝对路径也可以为相对路径），**其返回的文件名只包括当前目录里的文件名，不包括子文件夹里的文件**。
+
+`glob.glob(r'.csv')`返回当前目录中所有的csv文件，返回是一个列表，是所有的csv文件的路径，如果使用的是相对路径，返回的也是相对路径，如果使用的是绝对路径，那么返回的也是绝对路径。
+
 
 # 类class
 
@@ -269,7 +364,38 @@ g.greet()            # Call an instance method; prints "Hello, Fred"
 g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 ```
 
-# [生成可执行文件](https://blog.csdn.net/woshisangsang/article/details/73230433)
+## 继承
+
+```python
+class Father(object):
+    def __init__(self, name):
+        self.name=name
+        print ( "name: %s" %( self.name))
+    def getName(self):
+        return 'Father ' + self.name
+
+class Son(Father):
+    def __init__(self, name):
+        super(Son, self).__init__(name)
+        print ("hi")
+        self.name =  name
+    def getName(self):
+        return 'Son '+self.name
+
+if __name__=='__main__':
+    son=Son('runoob')
+    print ( son.getName() )
+
+'''
+name: runoob
+hi
+Son runoob
+'''
+```
+
+# 其他
+
+## [生成可执行文件](https://blog.csdn.net/woshisangsang/article/details/73230433)
 
 使用工具pyinstaller `pip install pyinstaller`
 
@@ -295,9 +421,6 @@ g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 在CMD命令行进入Python3.6目录下的Scripts目录并执行：python pywin32_postinstall.py -install
 
 在ubuntu系统上运行该命令，生成的是适合ubuntu系统的可执行文件，在win系统上运行该命令，则生成exe文件。
-
-
-# 其他
 
 ## 函数接受命令行参数
 

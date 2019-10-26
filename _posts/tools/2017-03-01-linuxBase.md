@@ -151,7 +151,7 @@ netstat -tulpen 加上所有选项
 `sudo service sshd stop|start|restart`
 
 # 常用命令
-* 下载文件`wget`+链接
+* 下载文件`wget 链接 -0 newname`
 * find命令
 
 `find pathname -options [-print -exec -ok]`

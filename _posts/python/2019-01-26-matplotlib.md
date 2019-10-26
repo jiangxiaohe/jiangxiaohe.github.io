@@ -93,3 +93,16 @@ for i in range(100):
         lines = ax.plot(x, y, 'r-', lw=1)
         plt.pause(0.1)
 ```
+
+
+
+# [Seaborn的绘图功能](https://blog.csdn.net/kineslave/article/details/82344109)
+
+`import seaborn as sns`
+
+seaborn是matplotlib的高级接口，可以和matplotlib的函数混合使用
+
+* 拟合和绘制回归线或直绘制散点图sns.lmplot()
+* 箱图：sns.boxplot(data=?)
+* 可视化矩阵内容：sns.heatmap(corr) # 这里用corr相关系数矩阵举例
+* 绘制直方图(概率密度)和拟合 sns.distplot()
