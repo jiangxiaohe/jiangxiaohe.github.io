@@ -1,4 +1,6 @@
 git pull
 git add .
-git commit -m "heelo"
+time=$(date "+%Y%m%d-%H%M%S")
+echo ${time}
+git commit -m ${time}
 git push
