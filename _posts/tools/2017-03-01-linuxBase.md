@@ -99,12 +99,15 @@ env                    # 查看环境变量
 	- 压缩：bzip2 -d filename.bz
 	- 解压：bunzip2 filename.bz
 
-* 查看文件大小
-du -h
+* du -h 查看文件大小
+* du -h -d 1只查看一级子目录
 
-* 查看磁盘挂载情况、查看磁盘使用率等
-df -h
-* 查看没有挂载的硬盘是否检测在系统中
+
+* df -h 查看磁盘挂载情况、查看磁盘使用率等
+* mount挂在局域网硬盘
+* 首先应配置nfs服务
+* `sudo mount -t nfs 192.168.1.204:/media/raid0 /home/user/mountdir`这里需要注意第一个目录是远程磁盘目录（如果是任意一个文件夹的话需要配置nfs），后一个是本地文件夹
+
 lsblk
 * 挂载
 	* 创建一个要挂载的目录mkdir /data
@@ -159,6 +162,7 @@ netstat -tulpen 加上所有选项
 * find /etc -name *s* 在目录里面搜索带有s的文件
 * find / -amin -10在系统中搜索最后１０分钟访问的文件
 * find / -atime -2查找在系统中最后４８小时访问的文件
+* fing . -size +10M 查找当前文件夹大于10M的文件
 
 
 * grep命令
@@ -194,6 +198,8 @@ ctrl+c
 `ls -l | grep total`即可查看文件总大小
 
 `ls -l |grep "^-"|wc -l`统计某文件夹下文件的个数
+
+`ls | wc -l`显示文件个数
 
 * wc -l 显示行数
 * head -n 10 显示前10行

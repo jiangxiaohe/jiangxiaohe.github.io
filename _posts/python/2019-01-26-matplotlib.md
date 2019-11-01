@@ -6,9 +6,11 @@ tags:
 categories: python
 description: 学习笔记
 ---
+
 `import matplotlib.plot as plt`
 
-## .plot(x,y)
+* .plot(x,y)绘制折线图
+
 `plt.plot(x,y,format_string,**kwargs)`
 
 x为x轴数据，可为列表或数组；y同理；format_string 为控制曲线的格式字符串，kwargs 第二组或更多的（x, y, format_string）
@@ -21,7 +23,13 @@ format_string: 由 颜色字符、风格字符和标记字符组成。
 
 标记字符：‘.’点标记  ‘o’ 实心圈 ‘v’倒三角  ‘^’上三角
 
-## 坐标和表头
+* `plt.hist(data,bins=10)`绘制直方图
+
+直方图的长方形数目，默认为10
+
+
+* 坐标和表头
+
 pyplot并不默认支持中文显示，需要rcParams修改字体来实现
 
 rcParams的属性：
@@ -54,13 +62,15 @@ plt.title(): 对图形整体增加文本标签
 
 plt.text(): 在任意位置增加文本
 
-## .subplot()
+* .subplot()
+
 plt.subplot(3,2,4) :  分成3行2列，共6个绘图区域，在第4个区域绘图。排序为行优先。也可 plt.subplot(324)，将逗号省略。
 
-## .show()
+* .show()
+
 plot方法之后用show方法显示出来
 
-## .imshow()
+* .imshow()
 
 ```python
 img = cv2.imread('messi5.jpg',0)
