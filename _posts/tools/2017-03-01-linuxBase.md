@@ -154,15 +154,31 @@ netstat -tulpen 加上所有选项
 `sudo service sshd stop|start|restart`
 
 # 常用命令
+
+
 * 下载文件`wget 链接 -0 newname`
 * find命令
 
 `find pathname -options [-print -exec -ok]`
 
-* find /etc -name *s* 在目录里面搜索带有s的文件
-* find / -amin -10在系统中搜索最后１０分钟访问的文件
-* find / -atime -2查找在系统中最后４８小时访问的文件
-* fing . -size +10M 查找当前文件夹大于10M的文件
+find /etc -name *s* 在目录里面搜索带有s的文件
+
+find / -amin -10在系统中搜索最后１０分钟访问的文件
+
+find / -atime -2查找在系统中最后４８小时访问的文件
+
+find . -size +10M 查找当前文件夹大于10M的文件
+
+find -type f 表示只查找文件，d表示查找目录
+
+* `ln [参数][源文件或目录][目标文件或目录]`功能是为某一个文件在另外一个位置建立一个同步的链接。参数前要加-
+	-b 删除，覆盖以前建立的链接
+	-d 允许超级用户制作目录的硬链接
+	-f 强制执行
+	-i 交互模式，文件存在则提示用户是否覆盖
+	-n 把符号链接视为一般目录
+	-s 软链接(符号链接)
+	-v 显示详细的处理过程
 
 
 * grep命令
@@ -207,6 +223,8 @@ ctrl+c
 * xargs -I {} 该命令和管道符连用作为后面命令的指定参数。比如：ls | xargs -I {} scp {} nys@IP
 * 上述命令采用scp需要每复制一个文件都需要输入ssh密码，可以用sshpass解决该问题。
 * `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
+
+
 
 # 文件操作
 
