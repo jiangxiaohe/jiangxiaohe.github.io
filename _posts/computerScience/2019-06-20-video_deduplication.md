@@ -2,7 +2,7 @@
 layout: post
 title: 视频去重
 tags:
-categories: deepLearning
+categories: computerScience
 description: 视频如何去重？
 ---
 

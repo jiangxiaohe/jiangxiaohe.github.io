@@ -2,7 +2,7 @@
 layout: post
 title: 图片去重
 tags:
-categories: deepLearning
+categories: computerScience
 description: 图片如何去重？
 ---
 
