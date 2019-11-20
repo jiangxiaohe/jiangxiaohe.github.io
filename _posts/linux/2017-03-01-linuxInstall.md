@@ -2,7 +2,7 @@
 layout: post
 title: ubuntu装机指南
 tags:
-categories: tools
+categories: linux
 description: ubuntu完全装机指南，装了多少次机，才知道总结走过的坑的重要性
 ---
 

@@ -2,18 +2,85 @@
 layout: post
 title: linux基本操作
 tags:
-categories: tools
+categories: linux
 description: ubuntu完全装机指南，装了多少次机，才知道总结走过的坑的重要性
 ---
 
 [TOC]
 
+# 常用命令
+
+
+* 下载文件`wget 链接 -0 newname`
+* find命令
+
+`find pathname -options [-print -exec -ok]`
+
+find /etc -name *s* 在目录里面搜索带有s的文件
+
+find / -amin -10在系统中搜索最后１０分钟访问的文件
+
+find / -atime -2查找在系统中最后４８小时访问的文件
+
+find . -size +10M 查找当前文件夹大于10M的文件
+
+find -type f 表示只查找文件，d表示查找目录
+
+* `ln [参数][源文件或目录][目标文件或目录]`功能是为某一个文件在另外一个位置建立一个同步的链接。参数前要加-
+	-b 删除，覆盖以前建立的链接
+	-d 允许超级用户制作目录的硬链接
+	-f 强制执行
+	-i 交互模式，文件存在则提示用户是否覆盖
+	-n 把符号链接视为一般目录
+	-s 软链接(符号链接)
+	-v 显示详细的处理过程
+
+
+* grep命令
+
+```
+grep [-acinv] [--color=auto] '搜寻字符串' filename
+选项与参数：
+-a ：将 binary 文件以 text 文件的方式搜寻数据
+-c ：计算找到 '搜寻字符串' 的次数
+-i ：忽略大小写的不同，所以大小写视为相同
+-n ：顺便输出行号
+-v ：反向选择，亦即显示出没有 '搜寻字符串' 内容的那一行！
+--color=auto ：可以将找到的关键词部分加上颜色的显示喔！
+
+将/etc/passwd，有出现 root 的行取出来
+
+# grep root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+或
+# cat /etc/passwd | grep root
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+```
+
+
+* shell强制退出当前命令
+ctrl+c
+
+* 管道符与grep命令连用
+`ls | grep 'ap'`搜索当前文档中含有ap字母的目录或者文档
+
+`ls -l | grep total`即可查看文件总大小
+
+`ls -l |grep "^-"|wc -l`统计某文件夹下文件的个数
+
+`ls | wc -l`显示文件个数
+
+* wc -l 显示行数
+* head -n 10 显示前10行
+* shuf 随机打乱
+* xargs -I {} 该命令和管道符连用作为后面命令的指定参数。比如：ls | xargs -I {} scp {} nys@IP
+* 上述命令采用scp需要每复制一个文件都需要输入ssh密码，可以用sshpass解决该问题。
+* `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
+
+
 # 服务器基本配置
-
-* 测试服务器性能
-
-`sudo wget -N --no-check-certificate https://raw.githubusercontent.com/learning2016/Server-evaluation/master/menu.sh && bash menu.sh`
-步骤1是必须执行项,步骤2-8是可选项
 
 * 查看用户信息
 
@@ -153,76 +220,6 @@ netstat -tulpen 加上所有选项
 
 `sudo service sshd stop|start|restart`
 
-# 常用命令
-
-
-* 下载文件`wget 链接 -0 newname`
-* find命令
-
-`find pathname -options [-print -exec -ok]`
-
-find /etc -name *s* 在目录里面搜索带有s的文件
-
-find / -amin -10在系统中搜索最后１０分钟访问的文件
-
-find / -atime -2查找在系统中最后４８小时访问的文件
-
-find . -size +10M 查找当前文件夹大于10M的文件
-
-find -type f 表示只查找文件，d表示查找目录
-
-* `ln [参数][源文件或目录][目标文件或目录]`功能是为某一个文件在另外一个位置建立一个同步的链接。参数前要加-
-	-b 删除，覆盖以前建立的链接
-	-d 允许超级用户制作目录的硬链接
-	-f 强制执行
-	-i 交互模式，文件存在则提示用户是否覆盖
-	-n 把符号链接视为一般目录
-	-s 软链接(符号链接)
-	-v 显示详细的处理过程
-
-
-* grep命令
-
-```
-grep [-acinv] [--color=auto] '搜寻字符串' filename
-选项与参数：
--a ：将 binary 文件以 text 文件的方式搜寻数据
--c ：计算找到 '搜寻字符串' 的次数
--i ：忽略大小写的不同，所以大小写视为相同
--n ：顺便输出行号
--v ：反向选择，亦即显示出没有 '搜寻字符串' 内容的那一行！
---color=auto ：可以将找到的关键词部分加上颜色的显示喔！
-
-将/etc/passwd，有出现 root 的行取出来
-
-# grep root /etc/passwd
-root:x:0:0:root:/root:/bin/bash
-operator:x:11:0:operator:/root:/sbin/nologin
-或
-# cat /etc/passwd | grep root
-root:x:0:0:root:/root:/bin/bash
-operator:x:11:0:operator:/root:/sbin/nologin
-```
-
-
-* shell强制退出当前命令
-ctrl+c
-
-* 管道符与grep命令连用
-`ls | grep 'ap'`搜索当前文档中含有ap字母的目录或者文档
-
-`ls -l | grep total`即可查看文件总大小
-
-`ls -l |grep "^-"|wc -l`统计某文件夹下文件的个数
-
-`ls | wc -l`显示文件个数
-
-* wc -l 显示行数
-* head -n 10 显示前10行
-* shuf 随机打乱
-* xargs -I {} 该命令和管道符连用作为后面命令的指定参数。比如：ls | xargs -I {} scp {} nys@IP
-* 上述命令采用scp需要每复制一个文件都需要输入ssh密码，可以用sshpass解决该问题。
-* `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
 
 
 
@@ -263,66 +260,3 @@ linux文件系统的最顶端是/，我们称/为Linux的root，也就是 Linux�
 |/root|root|系统管理员(root)的家目录。之所以放在这里，是因为如果进入单人维护模式而仅挂载根目录时，该目录就能够拥有root的家目录，所以我们会希望root的家目录与根目录放置在同一个分区中。|
 
 初始化系统后进入/root目录，`cd ..`返回根目录。
-
-
-
-
-
-# C、C++编译运行
-
-* 用vim创建并保存hello.cpp文件
-* 汇编。`gcc -S -m32 main.c`。.asm和.s:前者是dos和win下常见的源程序扩展名，后者是linux内核源程序中用的扩展名,本质上都是文本文档，没区别。
-* 编译。`gcc -Wall hello.c -o hello`。该命令将文件‘hello.c’中的代码编译为机器码并存储在可执行文件 ‘hello’中。机器码的文件名是通过 -o 选项指定的。该选项通常作为命令行中的最后一个参数。如果被省略，输出文件默认为 ‘a.out’.-Wall 开启编译器几乎所有常用的警告。注意，编译cpp项目时用`g++`
-* 执行。`./hello.out`
-
-命令|解释
--|-
--E | preprocess only
--S | compile only, don't assemble or link
--c | compile and assemble, don't link
--o <file> | place the output into <file>
-
-# gdb
-https://blog.csdn.net/tzshlyt/article/details/53668885
-
-用gdb调试程序前，必须使用gcc的-g或-ggdb选项编译程序
-gcc -g -main.c -o main.o
--m32 生成32位机器的汇编代码；-m64则生成64位机器汇编代码；
--g 用于生成符号表用于gdb调试
-gdb main.o 进入gdb调试环境
-另外两种进入GDB的命令为：
-* gdb -e executable    -c    corefile    -e命令后面跟指定的可执行文件
-* gdb executable -pid process-id （使用命令 'ps -auxw' 可以查看进程的 pid）
-l main 查看main函数
-命令行参数|含义
--|:-:
---exec=file    -e file|指定可执行文件
---core=corefile    -c forefile|制定core文件
---command=file    -x core-file|从制定文件当中读取gdb命令
---diretory=directory    -d directory|把指定目录加入到源文件搜索路径
---cd=directory|以指定目录作为当前路径来运行GDB
---pid=process-id    -p process-id|指定要附属的进程ID
-
-
-调试相关选项|含义
--|-
-* 添加断点|
-b 23 |在第23行添加断点
-b add |在add函数入口添加断点
-info break |查看断点信息
-b * [地址] |在地址处设置断点，比如b * 0x7c00
-* 删除断点|
-delete 1 |删除1号断点
-delete 1-3 |删除1-3号断点
-clear 10 |删除第10行断点
-clear main |删除函数的所有断点
-* 运行程序|
-r |运行程序
-n |下一步（把函数当一条指令直接跳过）
-s |下一步（会执行到函数内部）对于汇编代码，下一条指令用ni或si
-c |运行到下一个断点处
-finish |执行到函数结尾处
-q |退出
-* 查看运行过程中变量的值|
-print/p |打印变量的值
-display/undisplay sum|每次停止显示变量的值/取消跟踪，注意，display+变量名，undisplay+观察号|

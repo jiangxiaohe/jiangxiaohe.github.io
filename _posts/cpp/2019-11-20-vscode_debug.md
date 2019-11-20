@@ -1,0 +1,139 @@
+---
+layout: post
+title: 用vscode调试cpp程序
+tags:
+categories: cpp
+description: 在linux调试c++程序时，用gcc和makelsits可以很好的编程和调试，但是调试时用gdb却不方便，这时，vscode更加方便高效。
+---
+
+安装插件：
+* C/C++
+* C++ Intellisense
+
+# 1. 环境配置
+
+在项目文件夹下,按`ctrl + shift + P`打开vscode控制台（记住此快捷键，以后经常用），输入`C/Cpp: Edit configurations`，就自动生成了一个`c_cpp_properties.json`文件，这样你就可以在该文件中编写参数来调整设置。
+
+c_cpp_properties.json文件主要是设置系统级的大环境，不需要改动。
+
+我这里默认生成的是
+
+```json
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
+```
+
+# 2.编译
+
+配置`tasks.json`文件：按`ctrl + shift + P`打开vscode控制台，输入`Tasks: Configure Tasks`，再选择`Create tasks.json file from templates`，选择`Others`模板，就自动生成了一个`tasks.json`文件，这样你就可以在该文件中编写参数来调整设置。
+
+```json
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "testFrameFusion", //你的设置文件名，可随便起
+            "type": "shell", //运行task的平台，一般是shell
+            "command": "bash ./build.sh", //普通的shell命令，运行你的.sh文件
+            "group": {
+                "kind": "build", //设置为build组，这样当你在vscode中执行build命令时，
+                                 //就能自动执行"command"中的命令了
+                "isDefault": true
+            }
+        }
+    ]
+}
+```
+
+还需要在文件夹外新建`build.sh`文件。
+
+```shell
+#!/bin/bash
+if [ ! -d "build" ]; then
+    mkdir build
+else
+    rm -rf build/*
+fi
+cd build
+Local_Dir=$(cd "$(dirname "$0")"; pwd)
+echo "Now work at Dir:$Local_Dir"
+cmake ..
+make
+```
+
+在CMakeLists.txt文件中需添加：
+`set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g")`
+设置为debug模式。
+
+设置完成后，执行`Tasks: Run Build Task (Ctrl+Shift+B)`,即可按照cmakelists的设置生成可执行文件。
+
+# 3.调试
+
+vscode自带调试模块，直接点击左侧边栏的Debug图标（Ctrl+Shirft+D)，再点上方的齿轮图标configure，就能自动生成`launch.json`文件，该文件主要用来设置 如何调试。
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/testFrameFusion",//只改这里
+            "args": ["/home/user/1118_yl/lib/","/home/user/1118_yl/Libfile/","1e6","17","6"],//当有输入参数存在时，这里也要修改 
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
+```
+
+设置完成后，在调试界面点调试按钮即可。
+
+# 常见的json变量
+
+```json
+${workspaceFolder} - the path of the folder opened in VS Code
+${workspaceRootFolderName} - the name of the folder opened in VS Code without any slashes (/)
+${file} - the current opened file
+${relativeFile} - the current opened file relative to workspaceRoot
+${fileBasename} - the current opened file’s basename
+${fileBasenameNoExtension} - the current opened file’s basename with no file extension
+${fileDirname} - the current opened file’s dirname
+${fileExtname} - the current opened file’s extension
+${cwd} - the task runner’s current working directory on startup
+${lineNumber} - the current selected line number in the active file
+${env:Path} - environment variables reference path
+```
+
+参考：
+* [CSDN/忠烈](https://blog.csdn.net/u010677365/article/details/80703984)

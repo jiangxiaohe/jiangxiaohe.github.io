@@ -2,7 +2,7 @@
 layout: post
 title: linux就该这样学
 tags:
-categories: tools
+categories: linux
 description: 书籍笔记
 ---
 
