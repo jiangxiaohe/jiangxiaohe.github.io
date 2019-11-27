@@ -10,8 +10,16 @@ description: ubuntu完全装机指南，装了多少次机，才知道总结走�
 
 # 常用命令
 
+* module load/unload
+Envrionment modules工具用来快速的设置和修改用户编译运行环境。
+Envrionment modules通过加载和卸载modulefile文件可直接改变用户的环境变量，用户不需要修改.bashrc，从而避免误操作。  
+`module load | add 加载环境变量`
 
-* 下载文件`wget 链接 -0 newname`
+* `module avail` -- 显示系统可用的编译器及库
+* `module list`  显示用户加载的编译器及库
+* `module help` 帮助命令
+
+* 下载文件`wget 链接 -0 filename`
 * find命令
 
 `find pathname -options [-print -exec -ok]`
@@ -108,8 +116,8 @@ ctrl+c
 2. 启动ftp服务`service vsftpd restart`
 3. 查看vsftpd服务是否开启
 4. 用户名密码和主机的用户名密码相同，主机创建的用户和密码均可以登录
-3. 在阿里云控制台设置安全组
-4. 配置文件`vim /etc/vsftpd.conf`
+5. 在阿里云控制台设置安全组
+6. 配置文件`vim /etc/vsftpd.conf`
 
 ```
 anonymous_enable=NO    //将YES修改为NO，禁止匿名登录
