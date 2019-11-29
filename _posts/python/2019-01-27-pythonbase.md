@@ -133,6 +133,19 @@ def quicksort(arr):
     return quicksort(left) + middle + quicksort(right)
 ```
 
+当内部函数有引用外部函数的同名变量或者全局变量,并且对这个变量有修改。
+那么python会认为它是一个局部变量,又因为函数中没有定义和赋值，所以会报错。
+
+解决方法是在函数内部对全局变量增加`global`关键字。
+
+```python
+j = 0
+def f():
+    global j
+    print(j)
+    j=j+1
+```
+
 ## `zip([iterable, ...])`函数
 
 zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的对象，这样做的好处是节约了不少的内存。
