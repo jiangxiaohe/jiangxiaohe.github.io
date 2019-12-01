@@ -8,19 +8,36 @@ description: ubuntu完全装机指南，装了多少次机，才知道总结走�
 
 [TOC]
 
-# 常用命令
+# linux基本操作
 
-* module load/unload
+## 后台命令nohup
+
+nohup 是 `no hang up` 的缩写，就是不挂断的意思。
+
+`nohup command > myout.file 2>&1 &`
+
+在上面的例子中，0 – stdin (standard input)，1 – stdout (standard output)，2 – stderr (standard error).
+2>&1是将标准错误（2）重定向到标准输出（&1），标准输出（&1）再被重定向输入到myout.file文件中。
+
+## sshpass和scp
+
+随机复制文件
+* head -n 10 显示前10行
+* shuf 随机打乱
+* xargs -I {} 该命令和管道符连用作为后面命令的指定参数。比如：ls | xargs -I {} scp {} nys@IP
+* 上述命令采用scp需要每复制一个文件都需要输入ssh密码，可以用sshpass解决该问题。
+* `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
+
+## module load/unload
 Envrionment modules工具用来快速的设置和修改用户编译运行环境。
-Envrionment modules通过加载和卸载modulefile文件可直接改变用户的环境变量，用户不需要修改.bashrc，从而避免误操作。  
+Envrionment modules通过加载和卸载modulefile文件可直接改变用户的环境变量，用户不需要修改.bashrc，从而避免误操作。
 `module load | add 加载环境变量`
 
 * `module avail` -- 显示系统可用的编译器及库
 * `module list`  显示用户加载的编译器及库
 * `module help` 帮助命令
 
-* 下载文件`wget 链接 -0 filename`
-* find命令
+## find命令
 
 `find pathname -options [-print -exec -ok]`
 
@@ -34,6 +51,7 @@ find . -size +10M 查找当前文件夹大于10M的文件
 
 find -type f 表示只查找文件，d表示查找目录
 
+## ln链接命令
 * `ln [参数][源文件或目录][目标文件或目录]`功能是为某一个文件在另外一个位置建立一个同步的链接。参数前要加-
 	-b 删除，覆盖以前建立的链接
 	-d 允许超级用户制作目录的硬链接
@@ -43,8 +61,7 @@ find -type f 表示只查找文件，d表示查找目录
 	-s 软链接(符号链接)
 	-v 显示详细的处理过程
 
-
-* grep命令
+## grep命令
 
 ```
 grep [-acinv] [--color=auto] '搜寻字符串' filename
@@ -68,9 +85,6 @@ operator:x:11:0:operator:/root:/sbin/nologin
 ```
 
 
-* shell强制退出当前命令
-ctrl+c
-
 * 管道符与grep命令连用
 `ls | grep 'ap'`搜索当前文档中含有ap字母的目录或者文档
 
@@ -80,15 +94,96 @@ ctrl+c
 
 `ls | wc -l`显示文件个数
 
-* wc -l 显示行数
-* head -n 10 显示前10行
-* shuf 随机打乱
-* xargs -I {} 该命令和管道符连用作为后面命令的指定参数。比如：ls | xargs -I {} scp {} nys@IP
-* 上述命令采用scp需要每复制一个文件都需要输入ssh密码，可以用sshpass解决该问题。
-* `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
+## 文件操作
 
+|说明|操作|示例|
+|-|-|-|
+|新建文件夹|mkdir [选项] 目录| |
+|列出目录|ls [选项] [目录名]|-l选项列出详细信息 -la查看隐藏文件 ll命令相当于ls -la|
+|切换目录|cd [目录名]| 进入系统根目录 cd / 返回上一级目录cd.. 跳转到指定目录cd /echncms/b（根目录下进入）|
+|删除|rm [选项] 文件|-rf * 删除当前目录下的所有文件,这个命令很危险，应避免使用。 -f 其中的，f参数 （f --force ） 忽略不存在的文件，不显示任何信息。不会提示确认信息。|
+|新建文件|touch 文件||
+|查看“当前工作目录”的完整路径| pwd [选项]| |
+|移动文件或者目录|mv [选项] 源文件或目录 目标文件或目录| |
+|复制文件或者目录|cp [选项]… [-T] 源 目的| |
+|查看文件|cat [选项] [文件]| |
+|编辑文件|cat [选项] [文件]| |
 
-# 服务器基本配置
+## 压缩和解压缩
+
+* tar命令：
+	* 解压：tar -zxvf filename.tar
+	* 打包：tar -czvf filename.tar dirname
+	* 对于.tar.gz文件同样用上述命令
+	* 注意，在linux上用tar压缩文件后，在win系统上也必须用tar命令解压，用winrar不可以
+	* 有时候报错用命令`tar -xvf filename.tar`
+
+* gz命令：
+	* 解压1：gunzip FileName.gz
+	* 解压2：gzip -d FileName.gz
+
+* zip命令
+	- 压缩：zip -r xxx.zip /home/user/fold
+	- 解压：unzip -d /home/user/fold myfile.zip
+
+* bz2命令
+	- 压缩：bzip2 -d filename.bz
+	- 解压：bunzip2 filename.bz
+
+## 磁盘设置
+
+lsblk
+* 挂载
+	* 创建一个要挂载的目录mkdir /data
+	* 把格式化后的卷mount到目录/data：mount /dev/nvmeOn1 /data
+	* 使用df -h检查是否正常
+	* 到/etc/fstab下配置挂载信息，添加一条记录，如果有的话复制并修改即可
+	* 添加完毕以后可以试一下fstab文件是否正常运行mount -a
+
+* df -h 查看磁盘挂载情况、查看磁盘使用率等
+* mount挂在局域网硬盘
+* 首先应配置nfs服务
+* `sudo mount -t nfs 192.168.1.204:/media/raid0 /home/user/mountdir`这里需要注意第一个目录是远程磁盘目录（如果是任意一个文件夹的话需要配置nfs），后一个是本地文件夹
+
+* du -h 查看文件大小
+* du -h -d 1只查看一级子目录
+
+## 下载
+
+`wget 路径`下载到当前文件夹
+
+## 系统
+
+* 查看系统信息
+
+```shell
+uname -a              # 查看内核/操作系统/CPU信息
+cat /etc/issue        # 查看操作系统版本
+cat /proc/version      #包含GCC的版本信息
+cat /proc/cpuinf     # 查看CPU信息
+hostname             # 查看计算机名
+lspci -tv             # 列出所有PCI设备
+lsusb -tv             # 列出所有USB设备
+lsmod                 # 列出加载的内核模块
+env                    # 查看环境变量
+```
+
+* 查看本机所有开启的服务
+`service --status-all`查看本机所有开启的服务
+
+`sudo service sshd stop|start|restart`
+
+* `lscpu`查看cpu信息
+	* CPU(s)显示了当前电脑的CPU为四核CPU
+	* Model name显示处理器为Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz
+	* 也显示了L1、L2、L3内存大小
+
+* `free -m`显示内存信息
+	* men指物理内存，total列下对应物理内存大小为7892MB，即8G
+	* used指已占用内存，available指目前可用内存大小
+	* swap值分区代销
+
+## 用户配置
 
 * 查看用户信息
 
@@ -110,100 +205,7 @@ ctrl+c
 
 `sudo userdel -r nys`包括删除相应文件夹
 
-* 配置ftp服务
-
-1. 服务器安装vsftpd。`apt-get install`
-2. 启动ftp服务`service vsftpd restart`
-3. 查看vsftpd服务是否开启
-4. 用户名密码和主机的用户名密码相同，主机创建的用户和密码均可以登录
-5. 在阿里云控制台设置安全组
-6. 配置文件`vim /etc/vsftpd.conf`
-
-```
-anonymous_enable=NO    //将YES修改为NO，禁止匿名登录
-tcp_wrappers=YES
-ascii_upload_enable=YES
-ascii_download_enable=YES
-write_enable=YES
-```
-
-* 查看系统信息
-
-```
-uname -a              # 查看内核/操作系统/CPU信息
-cat /etc/issue        # 查看操作系统版本
-cat /proc/version      #包含GCC的版本信息
-cat /proc/cpuinf     # 查看CPU信息
-hostname             # 查看计算机名
-lspci -tv             # 列出所有PCI设备
-lsusb -tv             # 列出所有USB设备
-lsmod                 # 列出加载的内核模块
-env                    # 查看环境变量
-```
-
-* `lscpu`查看cpu信息
-	* CPU(s)显示了当前电脑的CPU为四核CPU
-	* Model name显示处理器为Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz
-	* 也显示了L1、L2、L3内存大小
-
-* `free -m`显示内存信息
-	* men指物理内存，total列下对应物理内存大小为7892MB，即8G
-	* used指已占用内存，available指目前可用内存大小
-	* swap值分区代销
-
-* 下载文件
-	- `wget 路径`下载到当前文件夹
-
-* 压缩和解压缩
-
-* tar命令：
-	* 解压：tar zxvf filename.tar
-	* 打包：tar czvf filename.tar dirname
-	* 对于.tar.gz文件同样用上述命令
-	* 注意，在linux上用tar压缩文件后，在win系统上也必须用tar命令解压，用winrar不可以
-
-* gz命令：
-	* 解压1：gunzip FileName.gz
-	* 解压2：gzip -d FileName.gz
-
-* zip命令
-	- 压缩：zip -r xxx.zip /home/user/fold
-	- 解压：unzip -d /home/user/fold myfile.zip
-
-* bz2命令
-	- 压缩：bzip2 -d filename.bz
-	- 解压：bunzip2 filename.bz
-
-* du -h 查看文件大小
-* du -h -d 1只查看一级子目录
-
-
-* df -h 查看磁盘挂载情况、查看磁盘使用率等
-* mount挂在局域网硬盘
-* 首先应配置nfs服务
-* `sudo mount -t nfs 192.168.1.204:/media/raid0 /home/user/mountdir`这里需要注意第一个目录是远程磁盘目录（如果是任意一个文件夹的话需要配置nfs），后一个是本地文件夹
-
-lsblk
-* 挂载
-	* 创建一个要挂载的目录mkdir /data
-	* 把格式化后的卷mount到目录/data：mount /dev/nvmeOn1 /data
-	* 使用df -h检查是否正常
-	* 到/etc/fstab下配置挂载信息，添加一条记录，如果有的话复制并修改即可
-	* 添加完毕以后可以试一下fstab文件是否正常运行mount -a
-
-
-
-* ufw防火墙配置
-
-iptables可以灵活的定义防火墙规则， 功能非常强大。但是由此产生的副作用便是配置过于复杂。一向以简单易用著称Ubuntu在它的发行版中，附带了一个相对iptables简单很多的防火墙 配置工具：ufw。
-
-```
-ufw enable	开启防火墙
-ufw allow 80 允许端口通过防火墙
-ufw allow 22
-ufw statues 查看防火墙状态
-ufw disable 关闭防火墙
-```
+## 防火墙
 
 * netstat命令查看本机端口连接情况
 
@@ -223,31 +225,40 @@ netstat -tulpen 加上所有选项
 * `LISTEN`：侦听来自远方的TCP端口的连接请求.FTP服务启动后首先处于侦听（LISTENING）状态。
 * `ESTABLISHED`：代表一个打开的连接.ESTABLISHED的意思是建立连接。表示两台机器正在通信。
 
-* 查看本机所有开启的服务
-`service --status-all`查看本机所有开启的服务
+* ufw防火墙配置
 
-`sudo service sshd stop|start|restart`
+iptables可以灵活的定义防火墙规则， 功能非常强大。但是由此产生的副作用便是配置过于复杂。一向以简单易用著称Ubuntu在它的发行版中，附带了一个相对iptables简单很多的防火墙 配置工具：ufw。
+
+```
+ufw enable	开启防火墙
+ufw allow 80 允许端口通过防火墙
+ufw allow 22
+ufw statues 查看防火墙状态
+ufw disable 关闭防火墙
+```
 
 
+## 配置ftp服务
+
+1. 服务器安装vsftpd。`apt-get install`
+2. 启动ftp服务`service vsftpd restart`
+3. 查看vsftpd服务是否开启
+4. 用户名密码和主机的用户名密码相同，主机创建的用户和密码均可以登录
+5. 在阿里云控制台设置安全组
+6. 配置文件`vim /etc/vsftpd.conf`
+
+```
+anonymous_enable=NO    //将YES修改为NO，禁止匿名登录
+tcp_wrappers=YES
+ascii_upload_enable=YES
+ascii_download_enable=YES
+write_enable=YES
+```
 
 
-# 文件操作
+# 系统知识
 
-
-|说明|操作|示例|
-|-|-|-|
-|新建文件夹|mkdir [选项] 目录| |
-|列出目录|ls [选项] [目录名]|-l选项列出详细信息 -la查看隐藏文件 ll命令相当于ls -la|
-|切换目录|cd [目录名]| 进入系统根目录 cd / 返回上一级目录cd.. 跳转到指定目录cd /echncms/b（根目录下进入）|
-|删除|rm [选项] 文件|-rf * 删除当前目录下的所有文件,这个命令很危险，应避免使用。 -f 其中的，f参数 （f --force ） 忽略不存在的文件，不显示任何信息。不会提示确认信息。|
-|新建文件|touch 文件||
-|查看“当前工作目录”的完整路径| pwd [选项]| |
-|移动文件或者目录|mv [选项] 源文件或目录 目标文件或目录| |
-|复制文件或者目录|cp [选项]… [-T] 源 目的| |
-|查看文件|cat [选项] [文件]| |
-|编辑文件|cat [选项] [文件]| |
-
-# 系统目录结构
+## 系统目录结构
 [reference](https://www.cnblogs.com/silence-hust/p/4319415.html)
 
 了解Linux文件系统的目录结构，是学好Linux的至关重要的一步.，深入了解linux文件目录结构的标准和每个目录的详细功能，对于我们用好linux系统至关重要。
