@@ -19,6 +19,8 @@ nohup 是 `no hang up` 的缩写，就是不挂断的意思。
 在上面的例子中，0 – stdin (standard input)，1 – stdout (standard output)，2 – stderr (standard error).
 2>&1是将标准错误（2）重定向到标准输出（&1），标准输出（&1）再被重定向输入到myout.file文件中。
 
+用`jobs`命令可以查看后台运行的进程。
+
 ## sshpass和scp
 
 随机复制文件
