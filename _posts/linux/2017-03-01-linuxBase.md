@@ -114,7 +114,7 @@ operator:x:11:0:operator:/root:/sbin/nologin
 ## 压缩和解压缩
 
 * tar命令：
-	* 解压：tar -zxvf filename.tar
+	* 解压：tar -zxvf filename.tar -C 指定目录
 	* 打包：tar -czvf filename.tar dirname
 	* 对于.tar.gz文件同样用上述命令
 	* 注意，在linux上用tar压缩文件后，在win系统上也必须用tar命令解压，用winrar不可以
