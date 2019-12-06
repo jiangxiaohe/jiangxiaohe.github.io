@@ -79,6 +79,22 @@ plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
 plt.show()
 ```
 
+# subplot子图绘制
+
+```python
+num_epoch = 0
+fig = plt.figure(figsize=(10,10))
+for k in range(5*5):
+    # i = k // 5
+    # j = k % 5
+    plt.subplot(5,5,k+1)
+    plt.axis('off')
+    plt.imshow(imgs[k][0], cmap='gray')
+fig.show()
+label = 'Epoch {}'.format(num_epoch)
+fig.text(0.5, 0.04, label, ha='center')
+fig.savefig('{}.png'.format(num_epoch))
+```
 # 显示动图
 
 ```python
