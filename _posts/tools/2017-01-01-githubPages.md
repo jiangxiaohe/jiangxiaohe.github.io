@@ -33,13 +33,26 @@ A   @   默认  a.b.c.d     --  10分钟        修改|暂停|删除|备注
 A   www 默认  a.b.c.d     --  10分钟        修改|暂停|删除|备注
 ```
 
-等一段时间执行，便可在浏览器执行www.xxx.com和xxx.com进行访问了。
+等一段时间执行，便可在浏览器执行`www.niyunsheng.top`和`niyunsheng.top`进行访问了。
+
+在cname文件里设置域名为`niyunsheng.top`
+
+这是，网站的访问域名就是`http://niyunsheng.top`
+
+> Chrome会强制将http重定向到https，就算是在浏览器手动输入http://xxx也不可以。
+解决方案：
+1. 在chrome的地址栏输入chrome://net-internals/#hsts，在Query HSTS/PKP domain中查询指定的域是否有HSTS记录，如果存在，在Delete domain security policies中删除该域即可。
+2. 如果完成第一步后仍不能访问，可以尝试清除浏览器缓存。
 
 
 # 设置全站cdn加速
 
+CDN(Content Delivery Network)内容发布网络，基本思路就是将你网站放置在各地节点服务器，用户访问时找最近的节点服务器获取数据，达到加速的目的。
+
 七牛上创建一个融合云CDN服务
-PS:使用七牛融合云CDN是因为七牛每个月都有10GB的免费流量.
+PS:使用七牛融合云CDN是因为七牛对于http流量每个月都有10GB的免费流量.
+
+
 
 # 配置七牛云图床
 
