@@ -37,7 +37,7 @@ A   www 默认  a.b.c.d     --  10分钟        修改|暂停|删除|备注
 
 在cname文件里设置域名为`niyunsheng.top`
 
-这是，网站的访问域名就是`http://niyunsheng.top`
+这是，网站的访问域名就是`https://niyunsheng.top`
 
 > Chrome会强制将http重定向到https，就算是在浏览器手动输入http://xxx也不可以。
 解决方案：
