@@ -6,7 +6,60 @@ categories: tools
 description: 本站搭建过程指南.jekyll模板安装调试以及遇到的问题
 ---
 
-# 1. 安装ruby.
+# 创建GitHub pages:jekyll模版
+
+找到一个模版，然后fork到自己的github，修改名字为`name.github.io`即可。
+
+
+# 阿里云域名解析
+
+
+选择[云解析dns]，可以看到审核通过的域名xxx.com，选择解析。增加下面两条数据：
+
+方法一：cname方式
+
+```
+记录类型    主机记录    解析线路(运营商)   记录值 MX优先级   TTL 状态  操作
+CNAME   @   默认  xx.github.io    --  10分钟        修改|暂停|删除|备注
+CNAME   www 默认  xx.github.io    --  10分钟        修改|暂停|删除|备注
+```
+
+方法二:ip地址方式
+在终端执行ping xx.github.io指令，获取ip地址a.b.c.d
+
+```
+记录类型    主机记录    解析线路(运营商)   记录值 MX优先级   TTL 状态  操作
+A   @   默认  a.b.c.d     --  10分钟        修改|暂停|删除|备注
+A   www 默认  a.b.c.d     --  10分钟        修改|暂停|删除|备注
+```
+
+等一段时间执行，便可在浏览器执行www.xxx.com和xxx.com进行访问了。
+
+
+# 设置全站cdn加速
+
+七牛上创建一个融合云CDN服务
+PS:使用七牛融合云CDN是因为七牛每个月都有10GB的免费流量.
+
+# 配置七牛云图床
+
+
+# 模版常见问题
+
+## 更改post文件后刷新浏览器，页面样式错乱
+
+找到该文件`jekyll-jacman/_includes/_partial/head.html`,将 `<link rel="stylesheet" href="{{ site.baseurl }}{{ site.assets }}/css/style.css" type="text/css"> `中的`style.css`修改为`main.css`，同时修改对应位置的文件名称即可
+
+## 可以在github pages内存储图片，但无法设置链接
+
+应该用HTML格式的图片链接，在io库下建文件夹resource，然后将链接图片放入，采用链接格式为`<img src="{{ site.baseurl }}/resource/javaio.png">`,其中`{{ site.baseurl }}`是系统参数
+
+## 如何在一个页面内设置到另一个页面的链接
+
+<img src="{{ site.baseurl }}/resource/decorator.jpg">
+
+# 在本地部署jekyll编译服务器
+1. 安装ruby.
 
 确保已安装`Ruby 2.1.0` 或更高版本：
 
@@ -32,13 +85,13 @@ win系统下一定要选择ruby with devkit。
 > 我们现在的目标是要集成make+gcc+gdb的一条编译工具。
 [windows搭建gcc开发环境(msys2)](https://blog.csdn.net/qiuzhiqian1990/article/details/56671839)
 
-# 2. gem换源
+2. gem换源
 
 `gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/`
 
 `gem sources -l`
 
-# 3. 安装jekyll
+3. 安装jekyll
 
 `gem install jekyll`
 
@@ -58,7 +111,7 @@ cd jekyll-jacman
 
 运行Jekyll：`bundle exec jekyll server`
 
-# 5. 部署本地服务
+4. 部署本地服务
 
 进去到clone的username.github.io/ 目录下， 使用命令.$ `jekyll server --watch`
 出现问题`Prepending `bundle exec` to your command may solve this`.时，此时只需执行” `bundle exec jekyll serve` “去启动服务器即可解决。
@@ -69,14 +122,4 @@ cd jekyll-jacman
 
 [如何快速搭建自己的github.io博客](https://blog.csdn.net/walkerhau/article/details/77394659?utm_source=debugrun&utm_medium=referral)
 
-# 模板常见问题
 
-## 更改post文件后刷新浏览器，页面样式错乱
-
-找到该文件`jekyll-jacman/_includes/_partial/head.html`,将 `<link rel="stylesheet" href="{{ site.baseurl }}{{ site.assets }}/css/style.css" type="text/css"> `中的`style.css`修改为`main.css`，同时修改对应位置的文件名称即可
-
-## 可以在github pages内存储图片，但无法设置链接
-
-应该用HTML格式的图片链接，在io库下建文件夹resource，然后将链接图片放入，采用链接格式为`<img src="{{ site.baseurl }}/resource/javaio.png">`,其中`{{ site.baseurl }}`是系统参数
-
-## 如何在一个页面内设置到另一个页面的链接
