@@ -172,3 +172,5 @@ simple_jekyll_search:
 ##gems:
 plugins:
  - jemoji
+
+theme: jekyll-theme-minimal
