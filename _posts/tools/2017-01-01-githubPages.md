@@ -57,6 +57,21 @@ CDN(Content Delivery Network)内容发布网络，基本思路就是将你网站
 腾讯云上创建一个CDN服务
 虽然七牛融合云CDN对于http流量每个月都有10GB的免费流量，但是网站默认是https，而且本网站流量不多，也不需要费流量。
 
+## 配置信息：
+
+腾讯cdn  
+* 域名:blog.niyunsheng.top
+* CNAME:自动生成
+* 源站信息：jiangxiaohe.github.io
+* 回源配置：blog.niyunsheng.top
+
+github
+* github上的cname设置为：blog.niyunsheng.top
+
+阿里云域名解析
+* 配置一条即可：`blog CNAME blog.niyunsheng.top.cdn.dnsv1.com`
+
+## 配置https
 
 
 # 配置七牛云图床
