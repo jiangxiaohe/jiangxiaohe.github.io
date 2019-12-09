@@ -66,12 +66,20 @@ CDN(Content Delivery Network)内容发布网络，基本思路就是将你网站
 * 回源配置：blog.niyunsheng.top
 
 github
-* github上的cname设置为：blog.niyunsheng.top
+* github上的cname不设置任何内容
 
 阿里云域名解析
 * 配置一条即可：`blog CNAME blog.niyunsheng.top.cdn.dnsv1.com`
 
 ## 配置https
+
+* 在腾讯云上申请免费ssl证书TrustAsia TLS RSA CA(1年)。
+* 申请完毕后在证书管理中配置证书，选择腾讯云托管证书，回源协议选择https，
+* 在域名管理的高级配置中，选择强制跳转HTTPS。
+
+查询全国访问速度：https://ping.chinaz.com/
+
+
 
 
 # 配置七牛云图床
