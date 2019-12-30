@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 图数据库
+title: 图数据库neo4j
 tags:
 categories: database
 description: 
@@ -14,8 +14,6 @@ description:
 当我们要查询：“用户购买了那些商品？” 或者 “该商品有哪些客户购买过？” 需要开发人员JOIN几张表，效率非常低下。
 
 而“购买该产品的客户还购买了哪些商品？”类似的查询几乎不可能实现。
-
-# 图数据库neo4j
 
 neo4j社区版开源，非商用免费，商业版支持HA集群，并不是完全分布式，使用最广最流行.
 
@@ -35,8 +33,9 @@ neo4j社区版开源，非商用免费，商业版支持HA集群，并不是完�
 2. 修改配置文件`conf/neo4j.conf`，找到#dbms.connectors.default_listen_address=0.0.0.0，将注释去掉（该操作为允许http接口远程访问neo4j服务器）
 3. 进入bin目录，启动服务`./neo4j start`
    1. 可以看到neo4j已经启动（pid 28224）， It is available at http://0.0.0.0:7474/
-   2. 在网页进入该端口，初始用户名密码均为neo4j，进入后修改密码
-   3. 这时候可在`localhost:7474`访问，也可在局域网访问
+   2. 默认的host是bolt://localhost:7687，如果远程访问，需要打开7474和7687两个端口。
+   3. 在网页进入该端口，初始用户名密码均为neo4j，进入后修改密码
+   4. 这时候可在`localhost:7474`访问，也可在局域网访问
 4. 也可以将这些命令添加到用户环境变量，在`.bashrc`文件后添加如下代码`export PATH=/usr/local/neo4j/bin:$PATH`，然后`source`一下即可。
 
 ## 探索样本数据集

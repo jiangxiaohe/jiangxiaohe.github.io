@@ -56,3 +56,7 @@ labels是标准答案，predictions是程式对样本的预测。
 
 # 添加图表
 pyplot的图表想要记录，需要用add_figure.
+
+# 可视化
+
+在命令行启动可视化界面`tensorboard --logdir runs`
