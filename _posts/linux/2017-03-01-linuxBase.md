@@ -173,8 +173,9 @@ lsblk
 
 * df -h 查看磁盘挂载情况、查看磁盘使用率等
 * mount挂在局域网硬盘
-* 首先应配置nfs服务
-* `sudo mount -t nfs 192.168.1.204:/media/raid0 /home/user/mountdir`这里需要注意第一个目录是远程磁盘目录（如果是任意一个文件夹的话需要配置nfs），后一个是本地文件夹
+  * 首先应配置nfs服务
+  * 客户端安装`sudo apt install nfs-common`
+  * `sudo mount -t nfs 192.168.1.204:/media/raid0 /home/user/mountdir`这里需要注意第一个目录是远程磁盘目录（如果是任意一个文件夹的话需要配置nfs），后一个是本地文件夹
 
 * du -h 查看文件大小
 * du -h -d 1只查看一级子目录
