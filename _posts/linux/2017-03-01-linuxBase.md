@@ -10,6 +10,34 @@ description: ubuntu完全装机指南，装了多少次机，才知道总结走�
 
 # linux基本操作
 
+## 硬连接和软连接的设置
+
+filename->inode->datablock
+
+文件名和inode属于元数据（文件的附加属性，如文件大小、创建时间、所有者等信息），数据库存储了文件的真实内容。inode号（即索引节点号）才是文件的唯一标识而非文件名。
+
+为解决文件的共享使用，linux引入了硬链接和软链接。若一个inode号对应多个文件名，则称这些文件为硬链接。换言之，硬链接就是同一个文件使用了多个别名。硬链接可由命令 link 或 ln 创建。比如为test文件创建硬链接test2.`ln test test2`
+
+用`stat filename`可以查看文件的inode号。可以看到，硬连接后的文件和原文件的inode号一样，修改一个文件内容（即修改datablock的内容），另一个也会改变，因为这两者本质上就是一个文件（inode相同，存储在同样的datablock中）。设置完硬链接后，哪个是原始文件，哪个是链接文件是无法区分的（即使按照时间戳也不行）。
+
+硬链接不能对目录创建。硬连接和普通目录没有区别。如果一个子目录硬连接到其父母，则会形成一个循环，du命令会陷入死循环当中。
+
+而对于软链接（符号链接），du命令可以监测到并且跳过，不会形成循环。
+
+硬链接和原文件共享inode，软链接则有自己的inode号和datablock，其datablock中存储着链接到的文件的文件名。
+
+![softlink](https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/image002.jpg)
+
+当然软链接的用户数据也可以是另一个软链接的路径，其解析过程是递归的。但需注意：软链接创建时原文件的路径指向使用绝对路径较好。
+
+硬链接如果删除一个链接文件，并不影响其他相同的inode的文件，软链接原文件被删除后，该软链接成为死链接。若被指向路径文件被重新创建，死链接可恢复为正常的软链接。（这里可以看出来，软连接的datablock中存储的是路径信息和文件名，所以建议用绝对路径，相对路径的话移动会导致错误。）
+
+操作总结：
+* 给文件创建硬链接：`ln old new`
+* 给文件创建软链接：`ln -s old new`
+* 给目录创建软链接：`ln -s old new`，注意，最后不要加斜杠
+* 特别要注意的是，这里的new都是事先不存在的。
+
 ## 后台命令nohup
 
 nohup 是 `no hang up` 的缩写，就是不挂断的意思。
@@ -31,6 +59,7 @@ nohup 是 `no hang up` 的缩写，就是不挂断的意思。
 * `ls| shuf | head -n 10000 | xargs -I {} sshpass -p "password" scp {} nys@IP`
 
 ## module load/unload
+
 Envrionment modules工具用来快速的设置和修改用户编译运行环境。
 Envrionment modules通过加载和卸载modulefile文件可直接改变用户的环境变量，用户不需要修改.bashrc，从而避免误操作。
 `module load | add 加载环境变量`
