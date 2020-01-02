@@ -17,6 +17,8 @@ description:
 
 neo4j社区版开源，非商用免费，商业版支持HA集群，并不是完全分布式，使用最广最流行.
 
+[官方文档](http://neo4j.com.cn/public/docs/)
+
 ## 下载安装
 
 安装neo4j前需要配置java jdk。用
