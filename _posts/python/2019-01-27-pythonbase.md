@@ -146,6 +146,211 @@ def f():
     j=j+1
 ```
 
+## 内置函数
+
+* `divmod(a, b)`函数把除数和余数运算结果结合起来，返回一个包含商和余数的元组(a // b, a % b)
+* `abs()` 函数返回数字的绝对值
+* `input()`Python3.x 中 input() 函数接受一个标准输入数据，返回为 string 类型。
+* `open(name[, mode[, buffering]])`用于打开一个文件，创建一个 file 对象，相关的方法才可以调用它进行读写。
+* `all()`用于判断给定的可迭代参数 iterable 中的所有元素是否都为 TRUE，如果是返回 True，否则返回 False。元素除了是 0、空、None、False 外都算 True。
+* `any()`函数用于判断给定的可迭代参数 iterable 是否全部为 False，则返回 False，如果有一个为 True，则返回 True。
+* `eval()`用来执行一个字符串表达式，并返回表达式的值。
+* `ord() `是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。
+* `chr()` 用一个范围在 range（256）内的（就是0～255）整数作参数，返回一个对应的字符。
+* `pow(x,y)` 返回（x的y次方） 的值。
+* `sum(iterable[, start])`iterable -- 可迭代对象，如：列表、元组、集合.start -- 指定相加的参数，如果没有设置这个值，默认为0。
+* `execfile(filename[, globals[, locals]])`可以用来执行一个文件。
+* `issubclass(class, classinfo)` 方法用于判断参数 class 是否是类型参数 classinfo 的子类。
+* `super()` 函数是用于调用父类(超类)的一个方法。
+* `bin()` 返回一个整数 int 或者长整数 long int 的二进制表示。
+* `round()` 方法返回浮点数x的四舍五入值。
+* `file()` 函数用于创建一个 file 对象，它有一个别名叫 `open()`，更形象一些，它们是内置函数。参数是以字符串的形式传递的。
+* `iter()` 函数用来生成迭代器。
+* `tuple()` 函数将列表转换为元组
+* `bool()` 函数用于将给定参数转换为布尔类型
+* `len()` 方法返回对象（字符、列表、元组等）长度或项目个数。
+* `range(start, stop[, step])` 函数可创建一个整数列表，一般用在 for 循环中。默认是从 0 开始。例如range（5）等价于range（0， 5）
+* `callable(object)`函数用于检查一个对象是否是可调用的。如果返回 True，object 仍然可能调用失败；但如果返回 False，调用对象 object 绝对不会成功。对于函数、方法、lambda 函式、 类以及实现了 __call__ 方法的类实例, 它都返回 True。
+* `locals()` 函数会以字典类型返回当前位置的全部局部变量。
+* `class frozenset([iterable])`返回一个冻结的集合，冻结后集合不能再添加或删除任何元素。
+* `reload()` 用于重新载入之前载入的模块。比如`reload(sys)`
+* `vars()` 函数返回对象object的属性和属性值的字典对象。
+* `getattr(object, name[, default])` 函数用于返回一个对象属性值.
+* `hasattr(object, name)`用于判断对象是否包含对应的属性。
+* `delattr(object, name)`函数用于删除属性。
+* `setattr(object, name, value)`用于设置属性值，该属性不一定是存在的。
+* `cmp(x,y)` 函数用于比较2个对象，如果 x < y 返回 -1, 如果 x == y 返回 0, 如果 x > y 返回 1。
+* `reverse()` 函数用于反向列表中元素。调用`aList.reverse()`.`delattr(x, 'foobar')` 相等于 `del x.foobar`。
+* `class complex([real[, imag]])`函数用于创建一个值为 real + imag * j 的复数或者转化一个字符串或数为复数。如果第一个参数为字符串，则不需要指定第二个参数。比如`complex("1+2j")`，`complex(1, 2)`
+* `hex()` 函数用于将10进制整数转换成16进制，以字符串形式表示。
+* `next()` 返回迭代器的下一个项目。
+* `help()` 函数用于查看函数或模块用途的详细说明。
+
+
+
+
+
+* `bytearray()` 方法返回一个新字节数组。这个数组里的元素是可变的，并且每个元素的值范围: 0 <= x < 256。
+* `property()` 函数的作用是在新式类中返回属性值。
+
+## `hash()`
+
+用于获取取一个对象（字符串或者数值等）的哈希值。相同字符串在同一次运行时的哈希值是相同的，但是不同次运行的哈希值不同。这是由于Python的字符串hash算法有一个启动时随机生成secret prefix/suffix的机制，存在随机化现象：对同一个字符串输入，不同解释器进程得到的hash结果可能不同。因此当需要做可重现可跨进程保持一致性的hash，需要用到hashlib模块。
+
+## `memoryview() `
+
+返回给定参数的内存查看对象(Momory view)。
+
+所谓内存查看对象，是指对支持缓冲区协议的数据进行包装，在不需要复制对象基础上允许Python代码访问。
+
+```python
+>>>v = memoryview(bytearray("abcefg", 'utf-8'))
+>>> print(v[1])
+98
+>>> print(v[-1])
+103
+>>> print(v[1:4])
+<memory at 0x10f543a08>
+>>> print(v[1:4].tobytes())
+b'bce'
+```
+
+## `getattr(object, name[, default])`
+
+返回一个对象属性值
+
+```python
+class A(object):
+...     bar = 1
+... 
+>>> a = A()
+>>> getattr(a, 'bar')        # 获取属性 bar 值
+1
+>>> getattr(a, 'bar2')       # 属性 bar2 不存在，触发异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'A' object has no attribute 'bar2'
+>>> getattr(a, 'bar2', 3)    # 属性 bar2 不存在，但设置了默认值
+3
+```
+
+## `reduce(function, iterable[, initializer])`
+
+function -- 函数，有两个参数.
+iterable -- 可迭代对象.
+initializer -- 可选，初始参数.
+
+会对参数序列中元素进行累积。
+
+函数将一个数据集合（链表，元组等）中的所有数据进行下列操作：用传给 reduce 中的函数 function（有两个参数）先对集合中的第 1、2 个元素进行操作，得到的结果再与第三个数据用 function 函数运算，最后得到一个结果。
+
+```python
+def add(x, y) :            # 两数相加
+    return x + y
+ 
+>>> reduce(add, [1,2,3,4,5])   # 计算列表和：1+2+3+4+5
+15
+>>> reduce(lambda x, y: x+y, [1,2,3,4,5])  # 使用 lambda 匿名函数
+15
+```
+
+## `filter(function, iterable)`
+
+用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表。
+
+该接收两个参数，第一个为函数，第二个为序列，序列的每个元素作为参数传递给函数进行判断，然后返回 True 或 False，最后将返回 True 的元素放到新列表中。
+
+```python
+# 过滤出列表中的所有奇数
+def is_odd(n):
+    return n % 2 == 1
+ 
+newlist = filter(is_odd, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+print(newlist)
+
+# 过滤出1~100中平方根是整数的数
+import math
+def is_sqr(x):
+    return math.sqrt(x) % 1 == 0
+ 
+newlist = filter(is_sqr, range(1, 101))
+print(newlist)
+```
+
+
+## `isinstance()`
+
+isinstance() 函数来判断一个对象是否是一个已知的类型，类似 type()
+
+isinstance() 与 type() 区别：
+* type() 不会认为子类是一种父类类型，不考虑继承关系。
+* isinstance() 会认为子类是一种父类类型，考虑继承关系。
+
+如果要判断两个类型是否相同推荐使用 isinstance()。
+
+```python
+class A:
+    pass
+ 
+class B(A):
+    pass
+ 
+isinstance(A(), A)    # returns True
+type(A()) == A        # returns True
+isinstance(B(), A)    # returns True
+type(B()) == A        # returns False
+```
+
+## `staticmethod()`
+
+返回函数的静态方法，用@不需要写在函数前。
+
+```python
+class C(object):
+    @staticmethod
+    def f():
+        print('runoob');
+ 
+C.f();          # 静态方法无需实例化
+cobj = C()
+cobj.f()        # 也可以实例化后调用
+```
+
+## `classmethod` 
+
+修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。
+
+```python
+class A(object):
+    bar = 1
+    def func1(self):  
+        print ('foo') 
+    @classmethod
+    def func2(cls):
+        print ('func2')
+        print (cls.bar)
+        cls().func1()   # 调用 foo 方法
+ 
+A.func2()               # 不需要实例化
+```
+
+## map函数
+
+map() 会根据提供的函数对指定序列做映射。第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。
+
+`map(function, iterable, ...)`
+
+```python
+def square(x) :            # 计算平方数
+    return x ** 2
+map(square, [1,2,3,4,5]) # [1, 4, 9, 16, 25]
+map(lambda x: x ** 2, [1, 2, 3, 4, 5]) # [1, 4, 9, 16, 25]
+
+# 提供了两个列表，对相同位置的列表数据进行相加
+map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10])
+# [3, 7, 11, 15, 19]
+```
+
 ## `zip([iterable, ...])`函数
 
 zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的对象，这样做的好处是节约了不少的内存。
@@ -311,6 +516,8 @@ hi
 Son runoob
 '''
 ```
+
+
 
 # 其他
 
