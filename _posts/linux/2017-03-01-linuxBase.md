@@ -17,7 +17,9 @@ rsync命令是一个远程数据同步工具，可通过LAN/WAN快速同步多�
 从远程rsync服务器中拷贝文件到本地机`rsync -av --delete src dst`
 * `-a`归档模式，表示以递归方式传输文件，并保持所有文件属性
 * `-v`详细模式输出
-* `--delete`删除那些DST中SRC没有的文件
+* `--delete`删除那些DST中SRC没有的文件(这个选项不要用，除非一直是单向同步)
+
+`rsync -av --delete nys@192.168.1.99:/home/nys/fakeDetection .`
 
 ## 配置桌面背景为bing桌面
 
