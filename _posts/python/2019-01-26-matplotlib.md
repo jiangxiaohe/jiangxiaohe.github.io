@@ -35,7 +35,7 @@ fig, ax = plt.subplots(figsize=(14,7)) # 一个画布
 
 # 基本操作
 
-`import matplotlib.plot as plt`
+`import matplotlib.pyplot as plt`
 
 * .plot(x,y)绘制折线图`plt.plot(x,y,format_string,**kwargs)`
     * format_string: 为控制曲线的格式字符串,由 颜色字符、风格字符和标记字符组成。
@@ -74,6 +74,9 @@ plt.xlabel(‘横轴：时间’, fontproperties = ‘simHei’, fontsize = 20)
 
 ```python
 img = cv2.imread('messi5.jpg',0)
+
+import matplotlib.image as imgplt
+img = imgplt.imread('Faces/0805personali01.jpg')
 plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
 plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
 plt.show()

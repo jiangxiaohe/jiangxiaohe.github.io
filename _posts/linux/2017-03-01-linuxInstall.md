@@ -69,7 +69,7 @@ description: ubuntu完全装机指南，装了多少次机，才知道总结走�
 * 为了更快的更新速度，需要先换源
 * 备份原来的源
 * `sudo cp /etc/apt/sources.list /etc/apt/sources_init.list`
-* 更换源，将阿里源复制进去
+* 更换源，将阿里源复制进去，**并且删除原来的源就好了**
 * `sudo vi /etc/apt/sources.list`
 
 ```
@@ -89,6 +89,21 @@ deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main
 deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
 deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe
 ```
+
+或者用清华的源
+
+```
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+```
+
+
 * 查看已安装软件
 
 除此之外，也可以用`rpm`或`dpkg`软件包管理器来查看，它的功能类似于Windows里面的“添加/删除程序”。`rpm -qa`列出所有被安装的rpm包。`dpkg -l`列出所有被安装的dpkg包。Ubuntu采用的是dpkg软件安装方式。
