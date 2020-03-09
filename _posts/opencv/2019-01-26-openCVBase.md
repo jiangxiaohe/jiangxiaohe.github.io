@@ -54,7 +54,7 @@ flag有三种取值：
 * cv2.IMREAD_COLOR : 彩色图
 * cv2.IMREAD_GRAYSCALE : 灰度图
 * cv2.IMREAD_UNCHANGED : Loads image as such including alpha channel
-
+* imread读取的图像的类型是ndarray（w,h,c),单个元素的类型是uint8
 
 >可以用 1, 0 or -1 来代替这三个取值.
 
@@ -62,6 +62,8 @@ flag有三种取值：
 默认以PNG保存。例如`cv2.imwrite('mycat.png',img)`
 
 `cv2.imshow(name,img)`
+
+
 
 # 补充：Python 中各种imread函数的区别与联系
 

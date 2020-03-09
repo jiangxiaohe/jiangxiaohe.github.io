@@ -75,6 +75,8 @@ mysql -u 用户名 -p密码 -h 服务器IP地址 -P 服务器端MySQL端口号 -
 即默认端口不用连接
 ```
 
+4. 如果是云服务器，记得修改防火请规则。可以用`telnet ip 3306`命令来检查防火墙规则是否开启
+
 5. python3连接sql服务器
 
 `conda install PyMySQL`
